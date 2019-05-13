@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next pisces" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"slideDownIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言学习了jQuery和boostrap4的教程，苦于没有项目练手，于是决定模仿天猫网页，纯前端实现，积累经验。 首先先把天猫网页规划一下，大致可以分为：   公共页面  首页  我的订单  登录  注册  购物车  产品内页  订单子页面  其他  每一部分逐步完成，最后整合在一起。（未完成部分思路和前面几个一样，日后有空再继续完善） 公共页面公共页面就是每个页面都有的内容，包括页头位置的置顶导">
+<meta name="keywords" content="CSS,JavaScript,jQuery,Bootstrap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天猫网页前端实现">
+<meta property="og:url" content="https://shaohuahua.top/2019/05/10/天猫网页前端实现/index.html">
+<meta property="og:site_name" content="庄少华的个人博客">
+<meta property="og:description" content="前言学习了jQuery和boostrap4的教程，苦于没有项目练手，于是决定模仿天猫网页，纯前端实现，积累经验。 首先先把天猫网页规划一下，大致可以分为：   公共页面  首页  我的订单  登录  注册  购物车  产品内页  订单子页面  其他  每一部分逐步完成，最后整合在一起。（未完成部分思路和前面几个一样，日后有空再继续完善） 公共页面公共页面就是每个页面都有的内容，包括页头位置的置顶导">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Nav/1.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Nav/nav.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Nav/nav2.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Search/search1.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Search/search2.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Footer/footer1.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Footer/footer2.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Carousel/carousel1.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Carousel/carousel2.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/category2.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/producsList2.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/catEar.gif">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/categoryHide.gif">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/producsList.gif">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/login.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/login_div.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/register.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/register_div.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/login_js.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/register_js.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder_div1.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder_div2.png">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder2.gif">
+<meta property="og:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder.gif">
+<meta property="og:updated_time" content="2019-05-13T16:59:15.172Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="天猫网页前端实现">
+<meta name="twitter:description" content="前言学习了jQuery和boostrap4的教程，苦于没有项目练手，于是决定模仿天猫网页，纯前端实现，积累经验。 首先先把天猫网页规划一下，大致可以分为：   公共页面  首页  我的订单  登录  注册  购物车  产品内页  订单子页面  其他  每一部分逐步完成，最后整合在一起。（未完成部分思路和前面几个一样，日后有空再继续完善） 公共页面公共页面就是每个页面都有的内容，包括页头位置的置顶导">
+<meta name="twitter:image" content="http://pqpofrtnj.bkt.clouddn.com/TMALL_Nav/1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://shaohuahua.top/2019/05/10/天猫网页前端实现/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>天猫网页前端实现 | 庄少华的个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">庄少华的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Stay hungry, stay foolish</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-demo">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="https://shaohuahua.top/Xuwa/projects/content.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>DEMO</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/ZhuangXuward" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://shaohuahua.top/2019/05/10/天猫网页前端实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhuangXuward">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="庄少华的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">天猫网页前端实现
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-10 16:47:23" itemprop="dateCreated datePublished" datetime="2019-05-10T16:47:23+08:00">2019-05-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-14 00:59:15" itemprop="dateModified" datetime="2019-05-14T00:59:15+08:00">2019-05-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/个人项目/" itemprop="url" rel="index"><span itemprop="name">个人项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/05/10/天猫网页前端实现/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/10/天猫网页前端实现/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/05/10/天猫网页前端实现/" class="leancloud_visitors" data-flag-title="天猫网页前端实现">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学习了jQuery和boostrap4的教程，苦于没有项目练手，于是决定模仿天猫网页，纯前端实现，积累经验。</p>
+<p>首先先把天猫网页规划一下，大致可以分为：</p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> 公共页面</li>
+<li style="list-style: none"><input type="checkbox" checked> 首页</li>
+<li style="list-style: none"><input type="checkbox" checked> 我的订单</li>
+<li style="list-style: none"><input type="checkbox" checked> 登录</li>
+<li style="list-style: none"><input type="checkbox" checked> 注册</li>
+<li style="list-style: none"><input type="checkbox"> 购物车</li>
+<li style="list-style: none"><input type="checkbox"> 产品内页</li>
+<li style="list-style: none"><input type="checkbox"> 订单子页面</li>
+<li style="list-style: none"><input type="checkbox"> 其他</li>
+</ul>
+<p>每一部分逐步完成，最后整合在一起。（未完成部分思路和前面几个一样，日后有空再继续完善）</p>
+<h1 id="公共页面"><a href="#公共页面" class="headerlink" title="公共页面"></a>公共页面</h1><p>公共页面就是每个页面都有的内容，包括页头位置的<code>置顶导航栏</code>，紧接着页头的<code>搜索框</code>，以及<code>页脚</code>的证书链接，最后再将这三个子模块整合在一起得到<code>公共页面</code>。</p>
+<p>代码构成如图：<br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Nav/1.png"></p>
+<h2 id="置顶导航栏"><a href="#置顶导航栏" class="headerlink" title="置顶导航栏"></a>置顶导航栏</h2><p><strong>效果：</strong><br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Nav/nav.png"></p>
+<p><strong>布局：</strong> 最外层是<code>nav元素</code>，语义化作用，用来布局，与div的区别在于nav<code>更加明确</code>的告诉搜索引擎这是导航栏，帮助搜索引擎理解你的网页。</p>
+<p>内部是连续摆放的几个元素，可以用span内嵌超链a，右边两个右浮动的元素。</p>
+<p>注意到文字部分是<code>居中显示</code>，而置顶导航栏有个浅灰色的背景，需要把内部元素<code>再套一个外层div</code>，设置div的宽度和margin，使得<code>div在nav中居中显示</code>，然后nav宽度为100%并设置背景颜色。</p>
+<p><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Nav/nav2.png"></p>
+<p>代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://cdn.staticfile.org/twitter-bootstrap/3.1.0/css/bootstrap.min.css"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/twitter-bootstrap/3.1.0/js/bootstrap.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	body&#123;</span></span><br><span class="line"><span class="css">	    <span class="selector-tag">font-size</span><span class="selector-pseudo">:12px</span>;</span></span><br><span class="line"><span class="css">	    <span class="selector-tag">font-family</span><span class="selector-pseudo">:Arial</span>;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">nav</span><span class="selector-class">.top_outer</span> &#123;</span></span><br><span class="line"><span class="undefined">		background-color: rgb(242, 242, 242);</span></span><br><span class="line"><span class="css">	    <span class="selector-tag">border-bottom</span><span class="selector-pseudo">:1px</span> <span class="selector-tag">solid</span>  <span class="selector-id">#e7e7e7</span>;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">nav</span> <span class="selector-tag">div</span><span class="selector-class">.top</span> &#123;</span></span><br><span class="line"><span class="undefined">		margin: 0 auto;</span></span><br><span class="line"><span class="undefined">		width: 1000px;</span></span><br><span class="line"><span class="undefined">		padding-top: 5px;</span></span><br><span class="line"><span class="undefined">	    padding-bottom: 5px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">nav</span> <span class="selector-tag">div</span><span class="selector-class">.top</span> <span class="selector-tag">a</span>, <span class="selector-tag">nav</span> <span class="selector-tag">div</span><span class="selector-class">.top</span> <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="undefined">		color: rgb(156, 155, 154);</span></span><br><span class="line"><span class="undefined">		margin: 0 10px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">nav</span> <span class="selector-tag">div</span><span class="selector-class">.top</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="undefined">		text-decoration: none;</span></span><br><span class="line"><span class="undefined">		color: rgb(196, 0, 0);</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.redColor</span> &#123;</span></span><br><span class="line"><span class="undefined">		color: rgb(196, 0, 0) !important;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-class">.reverse</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">transform</span>: <span class="selector-tag">rotateY</span>(180<span class="selector-tag">deg</span>); <span class="comment">/*原来的购物车图标方向向左，改成向右*/</span></span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"top_outer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"top"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-home redColor"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">			天猫首页</span><br><span class="line">		<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span>&gt;</span>喵，欢迎来到天猫<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>请登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>免费注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"pull-right"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>我的订单<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-shopping-cart redColor reverse"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				购物车<span class="tag">&lt;<span class="name">strong</span>&gt;</span>0<span class="tag">&lt;/<span class="name">strong</span>&gt;</span>件</span><br><span class="line">			<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中引入了<code>bootstrap3</code>和<code>jQuery</code>。方便使用图标和后面的轮播效果。</p>
+<h2 id="搜索框"><a href="#搜索框" class="headerlink" title="搜索框"></a>搜索框</h2><p><strong>效果：</strong> <img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Search/search1.png"></p>
+<p><strong>布局：</strong> </p>
+<p>搜索栏<code>居中div</code>，内部包含同行排列的input和button元素，以及换行排列的<code>子div</code>。</p>
+<p>天猫logo使用<code>absolute定位</code>，实现水平排列。<br>（也可以将居中div设置为inline-block，不过我习惯于调整div内容，所以就让图片位置先定下来。）</p>
+<p><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Search/search2.png"></p>
+<p>居中div即.searchDiv其实包含了搜索框和搜索按钮，设置了height之后，添加div，这个div实际上是<code>overflow</code>的。</p>
+<p>其他细节：logo外套锚点a，灵活运用span。</p>
+<p>代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	body&#123;</span></span><br><span class="line"><span class="css">	    <span class="selector-tag">font-size</span><span class="selector-pseudo">:12px</span>;</span></span><br><span class="line"><span class="css">	    <span class="selector-tag">font-family</span><span class="selector-pseudo">:Arial</span>;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">img</span><span class="selector-id">#logo</span> &#123;</span></span><br><span class="line"><span class="undefined">		position: absolute;</span></span><br><span class="line"><span class="undefined">		left: 230px;</span></span><br><span class="line"><span class="undefined">		top: 30px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.searchDiv</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">background-color</span>: <span class="selector-id">#C40000</span>;</span></span><br><span class="line"><span class="undefined">	    width: 400px;</span></span><br><span class="line"><span class="undefined">	    margin: 50px auto;</span></span><br><span class="line"><span class="undefined">	    padding: 1px;</span></span><br><span class="line"><span class="undefined">	    height: 40px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.searchDiv</span> <span class="selector-tag">input</span> &#123;</span></span><br><span class="line"><span class="undefined">		outline: none;</span></span><br><span class="line"><span class="undefined">		width: 275px;</span></span><br><span class="line"><span class="undefined">		height: 36px;</span></span><br><span class="line"><span class="undefined">		margin: 1px;</span></span><br><span class="line"><span class="undefined">		border: 1px solid transparent;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.searchDiv</span> <span class="selector-tag">button</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">background-color</span>: <span class="selector-id">#C40000</span>;</span></span><br><span class="line"><span class="undefined">		border: 1px solid transparent;</span></span><br><span class="line"><span class="undefined">		color: white;</span></span><br><span class="line"><span class="undefined">		font-weight: bold;</span></span><br><span class="line"><span class="undefined">		font-size: 20px;</span></span><br><span class="line"><span class="undefined">		width: 110px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.searchBelow</span> <span class="selector-tag">span</span>, <span class="selector-tag">div</span><span class="selector-class">.searchBelow</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="undefined">		color: rgb(134, 134, 134);</span></span><br><span class="line"><span class="undefined">		display: inline-block;</span></span><br><span class="line"><span class="undefined">		margin-top: -17px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.searchBelow</span>&gt;<span class="selector-tag">span</span>&gt;<span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="undefined">		margin: 20px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.searchBelow</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">color</span>: <span class="selector-id">#C40000</span>;</span></span><br><span class="line"><span class="undefined">		text-decoration: none;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"search_outer"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"logo"</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/logo.gif"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"searchDiv"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"keyword"</span> <span class="attr">placeholder</span>=<span class="string">"JavaScript高级程序设计"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> &gt;</span>搜索<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"searchBelow"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>鼠标<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>显示屏<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>手机<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>电脑<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="页脚"><a href="#页脚" class="headerlink" title="页脚"></a>页脚</h2><p><strong>效果：</strong><br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Footer/footer1.png"></p>
+<p><strong>布局：</strong> 原理和指定导航栏类似，不多赘述。</p>
+<p><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Footer/footer2.png"></p>
+<p>代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	body&#123;</span></span><br><span class="line"><span class="undefined">	    font-size: 12px;</span></span><br><span class="line"><span class="undefined">	    font-family: Arial;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="undefined">	footer &#123;</span></span><br><span class="line"><span class="undefined">		margin-top: 20px;</span></span><br><span class="line"><span class="undefined">		border-top: 1px solid rgb(231, 231, 231);</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerImg</span> &#123;</span></span><br><span class="line"><span class="undefined">		text-align: center;</span></span><br><span class="line"><span class="undefined">		padding: 20px;</span></span><br><span class="line"><span class="undefined">		border-bottom: 1px solid rgb(231, 231, 231);</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerMid</span> &#123;</span></span><br><span class="line"><span class="undefined">		padding: 30px 10px;</span></span><br><span class="line"><span class="undefined">		width: 1007px;</span></span><br><span class="line"><span class="undefined">		margin: 0 auto;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.mid_column</span> &#123;</span></span><br><span class="line"><span class="undefined">		float: left;</span></span><br><span class="line"><span class="undefined">		width: 220px; </span></span><br><span class="line"><span class="undefined">		top: 100px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.mid_column</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="undefined">		display: block;</span></span><br><span class="line"><span class="undefined">		padding-top: 3px;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">color</span>:<span class="selector-id">#999</span>;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.mid_column</span> <span class="selector-tag">span</span><span class="selector-class">.mid_column_title</span>, <span class="selector-tag">div</span><span class="selector-class">.mid_img</span> <span class="selector-tag">span</span><span class="selector-class">.mid_column_title</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">color</span>: <span class="selector-id">#646464</span>;</span></span><br><span class="line"><span class="undefined">	    font-weight: bold;</span></span><br><span class="line"><span class="undefined">	    font-size: 16px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.mid_column</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">text-decoration</span><span class="selector-pseudo">:none</span>;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">color</span>: <span class="selector-id">#C40000</span>;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerLogo</span> &#123;</span></span><br><span class="line"><span class="undefined">		margin: 0 auto;</span></span><br><span class="line"><span class="undefined">		width: 1007px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerBelow_outer</span> &#123;</span></span><br><span class="line"><span class="undefined">		border-top: 2px solid rgb(196, 0, 0);</span></span><br><span class="line"><span class="undefined">		background-color: black;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerBelow</span> &#123;</span></span><br><span class="line"><span class="undefined">		margin: 0 auto;</span></span><br><span class="line"><span class="undefined">		width: 1007px;</span></span><br><span class="line"><span class="undefined">		padding: 5px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerBelow</span> <span class="selector-class">.whiteLink</span> <span class="selector-tag">a</span>, <span class="selector-tag">div</span><span class="selector-class">.footerBelow</span> <span class="selector-class">.whiteLink</span> <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="undefined">		color: white;</span></span><br><span class="line"><span class="undefined">		padding-right: 5px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerBelow</span> <span class="selector-class">.whiteLink</span>, <span class="selector-tag">div</span><span class="selector-class">.footerBelow</span> <span class="selector-class">.license</span> &#123;</span></span><br><span class="line"><span class="undefined">		padding: 5px 0 10px 5px;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerBelow</span> <span class="selector-class">.license</span> <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="undefined">		color: rgb(151, 152, 156);</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerBelow</span> <span class="selector-class">.license</span> <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="undefined">		padding: 10px 0 5px 0;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">div</span><span class="selector-class">.footerBelow</span> <span class="selector-class">.whiteLink</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="undefined">		text-decoration: none;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footerImg"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/ensure.png"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footerMid"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mid_column"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mid_column_title"</span>&gt;</span>购物指南<span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>免费注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>开通支付宝<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>支付宝充值<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mid_column"</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mid_column_title"</span>&gt;</span>天猫保障<span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>发票保障<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>售后规则<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>缺货赔付<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mid_column"</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mid_column_title"</span>&gt;</span>支付方式<span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>快捷支付<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>信用卡<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>蚂蚁花呗<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>货到付款<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mid_column"</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mid_column_title"</span>&gt;</span>商家服务<span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>商家入驻<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>商家中心<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>天猫智库<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>天猫规则<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>物流服务<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>喵言喵语<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>运营服务<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mid_img"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"mid_column_title"</span>&gt;</span>手机天猫<span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">			<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/ma.png"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"clear: both;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"clear: both;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footerLogo"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/cateye.png"</span>&gt;</span> <span class="comment">&lt;!-- 天猫logo --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footerBelow_outer"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"footerBelow"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"whiteLink"</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>关于天猫<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>帮助中心<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>开放平台<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>诚聘英才<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>网站合作<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>法律声明<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>知识产权<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>廉正举报<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"whiteLink"</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>阿里巴巴集团<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>淘宝网<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>天猫<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>聚划算<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>全球速卖通<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>阿里巴巴国际交易市场<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>1688<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>阿里妈妈<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>阿里旅行·去啊<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>阿里云计算<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>阿里通信<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>YunOS<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>天天动听<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>来往<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>钉钉<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>支付宝<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>万网<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>高德<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>优视<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>友盟<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>|<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>虾米<span class="tag">&lt;/<span class="name">a</span>&gt;</span>	</span><br><span class="line">			<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"license"</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">span</span>&gt;</span>增值电信业务经营许可证： 浙B2-20110446<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	            <span class="tag">&lt;<span class="name">span</span>&gt;</span>网络文化经营许可证：浙网文[2015]0295-065号<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	            <span class="tag">&lt;<span class="name">span</span>&gt;</span>互联网医疗保健信息服务 审核同意书 浙卫网审【2014】6号 <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	            <span class="tag">&lt;<span class="name">span</span>&gt;</span>互联网药品信息服务资质证书编号：浙-（经营性）-2012-0005<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"copyRightYear"</span>&gt;</span>© 2003-2016 TMALL.COM 版权所有<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	            <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">	                <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/copyRight1.jpg"</span>&gt;</span></span><br><span class="line">	                <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/copyRight2.jpg"</span>&gt;</span></span><br><span class="line">            	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h1 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h1><p>包括了前面的公共页面，以及<code>导航轮播</code>、<code>分类和推荐产品</code>以及<code>产品列表</code>。再加上<code>js交互</code>。</p>
+<h2 id="导航轮播"><a href="#导航轮播" class="headerlink" title="导航轮播"></a>导航轮播</h2><p><strong>效果：</strong><br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Carousel/carousel1.png"></p>
+<p><strong>布局：</strong><br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_Carousel/carousel2.png"></p>
+<p>代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">	body&#123;</span></span><br><span class="line"><span class="css">	    <span class="selector-tag">font-size</span><span class="selector-pseudo">:12px</span>;</span></span><br><span class="line"><span class="css">	    <span class="selector-tag">font-family</span><span class="selector-pseudo">:Arial</span>;</span></span><br><span class="line"><span class="undefined">	&#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-class">.item</span> <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 100%;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-id">#carousel-outer</span> &#123;</span></span><br><span class="line"><span class="undefined">        width: 1000px;</span></span><br><span class="line"><span class="undefined">        margin: 20px auto;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-class">.headBar</span> &#123;</span></span><br><span class="line"><span class="undefined">    	background-color: rgb(221, 39, 39);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-class">.headBar</span> <span class="selector-tag">div</span><span class="selector-class">.head</span> &#123;</span></span><br><span class="line"><span class="undefined">    	display: inline-block;</span></span><br><span class="line"><span class="undefined">    	width: 200px;</span></span><br><span class="line"><span class="undefined">    	height: 36px;</span></span><br><span class="line"><span class="undefined">    	line-height: 36px;</span></span><br><span class="line"><span class="undefined">    	font-weight: bold; </span></span><br><span class="line"><span class="undefined">    	font-size: 16px;</span></span><br><span class="line"><span class="css">    	<span class="selector-tag">margin</span><span class="selector-pseudo">:0</span> 20<span class="selector-tag">px</span>; </span></span><br><span class="line"><span class="undefined">    	color: white;</span></span><br><span class="line"><span class="css">    	<span class="selector-tag">background-color</span>: <span class="selector-id">#C60A0A</span>;</span></span><br><span class="line"><span class="undefined">    	padding-left: 10px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-class">.headBar</span> <span class="selector-tag">div</span><span class="selector-class">.rightMenu</span> &#123;</span></span><br><span class="line"><span class="undefined">    	display: inline-block;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-class">.headBar</span> <span class="selector-tag">div</span><span class="selector-class">.rightMenu</span> <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="undefined">    	height: 30px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-class">.headBar</span> <span class="selector-tag">div</span><span class="selector-class">.rightMenu</span> <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="undefined">    	margin-right: 40px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-class">.headBar</span> <span class="selector-tag">div</span><span class="selector-class">.rightMenu</span> <span class="selector-tag">span</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="undefined">    	color: white;</span></span><br><span class="line"><span class="undefined">    	font-size: 16px;</span></span><br><span class="line"><span class="undefined">    	text-decoration: none;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-class">.headBar</span> <span class="selector-tag">div</span><span class="selector-class">.rightMenu</span> <span class="selector-tag">img</span><span class="selector-id">#tmall</span> &#123;</span></span><br><span class="line"><span class="undefined">    	display: inline;</span></span><br><span class="line"><span class="undefined">    	width: 50%;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-id">#headBar_fill</span> &#123;</span></span><br><span class="line"><span class="undefined">    	position: relative;</span></span><br><span class="line"><span class="undefined">    	width: 100%;</span></span><br><span class="line"><span class="undefined">    	height: 36px;</span></span><br><span class="line"><span class="undefined">    	background-color: rgb(221, 39, 39);</span></span><br><span class="line"><span class="undefined">    	top: -480px;</span></span><br><span class="line"><span class="undefined">    	z-index: -1;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span><span class="selector-id">#carousel_fill</span> &#123;</span></span><br><span class="line"><span class="undefined">    	position: relative;</span></span><br><span class="line"><span class="undefined">    	width: 100%;</span></span><br><span class="line"><span class="undefined">    	height: 424px;</span></span><br><span class="line"><span class="undefined">    	background-color: rgb(232, 232, 232);</span></span><br><span class="line"><span class="undefined">    	top: -480px;</span></span><br><span class="line"><span class="undefined">    	z-index: -1;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"carousel-outer"</span> <span class="attr">class</span>=<span class="string">"carousel slide"</span> <span class="attr">data-ride</span>=<span class="string">"carousel"</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"headBar"</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"head"</span>&gt;</span></span><br><span class="line">    			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"glyphicon glyphicon-th-list"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		        <span class="tag">&lt;<span class="name">span</span>&gt;</span>商品分类<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"rightMenu"</span>&gt;</span></span><br><span class="line">    			<span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/chaoshi.png"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		        <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/guoji.png"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>平板电视<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>        </span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>马桶<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>        </span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>沙发<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>        </span><br><span class="line">                <span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>电热水器<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span><br><span class="line">    		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- Indicators --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ol</span> <span class="attr">class</span>=<span class="string">"carousel-indicators"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-target</span>=<span class="string">"#carousel-outer"</span> <span class="attr">data-slide-to</span>=<span class="string">"0"</span> <span class="attr">class</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-target</span>=<span class="string">"#carousel-outer"</span> <span class="attr">data-slide-to</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-target</span>=<span class="string">"#carousel-outer"</span> <span class="attr">data-slide-to</span>=<span class="string">"2"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">data-target</span>=<span class="string">"#carousel-outer"</span> <span class="attr">data-slide-to</span>=<span class="string">"3"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Wrapper for slides --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"carousel-inner"</span> <span class="attr">role</span>=<span class="string">"listbox"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item active"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/lunbo/1.jpg"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/lunbo/2.jpg"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/lunbo/3.jpg"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"item"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/lunbo/4.jpg"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 轮播图颜色填充 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"headBar_fill"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"carousel_fill"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 轮播图颜色填充 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="关于背景颜色"><a href="#关于背景颜色" class="headerlink" title="关于背景颜色"></a>关于背景颜色</h4><p>单纯使用轮播，居中之后，两边是空白的，要添加背景颜色就需要像前面的<code>置顶导航栏</code>和<code>页脚</code>一样，添加外层div，设置width为100%，设置背景颜色。</p>
+<p>但这里我觉得单纯轮播的代码块就够大了，所以我就在轮播div后添加了两个<code>颜色填充div</code>，使用<code>relative定位</code>移动到相应的位置，实现轮播图两边的背景颜色。</p>
+<h4 id="关于轮播图"><a href="#关于轮播图" class="headerlink" title="关于轮播图"></a>关于轮播图</h4><p>细节部分我不是很了解，一开始我直接找到bootstrap4文档中的轮播图，复制粘贴过来，发现图片底部的指示器没有作用，点击没反应。</p>
+<p><strong>解决方法：</strong><br>通过浏览器自带的<code>开发者工具</code>，打开之后发现<code>报错提示</code>bootstrap的版本不对，才发现我的库调用的是bootstrap3的版本，改成相应版本之后轮播图就正常了。</p>
+<p><br></p>
+<h2 id="商品分类"><a href="#商品分类" class="headerlink" title="商品分类"></a>商品分类</h2><p><strong>布局：</strong> 商品列表有很多类，每一个类作为一个div，每个div中包含五个商品div。如图所示。<br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/category2.png"></p>
+<h2 id="商品列表"><a href="#商品列表" class="headerlink" title="商品列表"></a>商品列表</h2><p><strong>布局：</strong> 商品列表有很多类，每一个类作为一个div，每个div中包含五个商品div。如图所示。<br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/producsList2.png"></p>
+<p><br> <br></p>
+<h2 id="交互"><a href="#交互" class="headerlink" title="交互"></a>交互</h2><h4 id="导航栏猫耳朵交互效果"><a href="#导航栏猫耳朵交互效果" class="headerlink" title="导航栏猫耳朵交互效果"></a>导航栏猫耳朵交互效果</h4><p><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/catEar.gif"></p>
+<p><strong>思路：</strong> 将一张猫耳朵图片隐藏起来，当鼠标移到导航栏选项时，通过<code>jQuery</code>获取此时<code>位置的left值</code>，通过一定的平移显示得到相应的效果。由于每个选项的长度不一，为了使猫耳朵能在每个选项的正中间出现，可以把<code>选项的宽度</code>考虑在平移的长度中。</p>
+<blockquote>
+<p>关键：jQuery的<code>position()方法</code>。<br>position() 方法返回第一个匹配元素的位置（相对于它的父元素）。<br>该方法返回一个带有两个属性（以像素为单位的 top 和 left 位置）的对象。</p>
+</blockquote>
+<p>代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 显示和隐藏猫耳朵</span></span><br><span class="line">           $(<span class="string">"div.headBar div.rightMenu span"</span>).mouseover(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">               <span class="keyword">var</span> pos_left = $(<span class="keyword">this</span>).position().left;</span><br><span class="line">               <span class="keyword">var</span> width_menu = $(<span class="keyword">this</span>).css(<span class="string">"width"</span>);</span><br><span class="line">               <span class="keyword">var</span> pos_Left = <span class="built_in">parseInt</span>(pos_left) + <span class="built_in">parseInt</span>(width_menu)/<span class="number">2</span>;</span><br><span class="line">               <span class="comment">// 注意为$(this)而不是this</span></span><br><span class="line">               $(<span class="string">"img.catEar"</span>).css(&#123;</span><br><span class="line">                   left: pos_Left+<span class="number">246</span>,</span><br><span class="line">               &#125;);</span><br><span class="line">               $(<span class="string">"img.catEar"</span>).fadeIn(<span class="number">350</span>);</span><br><span class="line">           &#125;);</span><br><span class="line">           $(<span class="string">"div.headBar div.rightMenu span"</span>).mouseout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">               $(<span class="string">"img.catEar"</span>).css(<span class="string">"display"</span>, <span class="string">"none"</span>);</span><br><span class="line">               <span class="comment">// 由于使用了绝对定位，使用fadeOut会有偏移</span></span><br><span class="line">           &#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="分类页交互"><a href="#分类页交互" class="headerlink" title="分类页交互"></a>分类页交互</h4><p><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/categoryHide.gif"></p>
+<p><strong>思路：</strong> 一开始我打算用<code>多级菜单</code>，但想着想着头都大了，其实直接用两个块级元素就可以解决。左右两个块，左边块为分类标签，右边块为具体商品名字，把右边块<code>隐藏</code>起来，当鼠标移到分类标签上和右边块上时，相应右边块才<code>显示</code>出来，这里要注意，不仅是鼠标在分类标签上才显示，鼠标移到具体商品页的时候也要显示，不然鼠标移开标签，右边块就消失了。</p>
+<blockquote>
+<p>关键：<br>1.<code>jQuery</code>的<code>mouseover和mouseout方法</code>。用原生JavaScript也可以做，不过从DOM结点树中找到想要的元素显然没有直接用CSS选择器来得方便和简洁。（这里又一次感受到jQuery库对于DOM操作的方便）</p>
+<ol start="2">
+<li><code>[cid=&quot;+cid_temp+&quot;]</code> cid为自定义的属性，用于区分不同的分类标签，同时cid的值为字符串，cid_temp经过前面的计算之后转化为Number数值类型，通过<code>&quot;+cid_temp+&quot;</code>重新转化为字符串。</li>
+</ol>
+</blockquote>
+<p>jQuery代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 鼠标移到分类标签上，显示分类页内容</span></span><br><span class="line">            $(<span class="string">"div.category div.categoryMenu_list"</span>).mouseover(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> cid_temp = $(<span class="keyword">this</span>).attr(<span class="string">"cid"</span>);</span><br><span class="line">                cid_temp = cid_temp%<span class="number">4</span> + <span class="number">87</span>;</span><br><span class="line">                <span class="comment">// 总共14个list，由于懒的原因...用4个分类内容循环表示</span></span><br><span class="line">                $(<span class="string">"div.categoryContent[cid="</span>+cid_temp+<span class="string">"]"</span>).show();</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="comment">// 鼠标移开分类标签，隐藏分类页内容</span></span><br><span class="line">            $(<span class="string">"div.category div.categoryMenu_list"</span>).mouseout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> cid_temp = $(<span class="keyword">this</span>).attr(<span class="string">"cid"</span>);</span><br><span class="line">                cid_temp = cid_temp%<span class="number">4</span> + <span class="number">87</span>;</span><br><span class="line">                $(<span class="string">"div.categoryContent[cid="</span>+cid_temp+<span class="string">"]"</span>).hide();</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="comment">// 鼠标移到分类内容上，持续显示</span></span><br><span class="line">            $(<span class="string">"div.categoryContent"</span>).mouseover(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> cid_temp = $(<span class="keyword">this</span>).attr(<span class="string">"cid"</span>);</span><br><span class="line">                $(<span class="string">"div.categoryContent[cid="</span>+cid_temp+<span class="string">"]"</span>).show();</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="comment">// 鼠标移开分类内容，隐藏分类页内容</span></span><br><span class="line">            $(<span class="string">"div.categoryContent"</span>).mouseout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> cid_temp = $(<span class="keyword">this</span>).attr(<span class="string">"cid"</span>);</span><br><span class="line">                $(<span class="string">"div.categoryContent[cid="</span>+cid_temp+<span class="string">"]"</span>).hide();</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="商品列表交互"><a href="#商品列表交互" class="headerlink" title="商品列表交互"></a>商品列表交互</h4><p><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL_HomePage/producsList.gif"></p>
+<p><strong>思路：</strong> 鼠标移至商品div上，图片透明度变小，加上外边框。</p>
+<blockquote>
+<p>关键：<br>1.CSS中<code>hover</code>即可。</p>
+<ol start="2">
+<li><code>outline</code>由于固定了width，使用border会破坏水平方向布局，或者导致图片闪动，使用outline则可以规避这些问题。</li>
+</ol>
+</blockquote>
+<p>代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">div.eachCategoryProducts div.productsItem:hover &#123;</span><br><span class="line">             outline: 0.5px solid red;</span><br><span class="line">             /*不使用border，border会破坏水平布局*/</span><br><span class="line">         &#125;</span><br><span class="line">         div.eachCategoryProducts div.productsItem img:hover &#123;</span><br><span class="line">             opacity: 0.7;</span><br><span class="line">         &#125;</span><br></pre></td></tr></table></figure></p>
+<p><br> </p>
+<h1 id="登录和注册界面"><a href="#登录和注册界面" class="headerlink" title="登录和注册界面"></a>登录和注册界面</h1><h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p><strong>效果：</strong> <img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/login.png"></p>
+<p><strong>布局：</strong> 登录界面布局比较简单，用几个div即可，其中账户登录的外层div可以使用<code>绝对定位</code>脱离文档流，并定位到如图位置。<br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/login_div.png"></p>
+<p>布局代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">	body&#123;</span><br><span class="line">	    font-size:12px;</span><br><span class="line">	    font-family:Arial;</span><br><span class="line"></span><br><span class="line">               min-width:1020px;</span><br><span class="line">	&#125;</span><br><span class="line">   	div.loginInterface &#123;</span><br><span class="line">   		width: 1190px;</span><br><span class="line">   		margin: 0 auto;</span><br><span class="line">   		position: relative;</span><br><span class="line">   	&#125;</span><br><span class="line">		div.loginInterface div.loginLogo &#123;</span><br><span class="line">			margin: 20px 20px 20px 0;</span><br><span class="line">		&#125; </span><br><span class="line">		div.loginInterface div.loginBlock &#123;</span><br><span class="line">			position: absolute;</span><br><span class="line">			width: 350px;</span><br><span class="line">			height: 400px;</span><br><span class="line">			top: 150px;</span><br><span class="line">			right: 100px;</span><br><span class="line">			border: 1px solid white;</span><br><span class="line">			background-color: white;</span><br><span class="line">			padding: 20px 10px 0px 10px;</span><br><span class="line">		&#125;	</span><br><span class="line">		div.loginInterface div.loginBlock div.loginBlock_text &#123;</span><br><span class="line">			font-weight: bold;</span><br><span class="line">			font-size: 15px;</span><br><span class="line">			color: rgb(60, 60, 60);</span><br><span class="line">			margin: 20px 10px;</span><br><span class="line">		&#125;</span><br><span class="line">		div.loginInterface div.loginBlock div.loginBlock_input &#123;</span><br><span class="line">			margin: 10px 10px;</span><br><span class="line">		&#125;</span><br><span class="line">		div.loginInterface div.loginBlock div.loginBlock_input span &#123;</span><br><span class="line">			width: 35px;</span><br><span class="line">			line-height: 35px;</span><br><span class="line">			text-align: center;</span><br><span class="line">			font-size: 20px;</span><br><span class="line">			display: inline-block;</span><br><span class="line">			color: rgb(96, 96, 96);</span><br><span class="line">			background-color: rgb(203, 203, 203);</span><br><span class="line">		&#125;</span><br><span class="line">		div.loginInterface div.loginBlock div.loginBlock_input input &#123;</span><br><span class="line">			height: 34px;</span><br><span class="line">			width: 269px;</span><br><span class="line">			position: relative;</span><br><span class="line">			top: -4px;</span><br><span class="line">			left: -5px;</span><br><span class="line">			padding-left: 5px;</span><br><span class="line">			border: 1px solid lightgray;</span><br><span class="line">		&#125;</span><br><span class="line">		div.loginInterface div.loginBlock a &#123;</span><br><span class="line">			display: inline-block;</span><br><span class="line">			margin: 10px 10px 20px 10px;</span><br><span class="line">			text-decoration: none;</span><br><span class="line">			color: gray;</span><br><span class="line">		&#125;</span><br><span class="line">		div.loginInterface div.loginBlock a:hover &#123;</span><br><span class="line">			color: rgb(218, 13, 30);</span><br><span class="line">		&#125;</span><br><span class="line">		div.loginInterface div.loginBlock_button button &#123;</span><br><span class="line">			width: 307px;</span><br><span class="line">			margin-left: 8px;</span><br><span class="line">			background-color: rgb(196, 0, 0);</span><br><span class="line">			color: white;</span><br><span class="line">			font-weight: bold;</span><br><span class="line">		&#125;</span><br><span class="line">		div.loginSuccess &#123;</span><br><span class="line">           width: 200px;</span><br><span class="line">           text-align: center;</span><br><span class="line">           margin: 10px auto;</span><br><span class="line">           font-size: 16px;</span><br><span class="line">           color: rgb(196, 0, 0);</span><br><span class="line">           display: none;</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loginInterface"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loginLogo"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"../首页/total.html"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/simpleLogo.png"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/loginBackground.png"</span> <span class="attr">class</span>=<span class="string">"loginBackground"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loginBlock"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loginBlock_text"</span>&gt;</span>账户登录<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loginBlock_input"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">" glyphicon glyphicon-user"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">placeholder</span>=<span class="string">"手机/会员名/邮箱"</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">id</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loginBlock_input"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">" glyphicon glyphicon-lock"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">placeholder</span>=<span class="string">"密码"</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">id</span>=<span class="string">"password"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span>			</span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>忘记登录密码<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"register.html"</span> <span class="attr">class</span>=<span class="string">"pull-right"</span>&gt;</span>免费注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loginBlock_button"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-block"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loginSuccess"</span>&gt;</span></span><br><span class="line">	        <span class="tag">&lt;<span class="name">p</span>&gt;</span>登录成功！<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><p><strong>效果：</strong> <img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/register.png"></p>
+<p><strong>布局：</strong> 注册界面和登录界面类似，我是直接套用登录界面的布局，其实可以再加上几个input输入，比如“确认密码”、“注册邮箱”、“手机号”和“已阅读XXX同意书”等等。<br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/register_div.png"></p>
+<p>布局代码：参考登录界面布局代码。</p>
+<p><br></p>
+<h2 id="交互-1"><a href="#交互-1" class="headerlink" title="交互"></a>交互</h2><h4 id="登录-注册界面输入提示"><a href="#登录-注册界面输入提示" class="headerlink" title="登录/注册界面输入提示"></a>登录/注册界面输入提示</h4><p><img src="http://pqpofrtnj.bkt.clouddn.com/login_js.png"><br><img src="http://pqpofrtnj.bkt.clouddn.com/register_js.png"></p>
+<p><strong>思路：</strong> 在登录模块后增加一行文字，采用<code>绝对定位</code>，并先<code>隐藏</code>起来，点击“登录”按钮<code>事件</code>之后，<code>获取</code>两个输入框的值，根据值是否为空分为对应的三种情况，<code>修改文字块</code>的字符串，再<code>显示</code>出来。在用户名和密码都输入了之后为“登录成功”，应<code>跳转到首页</code>。</p>
+<blockquote>
+<p>关键：</p>
+<ol>
+<li><code>display</code>隐藏；</li>
+<li>获取input的值用value，jQuery：<code>$(&quot;XX&quot;).val()</code>方法，原生JavaScript：<code>document.getElementById(&quot;xx&quot;).value</code>属性；</li>
+<li>修改字符串可以用<code>innerHTML</code>，也可以用jQuery的<code>html()</code>方法；</li>
+<li><code>自动跳转页面</code>使用BOM的<code>window.location.replace(url)</code>。</li>
+</ol>
+</blockquote>
+<p><strong>location对象：</strong><br>是window对象的一部分，通过window.location属性访问，包含当前url的相关信息。<br>| 方法 | 说明 |<br>| :–: | :–:|<br>| assign() |     载入新的文档，可以后退上一页 |<br>| reload() | 重新载入当前文档 |<br>| replace() | 用新文档替换当前文档，不可后退上一页 |<br><code>window.location.assign(url)</code>： 加载 URL 指定的新的 HTML 文档。就相当于一个链接，跳转到指定的url，当前页面会转为新页面内容，可以点击后退返回上一个页面。</p>
+<p><code>window.location.replace(url)</code> ： 通过加载 URL 指定的文档来替换当前文档，这个方法是替换当前窗口页面，前后两个页面共用一个窗口，所以是没有后退返回上一页的</p>
+<p>代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"div.loginBlock_button button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = $(<span class="string">"div.loginBlock_input input#name"</span>).val();</span><br><span class="line">    <span class="comment">// 注意这里与js的区别，js：.value，jQuery：.val()</span></span><br><span class="line">    <span class="keyword">var</span> password = $(<span class="string">"div.loginBlock_input input#password"</span>).val()</span><br><span class="line">    <span class="keyword">if</span> (name == <span class="string">""</span>)</span><br><span class="line">        $(<span class="string">"div.loginSuccess"</span>).html(<span class="string">"请输入用户名！"</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (password == <span class="string">""</span>)</span><br><span class="line">        $(<span class="string">"div.loginSuccess"</span>).html(<span class="string">"请输入密码！"</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        $(<span class="string">"div.loginSuccess"</span>).html(<span class="string">"登录成功！"</span>);</span><br><span class="line">        <span class="built_in">window</span>.location.replace(<span class="string">"../首页/total_login.html"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    $(<span class="string">"div.loginSuccess"</span>).show();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>注册界面交互实现类似，不赘述。</p>
+<p><br></p>
+<h1 id="我的订单"><a href="#我的订单" class="headerlink" title="我的订单"></a>我的订单</h1><p><strong>效果：</strong> <img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder.png"></p>
+<p><strong>布局：</strong> 订单页面布局相对复杂，分为<code>标题部分</code>和<code>商品选项部分</code>。</p>
+<ol>
+<li>标题部分：同样用<code>外层div嵌套</code>内部几个div，<code>margin: 0 auto</code>居中；标题栏在五个文字后加入一个<code>空div</code>，实现大横条效果，（为什么不用大div border-bottom？-因为后面还有交互，点击“所有订单”、“待付款”等时，相应的文字下方的灰色横线变红，所以用每个span的下边框，而不是大div的下边框）。<br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder_div1.png"></li>
+<li>商品选项部分：多个商品选项，每个选项都是一个<code>table表格</code>，通过<code>colspan</code>进行多列的合并。<br><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder_div2.png"></li>
+</ol>
+<p>布局代码：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_headBar</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">1000px</span>;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">	<span class="comment">/*padding: 10px;*/</span></span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding-bottom</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="comment">/*border-bottom: 2px solid rgb(232, 232, 232);*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_headBar</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">	<span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">	<span class="attribute">display</span>: block;</span><br><span class="line">	<span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_headBar</span> <span class="selector-tag">div</span><span class="selector-class">.myOrder_headItem</span> &#123;</span><br><span class="line">	<span class="attribute">float</span>: left;</span><br><span class="line">	<span class="attribute">text-align</span>: center;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">100px</span>;   </span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">2px</span> solid <span class="built_in">rgb</span>(232, 232, 232);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_headBar</span> <span class="selector-tag">div</span><span class="selector-class">.myOrder_lastone</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">19px</span>;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">25.5px</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">2px</span> solid <span class="built_in">rgb</span>(232, 232, 232);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_headBar</span> <span class="selector-tag">div</span><span class="selector-class">.myOrder_headItem</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: black;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">90px</span>;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(232, 232, 232);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_headBar</span> <span class="selector-tag">div</span><span class="selector-class">.myOrder_headItem</span> <span class="selector-tag">a</span><span class="selector-pseudo">:active</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*div.myOrder_headBar div.myOrder_headItem:hover &#123;</span></span><br><span class="line"><span class="comment">	border-bottom: 2px solid rgb(196, 0, 0);</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_headBar</span> <span class="selector-tag">div</span><span class="selector-class">.myOrder_headItem</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="built_in">rgb</span>(196, 0, 0);</span><br><span class="line">	<span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_tableTitle</span> &#123;</span><br><span class="line">	<span class="attribute">width</span>: <span class="number">1000px</span>;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">20px</span> auto;</span><br><span class="line">	<span class="attribute">background-color</span>: <span class="built_in">rgb</span>(245, 245, 245);</span><br><span class="line">	<span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(232, 232, 232);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_tableTitle</span> <span class="selector-tag">span</span>&#123;</span><br><span class="line">	<span class="attribute">display</span>: inline-block;</span><br><span class="line">	<span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_itemList</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1000px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">20px</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_itemList</span> <span class="selector-tag">table</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1000px</span>;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(232, 232, 232);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_itemList</span> <span class="selector-tag">a</span><span class="selector-class">.wangwanglick</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">background-image</span>:<span class="built_in">url</span>(http://how2j.cn/tmall/img/site/wangwang.gif);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_itemList</span> <span class="selector-tag">tr</span><span class="selector-class">.myOrder_itemTitle</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(241, 241, 241);</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_itemList</span> <span class="selector-tag">tr</span><span class="selector-class">.myOrder_itemTitle</span> <span class="selector-tag">td</span><span class="selector-class">.myOrder_desc</span> &#123;</span><br><span class="line">    <span class="comment">/*padding: 10px;*/</span></span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-class">.myOrder_itemTitle_Content</span> <span class="selector-tag">td</span><span class="selector-class">.myOrder_desc</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">470px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-class">.myOrder_itemTitle_Content</span> <span class="selector-tag">td</span><span class="selector-class">.myOrder_desc</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">top</span>: -<span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="built_in">rgb</span>(184, 184, 184);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-class">.myOrder_itemTitle_Content</span> <span class="selector-tag">td</span><span class="selector-class">.myOrder_desc</span> <span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">bottom</span>: -<span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_itemList</span> <span class="selector-tag">tr</span><span class="selector-class">.myOrder_itemTitle</span> <span class="selector-tag">div</span><span class="selector-class">.wangwanglink</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">"http://how2j.cn/tmall/img/site/wangwang.gif"</span>);</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">67px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">22px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_itemList</span> <span class="selector-tag">table</span> <span class="selector-tag">td</span> &#123;</span><br><span class="line">    <span class="comment">/*border: 1px solid black;*/</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-class">.myOrder_itemTitle_Content</span> <span class="selector-tag">td</span><span class="selector-class">.myOrder_pic</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">70px</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="selector-tag">td</span><span class="selector-class">.wangwanglink</span>, <span class="selector-tag">td</span><span class="selector-class">.myOrder_sum</span> &#123;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">td</span><span class="selector-class">.myOrder_sum</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(232, 232, 232);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">td</span><span class="selector-class">.myOrder_price</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">80px</span>;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(232, 232, 232);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">td</span><span class="selector-class">.myOrder_amount</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(232, 232, 232);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">td</span><span class="selector-class">.orderItemDeleteTD</span> <span class="selector-tag">a</span><span class="selector-class">.deleteOrderLink</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: gray;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">td</span><span class="selector-class">.myOrder_confirm</span>, <span class="selector-tag">td</span><span class="selector-class">.orderItemDeleteTD</span>&#123;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">110px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">td</span><span class="selector-class">.myOrder_confirm</span> <span class="selector-tag">button</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: white;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(102, 182, 255);</span><br><span class="line">    <span class="attribute">border</span>: <span class="built_in">rgb</span>(102, 182, 255);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-class">.myOrder_itemTitle_Content</span> <span class="selector-tag">td</span><span class="selector-class">.myOrder_desc</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="built_in">rgb</span>(196, 0, 0);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.myOrder_itemList</span> <span class="selector-tag">table</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">outline</span>: <span class="number">2px</span> solid <span class="built_in">rgb</span>(170, 170, 170);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_headBar"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_headItem"</span> <span class="attr">sit</span>=<span class="string">"all"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">sit</span>=<span class="string">"all"</span>&gt;</span>所有订单<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_headItem"</span> <span class="attr">sit</span>=<span class="string">"pay"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">sit</span>=<span class="string">"pay"</span>&gt;</span>待付款<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_headItem"</span> <span class="attr">sit</span>=<span class="string">"send"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">sit</span>=<span class="string">"send"</span>&gt;</span>待发货<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_headItem"</span> <span class="attr">sit</span>=<span class="string">"confirm"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">sit</span>=<span class="string">"confirm"</span>&gt;</span>待收货<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_headItem"</span> <span class="attr">sit</span>=<span class="string">"evaluation"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">sit</span>=<span class="string">"evaluation"</span>&gt;</span>待评价<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_lastone"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_tableTitle"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"baby"</span> <span class="attr">style</span>=<span class="string">"width: 560px;"</span>&gt;</span>宝贝<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"price"</span> <span class="attr">style</span>=<span class="string">"width: 100px;"</span>&gt;</span>单价<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"amount"</span> <span class="attr">style</span>=<span class="string">"width: 100px;"</span>&gt;</span>数量<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"pay"</span> <span class="attr">style</span>=<span class="string">"width: 120px;"</span>&gt;</span>实付款<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"deal"</span> <span class="attr">style</span>=<span class="string">"width: 100px;"</span>&gt;</span>交易操作<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_itemList"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"myOrder_itemContent"</span> <span class="attr">sit</span>=<span class="string">"evaluation"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span> <span class="attr">class</span>=<span class="string">"myOrder_itemTitle"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">"2"</span> <span class="attr">class</span>=<span class="string">"myOrder_desc"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">b</span>&gt;</span>2019-04-12 17:00:41<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">span</span>&gt;</span>订单号: 20190412170041674790</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">width</span>=<span class="string">"13px"</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/orderItemTmall.png"</span>&gt;</span>天猫商场</span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">"1"</span> <span class="attr">class</span>=<span class="string">"wangwanglink"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#nowhere"</span> <span class="attr">class</span>=<span class="string">"wangwanglink"</span>&gt;</span></span><br><span class="line">                           <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wangwanglink"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"orderItemDeleteTD"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#nowhere"</span> <span class="attr">oid</span>=<span class="string">"946"</span> <span class="attr">class</span>=<span class="string">"deleteOrderLink"</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"orderListItemDelete glyphicon glyphicon-trash"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tr</span> <span class="attr">class</span>=<span class="string">"myOrder_itemTitle_Content"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"myOrder_pic"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://gw.alicdn.com/bao/uploaded/i1/3283306745/O1CN01zQkMM91zhFyyBNHDj_!!0-item_pic.jpg"</span> <span class="attr">width</span>=<span class="string">"80px"</span> <span class="attr">height</span>=<span class="string">"80px"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"myOrder_desc"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_ItemProductLinkOuterDiv"</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>影巨人蓝牙耳机无线耳塞式双耳苹果X通用<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"myOrder_ItemProductLinkInnerDiv"</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">img</span> <span class="attr">title</span>=<span class="string">"支持信用卡支付"</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/creditcard.png"</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">img</span> <span class="attr">title</span>=<span class="string">"消费者保障服务,承诺7天退货"</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/7day.png"</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">img</span> <span class="attr">title</span>=<span class="string">"消费者保障服务,承诺如实描述"</span> <span class="attr">src</span>=<span class="string">"http://how2j.cn/tmall/img/site/promise.png"</span>&gt;</span>                    </span><br><span class="line">                            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"myOrder_price"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">p</span>&gt;</span>￥88.00<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"myOrder_amount"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">                            1</span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"myOrder_sum"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"orderListItemProductRealPrice"</span>&gt;</span></span><br><span class="line">                            ￥88.00</span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"orderListItemPriceWithTransport"</span>&gt;</span></span><br><span class="line">                            (含运费：￥0.00)</span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">td</span> <span class="attr">class</span>=<span class="string">"myOrder_confirm"</span> <span class="attr">sit</span>=<span class="string">"evaluation"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#nowhere"</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"orderListItemReview btn btn-primary"</span>&gt;</span>评价<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="交互-2"><a href="#交互-2" class="headerlink" title="交互"></a>交互</h2><h4 id="商品选项选中浮现框"><a href="#商品选项选中浮现框" class="headerlink" title="商品选项选中浮现框"></a>商品选项选中浮现框</h4><p><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder2.gif"></p>
+<p><strong>思路：</strong> 添加<code>hover</code>即可。</p>
+<h4 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h4><p>（待更新）</p>
+<h4 id="标题标签点击切换"><a href="#标题标签点击切换" class="headerlink" title="标题标签点击切换"></a>标题标签点击切换</h4><p><img src="http://pqpofrtnj.bkt.clouddn.com/TMALL/myOrder.gif"></p>
+<p><strong>思路：</strong> 点击标题栏<code>触发点击</code>，根据<code>自定义的属性值</code>判断是什么要求，将满足要求的商品项<code>显示</code>，不满足的<code>隐藏</code>，同时将相应的标题栏选项的<code>下边框和字体</code>改变颜色。</p>
+<blockquote>
+<p>关键：</p>
+<ol>
+<li>可以用的显示/隐藏：display, hide(), show()，fadeIn()，fadeOut()；</li>
+<li>自定义属性：属性值用字符串时要注意选择元素时，选择器中<code>&quot;+attribute_name+&quot;</code>，使用字符串和转换的变量都会出错；</li>
+<li>修改CSS：jQuery的<code>css()</code>方法，原生JavaScript的<code>style.cssText</code>属性。</li>
+</ol>
+</blockquote>
+<p><strong>扩展：</strong> </p>
+<ol>
+<li>没有做点击按钮之后的页面，其实可以加上点击按钮之后显示的页面，完善订单页的功能；</li>
+<li>其他链接：商品的链接，商城链接，旺旺商家链接等等。</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+      <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center;">
+  <img id="wechat_subscriber_qcode" src="http://pqpofrtnj.bkt.clouddn.com/xrcode.png" alt="ZhuangXuward wechat" style="width: 200px; max-width: 100%;">
+  <div></div>
+</div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/jQuery/" rel="tag"># jQuery</a>
+          
+            <a href="/tags/Bootstrap/" rel="tag"># Bootstrap</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/03/jQuery-学习笔记/" rel="next" title="jQuery 学习笔记">
+                <i class="fa fa-chevron-left"></i> jQuery 学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/13/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZhuangXuward</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#公共页面"><span class="nav-number">2.</span> <span class="nav-text">公共页面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#置顶导航栏"><span class="nav-number">2.1.</span> <span class="nav-text">置顶导航栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索框"><span class="nav-number">2.2.</span> <span class="nav-text">搜索框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页脚"><span class="nav-number">2.3.</span> <span class="nav-text">页脚</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#首页"><span class="nav-number">3.</span> <span class="nav-text">首页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导航轮播"><span class="nav-number">3.1.</span> <span class="nav-text">导航轮播</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于背景颜色"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">关于背景颜色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于轮播图"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">关于轮播图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#商品分类"><span class="nav-number">3.2.</span> <span class="nav-text">商品分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#商品列表"><span class="nav-number">3.3.</span> <span class="nav-text">商品列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交互"><span class="nav-number">3.4.</span> <span class="nav-text">交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#导航栏猫耳朵交互效果"><span class="nav-number">3.4.0.1.</span> <span class="nav-text">导航栏猫耳朵交互效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类页交互"><span class="nav-number">3.4.0.2.</span> <span class="nav-text">分类页交互</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#商品列表交互"><span class="nav-number">3.4.0.3.</span> <span class="nav-text">商品列表交互</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#登录和注册界面"><span class="nav-number">4.</span> <span class="nav-text">登录和注册界面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#登录"><span class="nav-number">4.1.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注册"><span class="nav-number">4.2.</span> <span class="nav-text">注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交互-1"><span class="nav-number">4.3.</span> <span class="nav-text">交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#登录-注册界面输入提示"><span class="nav-number">4.3.0.1.</span> <span class="nav-text">登录/注册界面输入提示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我的订单"><span class="nav-number">5.</span> <span class="nav-text">我的订单</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#交互-2"><span class="nav-number">5.1.</span> <span class="nav-text">交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#商品选项选中浮现框"><span class="nav-number">5.1.0.1.</span> <span class="nav-text">商品选项选中浮现框</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除操作"><span class="nav-number">5.1.0.2.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标题标签点击切换"><span class="nav-number">5.1.0.3.</span> <span class="nav-text">标题标签点击切换</span></a></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhuangXuward</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'g0egL7G2ICRcU8C6DpRuSUL3-gzGzoHsz',
+    appKey: '7HbvwrojHeb609EqyUcd81fG',
+    placeholder: '在这里留个言吧o(∩_∩)o',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
