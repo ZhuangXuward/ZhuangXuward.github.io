@@ -708,7 +708,8 @@
           
             <p>
               事件处理函数在预定事件发生时让预先安排好的JavaScript代码开始执行，即“触发一个动作”。例如：onclick，onmouseover，onmouseout等等。
-语法：event = &quot;JavaScript statement(s)&quot;， JavaScript代码是包含在双
+语法：event = &quot;JavaScript statement(s)&quot;， JavaScript代码是包含在双引号中的，可以把任意数量的JavaScript语句放在这对引号之间，分号隔开即可。
+机制：给某个元素
               ...
             </p>
           <!--noindex-->
@@ -920,6 +921,17 @@
 
 首先先把天猫网页规划一下，大致可以分为：
 
+ 公共页面
+ 首页
+ 我的订单
+ 登录
+ 注册
+ 购物车
+ 产品内页
+ 订单子页面
+ 其他
+
+每一
               ...
             </p>
           <!--noindex-->
@@ -1123,7 +1135,7 @@
             <p>
               简介安装jQuery下载官网 jquery.com
 CDN百度&lt;head&gt;&lt;script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"&gt;&lt;/script&gt;&lt;/head&gt;
-新浪&
+新浪&lt;head&gt;&lt;script src="https://lib.sinaapp.com
               ...
             </p>
           <!--noindex-->
@@ -1333,7 +1345,8 @@ nodejs@10.15.3
 hexo-cli@1.1.0
 
 下面分别进行各个部分的安装配置。
-1.1 安装git在Windows上使用Git，可以从Git官网直接下载安装程序，（网速慢的同学请移步国内镜像），然后按默认选项
+1.1 安装git在Windows上使用Git，可以从Git官网直接下载安装程序，（网速慢的同学请移步国内镜像），然后按默认选项安装即可。
+安装完成后，在开始菜单里找到“Git”-&gt;“Git Bash”，蹦出一个类似命令行
               ...
             </p>
           <!--noindex-->
@@ -1542,7 +1555,8 @@ hexo-cli@1.1.0
 第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
 
 
-git add file
+git add filename1 filename2 ...添加文件，可以一次添加多个。
+git commit -m &q
               ...
             </p>
           <!--noindex-->
@@ -1746,7 +1760,7 @@ git add file
             <p>
               一级基本导航栏怎么显示？导航栏 = 链接列表
 导航栏需要标准的 HTML 作为基础。在我们的例子中，将用标准的 HTML 列表来构建导航栏。导航栏基本上是一个链接列表，因此使用 ul 和 li 元素是非常合适的：
- &lt;div id="nav"&gt;	&lt;ul class="firstNa
+ &lt;div id="nav"&gt;	&lt;ul class="firstNav"&gt;		&lt;li&gt;			&lt;a href="#"&gt;一级菜单1&lt;/a
               ...
             </p>
           <!--noindex-->
@@ -1952,7 +1966,8 @@ git add file
 分析思路清晰，onmouseover和onmouseout的使用，注意的地方有：
 
 width和height设置的是content的内容，padding和border要注意设置，实现前后大小相同，就要让整个盒子大小一致，即border也进行设置。
-cssText设置内联样式，css
+cssText设置内联样式，cssText=””可清空内联样式。
+之前没明白onload的作用，这次理解了，之前onload删去代码依
               ...
             </p>
           <!--noindex-->
@@ -2158,7 +2173,8 @@ cssText设置内联样式，css
 分析
 简单的onclick使用。
 button的居中可以在外套一个p元素，body中让p居中即可。
-三个DIV块的并排居中，外层大DIV使用margin和width，内层三个DIV也使用margin和width控制，注意margi
+三个DIV块的并排居中，外层大DIV使用margin和width，内层三个DIV也使用margin和width控制，注意margin的上下会重叠，但左右不重叠；并排用float实现。
+实现多次点击变色，需要进行判断原色，注意一般的
               ...
             </p>
           <!--noindex-->
@@ -2368,7 +2384,9 @@ button的居中可以在外套一个p元素，body中让p居中即可。
 li中嵌套一个li，onclick时改变子元素li的css
 
 onload
-当页面加载完成后立即执行一段JavaScript代码。onload 属性在对象已加载时触发。onload 常用在”body”中，一旦完全加载所有内容（包括图像、
+当页面加载完成后立即执行一段JavaScript代码。onload 属性在对象已加载时触发。onload 常用在”body”中，一旦完全加载所有内容（包括图像、脚本文件、CSS 文件等），就执行一段脚本。
+
+在 HTML 中:&lt;body onload="
               ...
             </p>
           <!--noindex-->
@@ -2620,7 +2638,7 @@ onload
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">ZhuangXuward</span>
 
