@@ -1777,7 +1777,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #bb3253;
+  background: #ff9021;
 }
 .feed-link,
 .chat {
@@ -3005,12 +3005,6 @@ ul.breadcrumb li+li:last-child {
   }
 }
 @media screen and (min-width: 1200px) {
-  body {
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: 50% 50%;
-    background-size: covers;
-  }
   #footer a {
     color: #eee;
   }
