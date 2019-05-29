@@ -100,18 +100,21 @@
 
 
 
-  <meta name="description" content="记录学习&amp;生活">
+  <meta name="description" content="前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。 配置好环境变量之后就可以开始运行了。  运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了： 以上是本地连接，如果需要更详细的或者连接远程">
 <meta name="keywords" content="学习笔记,MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL常用指令">
 <meta property="og:url" content="https://shaohuahua.top/2019/05/29/MySQL常用指令/index.html">
 <meta property="og:site_name" content="庄少华&#39;s blog">
-<meta property="og:description" content="记录学习&amp;生活">
+<meta property="og:description" content="前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。 配置好环境变量之后就可以开始运行了。  运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了： 以上是本地连接，如果需要更详细的或者连接远程">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-29T15:13:43.599Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/05/29/VKVihn.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/05/29/VKV6u8.png">
+<meta property="og:updated_time" content="2019-05-29T15:40:31.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL常用指令">
-<meta name="twitter:description" content="记录学习&amp;生活">
+<meta name="twitter:description" content="前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。 配置好环境变量之后就可以开始运行了。  运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了： 以上是本地连接，如果需要更详细的或者连接远程">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/05/29/VKVihn.png">
 
 
 
@@ -423,7 +426,7 @@
                 
               
 
-              <time title="创建时间：2019-05-29 23:13:09 / 修改时间：23:13:43" itemprop="dateCreated datePublished" datetime="2019-05-29T23:13:09+08:00">2019-05-29</time>
+              <time title="创建时间：2019-05-29 23:13:09 / 修改时间：23:40:31" itemprop="dateCreated datePublished" datetime="2019-05-29T23:13:09+08:00">2019-05-29</time>
             
 
             
@@ -505,7 +508,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">0</span>
+                <span title="本文字数">423</span>
               
 
               
@@ -539,7 +542,19 @@
       
 
       
-        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。</p>
+<p>配置好环境变量之后就可以开始运行了。</p>
+<p><br></p>
+<h1 id="运行MySQL"><a href="#运行MySQL" class="headerlink" title="运行MySQL"></a>运行MySQL</h1><p>直接打开命令行输入<code>mysql -u root -p</code>，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了：<br><img src="https://s2.ax1x.com/2019/05/29/VKVihn.png" alt="如图显示连接MySQL服务器成功"></p>
+<p>以上是<code>本地连接</code>，如果需要更详细的或者连接远程数据库，输入指令：<br><code>mysql –u用户名 [–h主机名或者IP地址,-P端口号] –p密码</code>，</p>
+<ol>
+<li>该命令是在命令行窗口下执行，而不是MySQL的命令行；</li>
+<li>输入-p后可以直接跟上密码，也可以按回车，会提示你输入密码，二者都是相同的效果；</li>
+<li>–p密码选项不一定是要在最后；</li>
+<li>–u、-h、-p后无空格。</li>
+</ol>
+<p><code>连接远程数据库时</code>，如果无法连接，提示密码错误的话，需要<code>更改host值为&quot;%&quot;</code>，我的做法是用MySQL WorkBench客户端：<br><img src="https://s2.ax1x.com/2019/05/29/VKV6u8.png" alt="如图所示操作，修改为&quot;%&quot;"></p>
+
       
     </div>
 
@@ -639,8 +654,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -809,6 +833,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行MySQL"><span class="nav-number">2.</span> <span class="nav-text">运行MySQL</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
