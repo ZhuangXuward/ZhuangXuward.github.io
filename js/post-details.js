@@ -5,8 +5,8 @@ $(document).ready(function () {
     $('>.fold', this.parentNode).slideToggle();
     $('>:first', this).toggleClass('open');
   });
-  //默认情况下展开
-  $("div.fold").css("display", "open");
+  //默认情况下不展开
+  $("div.fold").css("display", "none");
 });
 
 $(document).ready(function() {
