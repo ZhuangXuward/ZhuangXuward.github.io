@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="庄少华&#39;s blog">
 <meta property="og:description" content="要求 图片自行滚动（规定自左向右滚动） 点击左右箭头，实现图片翻页； 点击提示圆点，显示不同图片； 滚动、翻页和显示都需要过渡效果； 响应式：轮播图随着浏览器窗口大小变化而变化； 功能整合。   最终效果点击预览：全屏响应式轮播图  整体思路之前也写过轮播图，那时候是WEB里的一个js作业，懵了半天，最后靠自己独立写出来了，不过思路不是很清晰，有点浆糊的感觉。而这一次是组队PROJECT，要我写一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-05T13:13:42.094Z">
+<meta property="og:updated_time" content="2019-06-05T13:35:28.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原生JS：响应式轮播图">
 <meta name="twitter:description" content="要求 图片自行滚动（规定自左向右滚动） 点击左右箭头，实现图片翻页； 点击提示圆点，显示不同图片； 滚动、翻页和显示都需要过渡效果； 响应式：轮播图随着浏览器窗口大小变化而变化； 功能整合。   最终效果点击预览：全屏响应式轮播图  整体思路之前也写过轮播图，那时候是WEB里的一个js作业，懵了半天，最后靠自己独立写出来了，不过思路不是很清晰，有点浆糊的感觉。而这一次是组队PROJECT，要我写一">
@@ -423,7 +423,7 @@
                 
               
 
-              <time title="创建时间：2019-06-05 00:41:53 / 修改时间：21:13:42" itemprop="dateCreated datePublished" datetime="2019-06-05T00:41:53+08:00">2019-06-05</time>
+              <time title="创建时间：2019-06-05 00:41:53 / 修改时间：21:35:28" itemprop="dateCreated datePublished" datetime="2019-06-05T00:41:53+08:00">2019-06-05</time>
             
 
             
@@ -505,7 +505,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.6k</span>
+                <span title="本文字数">1.9k</span>
               
 
               
@@ -519,7 +519,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -607,7 +607,11 @@
 
 </div></div>
 <p><br></p>
-<h1 id="思考和总结"><a href="#思考和总结" class="headerlink" title="思考和总结"></a>思考和总结</h1>
+<h1 id="思考和总结"><a href="#思考和总结" class="headerlink" title="思考和总结"></a>思考和总结</h1><p>总的来说，这一次的轮播图实现，自己还是比较满意的，从代码的优化通用性和逻辑的清晰度来说，都比之前写的那次轮播图好多了，更不用说这一次的轮播图的实现难度比上次的要大，这次的轮播要求是响应式而不是定长的，这么想想自己还是挺高兴的。</p>
+<p>不过也有不足，本以为是“完美”的轮播了，但是还是有十分小的bug：进入第一张和最后一张图片的补充替补图片时，点击提示点，过渡是按照替补图片而不是正式图片过渡的，这里是不足的地方。</p>
+<p>寻思着可以通过index来区分正式和替补图片，然后消除过渡，把正式图片和替补图片互换，再开启过渡效果，这样就可以解决这个小bug了。</p>
+<p>不过最近时间很紧，小作业大作业好多，日后有机会再修改成“完美”的代码。</p>
+
       
     </div>
 
