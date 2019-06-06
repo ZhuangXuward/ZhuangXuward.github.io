@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="庄少华&#39;s blog">
 <meta property="og:description" content="要求 图片自行滚动（规定自左向右滚动） 点击左右箭头，实现图片翻页； 点击提示圆点，显示不同图片； 滚动、翻页和显示都需要过渡效果； 响应式：轮播图随着浏览器窗口大小变化而变化； 功能整合。   最终效果点击预览：全屏响应式轮播图  整体思路之前也写过轮播图，那时候是WEB里的一个js作业，懵了半天，最后靠自己独立写出来了，不过思路不是很清晰，有点浆糊的感觉。而这一次是组队PROJECT，要我写一">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-05T13:35:28.563Z">
+<meta property="og:updated_time" content="2019-06-06T07:15:02.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原生JS：响应式轮播图">
 <meta name="twitter:description" content="要求 图片自行滚动（规定自左向右滚动） 点击左右箭头，实现图片翻页； 点击提示圆点，显示不同图片； 滚动、翻页和显示都需要过渡效果； 响应式：轮播图随着浏览器窗口大小变化而变化； 功能整合。   最终效果点击预览：全屏响应式轮播图  整体思路之前也写过轮播图，那时候是WEB里的一个js作业，懵了半天，最后靠自己独立写出来了，不过思路不是很清晰，有点浆糊的感觉。而这一次是组队PROJECT，要我写一">
@@ -423,12 +423,24 @@
                 
               
 
-              <time title="创建时间：2019-06-05 00:41:53 / 修改时间：21:35:28" itemprop="dateCreated datePublished" datetime="2019-06-05T00:41:53+08:00">2019-06-05</time>
+              <time title="创建时间：2019-06-05 00:41:53" itemprop="dateCreated datePublished" datetime="2019-06-05T00:41:53+08:00">2019-06-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-06 15:15:02" itemprop="dateModified" datetime="2019-06-06T15:15:02+08:00">2019-06-06</time>
               
             
           </span>
@@ -505,7 +517,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.9k</span>
+                <span title="本文字数">2.1k</span>
               
 
               
@@ -611,6 +623,10 @@
 <p>不过也有不足，本以为是“完美”的轮播了，但是还是有十分小的bug：进入第一张和最后一张图片的补充替补图片时，点击提示点，过渡是按照替补图片而不是正式图片过渡的，这里是不足的地方。</p>
 <p>寻思着可以通过index来区分正式和替补图片，然后消除过渡，把正式图片和替补图片互换，再开启过渡效果，这样就可以解决这个小bug了。</p>
 <p>不过最近时间很紧，小作业大作业好多，日后有机会再修改成“完美”的代码。</p>
+<hr>
+<p>更新：解决了上面提到的bug，思路就是总结里提到的，在关键地方清除过渡，修改图片位置，再添加过渡。</p>
+<p>具体做法：在点击提示点的代码中修改。</p>
+<p>注意click事件里left值修改完毕再添加transition过渡，如果只是修改到实际图片位置，但是没有修改本次点击图片位置就添加transition，bug依然存在，这里没有想明白，难道是因为click事件点击和松开鼠标这个过程的某种原理吗？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; oBtn.length; ++ i) &#123;</span><br><span class="line">		oBtn[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="keyword">var</span> left = <span class="built_in">parseInt</span>(carouImg.style.left);</span><br><span class="line">			<span class="keyword">var</span> newLeft;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 如果没有临界判断，当图片位于“替补图片”时，点击提示点会有错乱过渡</span></span><br><span class="line">			<span class="keyword">if</span> (left &lt;= (-img.clientWidth) * (index_length + <span class="number">1</span>)) &#123;</span><br><span class="line">				<span class="comment">// 临界情况判断</span></span><br><span class="line">				carouImg.classList.remove(<span class="string">"transition"</span>);</span><br><span class="line">				newLeft = -img.clientWidth * <span class="number">1</span>;</span><br><span class="line">				carouImg.style.left = newLeft + <span class="string">'px'</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (left &gt;= <span class="number">-10</span>) &#123;</span><br><span class="line">				<span class="comment">// 临界情况判断</span></span><br><span class="line">				carouImg.classList.remove(<span class="string">"transition"</span>);</span><br><span class="line">				newLeft = -img.clientWidth * index_length;</span><br><span class="line">				carouImg.style.left = newLeft + <span class="string">'px'</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			newLeft = (-img.clientWidth) * (i + <span class="number">1</span>);</span><br><span class="line">			carouImg.style.left = newLeft + <span class="string">'px'</span>;</span><br><span class="line">			<span class="comment">// 注意click事件的执行过程，要在修改完left后添加transition类</span></span><br><span class="line">			carouImg.classList.add(<span class="string">"transition"</span>);</span><br><span class="line">			index = i;</span><br><span class="line">			showCurrentDot(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -944,7 +960,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">37k</span>
+    <span title="站点总字数">38k</span>
   
 
   
