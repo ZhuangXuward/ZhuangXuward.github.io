@@ -1280,12 +1280,12 @@ pre .javascript .function {
 }
 @media (min-width: 992px) {
   .posts-expand .post-body {
-    text-align: justify;
+    text-align: left;
   }
 }
 @media (max-width: 991px) {
   .posts-expand .post-body {
-    text-align: justify;
+    text-align: left;
   }
 }
 .posts-expand .post-body h2,
@@ -1777,7 +1777,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #170dff;
+  background: #705366;
 }
 .feed-link,
 .chat {
@@ -1933,7 +1933,7 @@ pre .javascript .function {
   line-height: 1.8;
 }
 .post-toc .nav .nav-child {
-  display: none;
+  display: block;
 }
 .post-toc .nav .active > .nav-child {
   display: block;
