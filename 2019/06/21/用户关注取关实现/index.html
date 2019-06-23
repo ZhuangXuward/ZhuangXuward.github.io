@@ -110,9 +110,9 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/06/22/Z9pTVU.gif">
 <meta property="og:image" content="https://s2.ax1x.com/2019/06/22/Z9kDrn.gif">
-<meta property="og:image" content="https://imgchr.com/i/ZPr53q">
-<meta property="og:image" content="https://imgchr.com/i/ZPr4Cn">
-<meta property="og:updated_time" content="2019-06-23T08:52:36.734Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/06/23/ZPr53q.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/06/23/ZPr4Cn.jpg">
+<meta property="og:updated_time" content="2019-06-23T08:57:35.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用户关注取关实现">
 <meta name="twitter:description" content="前言实现用户关注和取消关注功能以及搜索功能。 具体为点击关注时，修改数据库添加关注关系，关注变为已关注；点击已关注时，同样修改数据库关系，已关注变为关注按钮。 搜索使用模糊搜索，根据用户名进行查找，把查找结果列在当前页面。 要求:  局部刷新。 后端使用JSP 前端使用原生JS  效果如图所示：  实现搜索功能思路：在显示的时候，先查询数据库，将数据库中符合条件的记录拉去出来，显示在页面里。这样也">
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-06-23 16:52:36" itemprop="dateModified" datetime="2019-06-23T16:52:36+08:00">2019-06-23</time>
+                <time title="修改时间：2019-06-23 16:57:35" itemprop="dateModified" datetime="2019-06-23T16:57:35+08:00">2019-06-23</time>
               
             
           </span>
@@ -574,8 +574,8 @@
 <p>html部分<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"content"</span>&gt;</span><br><span class="line">    &lt;div id=<span class="string">"container"</span>&gt; </span><br><span class="line">        &lt;form action=<span class="string">"search.jsp?userId=&lt;%=userId%&gt;"</span> method=<span class="string">"post"</span> name=<span class="string">"searchForm"</span>&gt; </span><br><span class="line">            &lt;div id=<span class="string">"search_borad"</span>&gt;</span><br><span class="line">            &lt;input type=<span class="string">"text"</span> name=<span class="string">"query"</span> placeholder=<span class="string">"搜索用户"</span> value=<span class="string">"&lt;%=query%&gt;"</span> style=<span class="string">"outline: none;"</span>&gt;</span><br><span class="line">            &lt;a href="#" onclick="searchForm.submit(); return false"&gt;&lt;img src="./images/icon/search2.png"&gt; &lt;/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">        &lt;%=table%&gt;&lt;br&gt;&lt;br&gt;  </span><br><span class="line">        &lt;%=msg%&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
 
 </div></div>
-<h2 id="数据库follower表组成"><a href="#数据库follower表组成" class="headerlink" title="数据库follower表组成"></a>数据库follower表组成</h2><p>是一张包含主键id的多对多的表：<br><img src="https://imgchr.com/i/ZPr53q" alt="表的组成"></p>
-<p><img src="https://imgchr.com/i/ZPr4Cn" alt="follower表"></p>
+<h2 id="数据库follower表组成"><a href="#数据库follower表组成" class="headerlink" title="数据库follower表组成"></a>数据库follower表组成</h2><p>是一张包含主键id的多对多的表：<br><img src="https://s2.ax1x.com/2019/06/23/ZPr53q.jpg" alt="表的组成"></p>
+<p><img src="https://s2.ax1x.com/2019/06/23/ZPr4Cn.jpg" alt="follower表"></p>
 <h2 id="关注取关功能"><a href="#关注取关功能" class="headerlink" title="关注取关功能"></a>关注取关功能</h2><p>思路：使用<code>AJAX实现局部刷新</code>。点击关注按钮的时候执行<code>JS函数</code>，函数中创建<code>http请求</code>，利用<code>AJAX</code>将当前用户和被点击用户的id传到处理程序<code>ajaxGet.jsp</code>，ajaxGet.jsp进行<code>数据库</code>增加、删除操作，返回相应的值“关注”/“已关注”，当前页面将响应字符串显示到按钮中，实现关注取关功能:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oTest = document.getElementById(followed);</span><br><span class="line">oTest.innerHTML = xmlhttp.responseText;</span><br></pre></td></tr></table></figure></p>
 <p><br></p>
 <p><code>http请求变化时执行的</code>还有样式的变化，这里使用<code>classList属性</code>的contains方法判断当前的类，再分别添加和移除followed类，实现样式的变化:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!oTest.classList.contains(<span class="string">"followed"</span>)) &#123;</span><br><span class="line">    oTest.classList.add(<span class="string">"followed"</span>);</span><br><span class="line">    <span class="comment">// 添加关注按钮样式</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    oTest.classList.remove(<span class="string">"followed"</span>);</span><br><span class="line">    <span class="comment">// 移除关注按钮样式，显示未关注样式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
