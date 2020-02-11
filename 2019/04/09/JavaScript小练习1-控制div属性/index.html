@@ -254,7 +254,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">19</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">20</span></a>
 
   </li>
         
@@ -273,7 +273,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">22</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">23</span></a>
 
   </li>
         
@@ -531,7 +531,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.2k</span>
+                <span title="本文字数"></span>
               
 
               
@@ -545,7 +545,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长"></span>
               
             </div>
           
@@ -575,7 +575,7 @@
 </ul>
 <h5 id="JS如何获取CSS样式"><a href="#JS如何获取CSS样式" class="headerlink" title="JS如何获取CSS样式"></a>JS如何获取CSS样式</h5><ol>
 <li><p>获取内联样式</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id =<span class="string">"myDiv"</span> style=<span class="string">"width:100px;height:100px;background-color:red; border:1px solid black;"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> myDiv = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line"></span><br><span class="line">    alert(myDiv.style.width);<span class="comment">//100px</span></span><br><span class="line"></span><br><span class="line">    alert(myDiv.style[<span class="string">'height'</span>]);<span class="comment">//100px</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> style=myDiv.style;</span><br><span class="line">    alert(style.backgroundColor);<span class="comment">//red</span></span><br><span class="line"></span><br><span class="line">    myDiv.style.backgroundColor=<span class="string">'green'</span>;<span class="comment">//myDiv背景色变为绿色 </span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id =<span class="string">"myDiv"</span> style=<span class="string">"width:100px;height:100px;background-color:red; border:1px solid black;"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> myDiv = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line"></span><br><span class="line">    alert(myDiv.style.width);<span class="comment">//100px</span></span><br><span class="line"></span><br><span class="line">    alert(myDiv.style[<span class="string">'height'</span>]);<span class="comment">//100px</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> style=myDiv.style;</span><br><span class="line">    alert(style.backgroundColor);<span class="comment">//red</span></span><br><span class="line"></span><br><span class="line">    myDiv.style.backgroundColor=<span class="string">'green'</span>;<span class="comment">//myDiv背景色变为绿色 </span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <p>  这种情况下，获取和设置样式靠style属性就可以了，有ele.style.属性名称和ele.style[“属性名称”]两种方式。<br>  要注意的是，对于CSS样式中的background-color等短杠连接的属性名称，在使用style获取属性设置样式的时候名称要改成驼峰式，即ele.style.backgroundColor或者ele.style[‘backgroundColor’]。</p>
 </li>
 <li><p>获取外联样式（内部/外部样式表）<strong>（待更新）</strong></p>
@@ -740,7 +740,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -795,7 +795,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">19</span>
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -962,7 +964,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-heart"></i>
   </span>
@@ -974,7 +976,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">41k</span>
+    <span title="站点总字数"></span>
   
 
   
@@ -983,7 +985,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">37 分钟</span>
+    <span title="站点阅读时长"></span>
   
 </div>
 
