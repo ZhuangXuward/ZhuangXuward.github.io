@@ -1777,7 +1777,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ee3eff;
+  background: #111de0;
 }
 .feed-link,
 .chat {
@@ -2990,6 +2990,13 @@ ul.breadcrumb li+li:last-child {
   }
 }
 @media screen and (min-width: 1200px) {
+  body {
+    background-image: url("https://s2.ax1x.com/2020/02/12/1HO1V1.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 50% 50%;
+    background-size: cover;
+  }
   #footer a {
     color: #eee;
   }
