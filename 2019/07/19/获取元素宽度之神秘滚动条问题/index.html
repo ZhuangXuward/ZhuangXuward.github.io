@@ -164,9 +164,9 @@
             <div class="post-content">
                 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>实习单位要求做一个单位的官方网站，在做首页的时候有一个轮播图，老生常谈了，我直接就拿之前组对项目的轮播图代码复制粘贴过来。</p>
 <p>本来以为是万无一失了，结果出现了之前也出现过的问题：我设置的图片宽度为100%，第一次加载图片通过js获取图片宽度，将图片left平移，移去第一张替补的图片，但是第一次加载时图片似乎多平移了一点距离，导致图片右边出现了一个长条的空白区域，如下图：</p>
-<p><img src="https://s2.ax1x.com/2019/07/19/ZvQzVK.jpg" alt="出现空白区域"></p>
+<p><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/07/19/ZvQzVK.jpg" alt="出现空白区域" class="lazyload"></p>
 <h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><p>以下是第一次加载设置图片位置的代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">carouImg.style.left = -img.offsetWidth + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">console.log(carouImg.style.left);</span><br><span class="line">carouWrap.style.height = img.offsetHeight + <span class="string">&quot;px&quot;</span>;</span><br></pre></td></tr></table></figure>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Java"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">carouImg.style.left = -img.offsetWidth + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">console.log(carouImg.style.left);</span><br><span class="line">carouWrap.style.height = img.offsetHeight + <span class="string">&quot;px&quot;</span>;</span><br></pre></td></tr></table></figure></div>
 
 <p>一开始真的是抓耳挠腮，怎么莫名其妙多出了这一条东西呢？</p>
 <p>而且还好像刚好是<code>滚动条的宽度</code>？</p>
@@ -174,7 +174,7 @@
 <p>等等！<code>“滚动条”</code>！</p>
 <p>然后猜想是因为元素加载的问题，这个宽度看起来像是计算了一个宽度W，然后平移的时候，整个网页的宽度变小了，但是平移还是W，所以才会多出那一长条！多出来的是滚动条，是因为一开始计算宽度的时候根本就没有滚动条，之后因为网页内容出现了滚动条，就导致了获取宽度和加载完毕宽度不一致的情况。</p>
 <h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>overflow：auto是默认设置，随着内容自动出现或取消滚动条，那直接设置<code>overflow-y：scroll</code>让网页一直都有滚动条就可以了！</p>
-<p>效果：<br><img src="https://s2.ax1x.com/2019/07/19/ZvlIsI.jpg" alt="图片位置显示正确"></p>
+<p>效果：<br><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/07/19/ZvlIsI.jpg" alt="图片位置显示正确" class="lazyload"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>出现问题之后，还真的觉得是玄学，但可以从已知出发，出现的滚动条宽度，那肯定和滚动条有关，滚动条的出现可能和overflow有关，想到这里其实就能知道bug在哪里了。所以debug的过程真的和解数学题有些许相似，都是从已知慢慢推出来。希望通过今后的实践，能知道更多调试debug的方法。</p>
 
             </div>
