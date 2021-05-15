@@ -6,21 +6,21 @@
 <meta http-equiv="content-language" content="zh-CN">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-<title>link | 庄少华's Blog</title>
+<title>categories | 庄少华's Blog</title>
 <link rel="icon" href="/images/favicon-32x32-next.png">
 <meta name="keywords" content="庄少华 中山大学 博客 ZhuangXuward">
 <meta name="description" content="Stay hungry, stay foolish." />
 <meta property="site_name" content="庄少华's Blog" />
 <meta property="og:type" content="website">
-<meta property="og:url" content="http://example.com/link/index.html">
-<meta property="og:title" content="link | 庄少华's Blog" />
+<meta property="og:url" content="http://example.com/categories/index.html">
+<meta property="og:title" content="categories | 庄少华's Blog" />
 <meta property="og:site_name" content="庄少华's Blog" />
 <meta property="og:description" content="Stay hungry, stay foolish." />
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="link | 庄少华's Blog">
+<meta name="twitter:title" content="categories | 庄少华's Blog">
 <meta name="twitter:description" content="Stay hungry, stay foolish.">
-<link rel="dns-prefetch" href="http://example.com/link/index.html">
+<link rel="dns-prefetch" href="http://example.com/categories/index.html">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
@@ -155,143 +155,10 @@
             <main class="content">
                 
     
-        <div class="main">
         <div id="page-title" class="page-title">
-            <h2>link</h2>
+            <h2>categories</h2>
         </div>
-        
-
-<div class="link" id="link">
-
-
-    <h2 class="link-title">个人站点</h2>
-    <div class="link-subtitle"></div>
-    <div class="link-list">
-    
-        <div class="link-list-item">
-            <a target="_blank" rel="noopener" href="https://lynnjute.top/">
-                <img src="https://nav.lete114.top/images/favicon.png" alt="一个图形学专家">
-                <span class="link-item-name">LynnJute</span>
-                <span class="link-item-desc">一个图形学专家</span>
-            </a>
-        </div>
-    
-    </div>
-
-
-    <h2 class="link-title"></h2>
-    <div class="link-subtitle"></div>
-    <div class="link-list">
-    
-    </div>
-
-
-    <h2 class="link-title"></h2>
-    <div class="link-subtitle"></div>
-    <div class="link-list">
-    
-    </div>
-
-</div>
-<script>
-    setInterval(function(){
-        if(document.body.clientWidth < 800){
-            $('img#up').remove();
-        }
-    },0)
-
-    
-
-    
-    /*通过仓库pr修改link.yml方式*/
-    $.get({
-        url: "https://cdn.jsdelivr.net/gh/lete114/CDN@latest/link.yml",
-        async:false,
-        success: function(data){
-            $.getScript("https://cdn.jsdelivr.net/npm/js-yaml@latest/dist/js-yaml.min.js",function(){
-                data = JSON.stringify(jsyaml.load(data))
-                data = JSON.parse([data]);
-                
-                for (let i in data) {
-                    var desc = data[i].class_desc == null?'':data[i].class_desc;
-                    var title = data[i].class_name;
-                    
-                        // 添加在结尾
-                        $("#link").append('<h2>'+title+'</h2>')
-                        $("#link").append('<div class="link-subtitle">'+desc+'</div>')
-                        $("#link").append('<div class="link-list"></div>')
-                    
-                    for (let j in data[i].link_list) {
-                        var name = data[i].link_list[j].name;
-                        var link = data[i].link_list[j].link;
-                        var avatar = data[i].link_list[j].avatar;
-                        var descr = data[i].link_list[j].descr;
-
-                        
-                            $(".link-list:last").append(
-                        
-                        `<div class="link-list-item">
-                            <a target="_blank" rel="noopener" href="${link}">
-                                <img src="${avatar}" alt="${descr}">
-                                <span class="link-item-name">${name}</span>
-                                <span class="link-item-desc">${descr}</span>
-                            </a>
-                        </div>`)
-                    }
-                }
-            }) 
-        }
-    })
-    
-</script>
-
-
-        
-        
-        
-        <hr>
-        <div class="comment-head" id="直达评论">
-            <div class="comment-headline">
-                <i class="fas fa-comments fa-fw"></i>
-                <span>评论</span>
-            </div>
-            
-                
-<div id="vcomments"></div>
-<script>
-function LoadValine(){
-    $.getScript("https://cdn.jsdelivr.net/gh/lete114/CDN2/js/Valine-Lete3.2.js",function(){ 
-        let initData = {
-            el: '#vcomments',
-            appId: 'QynOiQiM4W3iYzqM858hvrYa-gzGzoHsz',
-            appKey: 'h0N1MuWeaUdOHTUnYKPVzBrS',
-            master: 'E1iW1xvPrwuGWLpoQTjKwlHl',
-            friends: '',
-            placeholder: '快来评论吧!!',
-            avatar: '',
-            meta: 'nick,mail,link'.split(","),
-            pageSize: 5,
-            lang: 'zh-CN',
-            emojiCDN: '',
-            emojiMaps: null,
-            enableQQ: true,
-            path: window.location.pathname,
-            visitor: true
-        }
-        var option = false;
-        if(option){
-            initData = Object.assign(initData, option)
-        }
-        new Valine(initData)
-    });
-}
-LoadValine()
-</script>
-            
-        </div>
-        
-        
-        </div>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/">个人项目</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%AE%E9%A2%98/">问题</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%97%B2%E8%B0%88/">闲谈</a><span class="category-list-count">1</span></li></ul>    
         <section id="rightside">
     <div id="rightside-item">
         <a id="darkmode" title="深色/浅色">
