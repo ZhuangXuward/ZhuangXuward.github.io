@@ -6,20 +6,20 @@
 <meta http-equiv="content-language" content="zh-CN">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-<title>Hexo-Theme-MengD(萌典)</title>
-<link rel="icon" href="/img/favicon.png">
-<meta name="keywords" content="学习">
-<meta name="description" content="一个简约优雅，及美观漂亮的主题!!" />
-<meta property="site_name" content="Hexo-Theme-MengD(萌典)" />
+<title>庄少华's Blog</title>
+<link rel="icon" href="/images/favicon-32x32-next.png">
+<meta name="keywords" content="庄少华 中山大学 博客 ZhuangXuward">
+<meta name="description" content="Stay hungry, stay foolish." />
+<meta property="site_name" content="庄少华's Blog" />
 <meta property="og:type" content="website">
 <meta property="og:url" content="http://example.com/page/2/index.html">
-<meta property="og:title" content="Hexo-Theme-MengD(萌典)" />
-<meta property="og:site_name" content="Hexo-Theme-MengD(萌典)" />
-<meta property="og:description" content="一个简约优雅，及美观漂亮的主题!!" />
+<meta property="og:title" content="庄少华's Blog" />
+<meta property="og:site_name" content="庄少华's Blog" />
+<meta property="og:description" content="Stay hungry, stay foolish." />
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo-Theme-MengD(萌典)">
-<meta name="twitter:description" content="一个简约优雅，及美观漂亮的主题!!">
+<meta name="twitter:title" content="庄少华's Blog">
+<meta name="twitter:description" content="Stay hungry, stay foolish.">
 <link rel="dns-prefetch" href="http://example.com/page/2/index.html">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
@@ -68,8 +68,8 @@
         <div class="author-info">
             <div>
                 <a href="/">
-                    <img src="/img/logo.gif" alt="MengD(萌典)" class="avatar">
-                    <div class="author">MengD(萌典)</div>
+                    <img src="/images/avatar.jpg" alt="ZhuangXuward" class="avatar">
+                    <div class="author">ZhuangXuward</div>
                 </a>
             </div>
             <hr>
@@ -87,13 +87,13 @@
         <div class="author-info">
             <div>
                 <a href="/">
-                    <img src="/img/logo.gif" alt="MengD(萌典)" class="avatar">
-                    <div class="author">MengD(萌典)</div>
+                    <img src="/images/avatar.jpg" alt="ZhuangXuward" class="avatar">
+                    <div class="author">ZhuangXuward</div>
                 </a>
             </div>
         </div>
         <div id="description" class="description">
-            <p>一个简约优雅，及美观漂亮的主题!!</p>
+            <p>Stay hungry, stay foolish.</p>
             <div class="social-icon">
                 
             </div>
@@ -106,36 +106,23 @@
 	
         <div class="post-item">
             <div class="post-title">
-                <h2><a href="/2019/05/20/offsetWidth-getBoundingRect-scrollWidth-client%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/">offsetWidth、getBoundingRect()、scrollWidth、clientWidth用法总结</a></h2>
+                <h2><a href="/2019/05/03/jQuery-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">jQuery 学习笔记</a></h2>
             </div>
             <div class="post-description">
                 <p style="-webkit-line-clamp: 3">
                     
-                    offsetWidthoffsetWidth是一个只读属性，返回一个元素的布局宽度，为border-box的宽度。
-语法：var offsetWidth =element.offsetWidth; 结果为四舍五入的整数。
+                    简介安装jQuery下载官网 jquery.com
+CDN百度
+1234&lt;head&gt;&lt;script src=&quot;https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;
+新浪
+1234&lt;head&gt;&lt;script src=&quot;https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;
 
+jQuery 语法基础语法是：$(selector).action()
+美元符号定义 jQuery
+选择符（selector）“查询”和“查找” HTML 元素
+jQuery 的 action() 执行对元素的操作
 
-getBoundingClientRect()offsetWidth和其他方式返回的是四舍五入（round）的整数，想要得到小数则要用getBoundingClientRect()方法。
-getBoundingClientRect()返回元素的大小及其相对于视口左上角的位置。
-包括的属性有：width、height、left、right、top、bottom。
-
-
-clientWidth表示元素的内部宽度，以像素计。该属性包括内边距，但不包括垂直滚动条（如果有）、边框和外边距。
-
-
-scrollWidth表示元素内容的宽度，包括由于滚动而未显示在屏幕中内容。
-宽度的测量方式与clientWidth相同：它包含元素的内边距，但不包括边框，外边距或垂直滚动条（如果存在）。 
-
-
-测试举例结果：
-
-
-总结
-
-
-
-包含边框(border-box)
-不包含边框(paddin
+window.onload和$(document).ready()由于脚本由上到下解释，如果script在元素前面，则需要使用onload或者ready，告诉引擎在页面加载完成后才
                 </p>
             </div>
                 
@@ -146,7 +133,7 @@ scrollWidth表示元素内容的宽度，包括由于滚动而未显示在屏幕
                     <span class="post-date">
                         <i class="far fa-calendar-alt"></i>
                         <span>发表于</span>
-                        <span>2019-05-20</span>
+                        <span>2019-05-03</span>
                     </span>
                 </div>
                 <!-- 标签 -->
@@ -158,6 +145,364 @@ scrollWidth表示元素内容的宽度，包括由于滚动而未显示在屏幕
                             <span>
                                 <a href="tags/学习笔记/">
                                     <span>学习笔记</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/jQuery/">
+                                    <span>jQuery</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/jQuery/">
+                                    <span>jQuery</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/29/Hexo-github-pages%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">Hexo+github pages搭建个人博客</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    1. 准备工作本文所使用环境：
+
+Windows10
+&#103;&#105;&#x74;&#x40;&#x32;&#46;&#x32;&#49;&#x2e;&#x30;
+&#110;&#111;&#x64;&#x65;&#106;&#115;&#x40;&#x31;&#48;&#46;&#49;&#53;&#x2e;&#51;
+&#x68;&#x65;&#120;&#111;&#45;&#99;&#108;&#105;&#64;&#49;&#46;&#x31;&#x2e;&#x30;
+
+下面分别进行各个部分的安装配置。
+1.1 安装git在Windows上使用Git，可以从Git官网直接下载安装程序，（网速慢的同学请移步国内镜像），然后按默认选项安装即可。
+安装完成后，在开始菜单里找到“Git”-&gt;“Git Bash”，蹦出一个类似命令行窗口的东西，就说明Git安装成功！安装完成后，还需要最后一步设置，在命令行输入（$表示在gitbash中输入）：
+12$ git config --global user.name &quot;你的名字&quot;$ git config --
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-29</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/个人博客/">
+                                    <span>个人博客</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/github-pages/">
+                                    <span>github pages</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/hexo/">
+                                    <span>hexo</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/个人博客搭建/">
+                                    <span>个人博客搭建</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/19/Git%E7%9B%B8%E5%85%B3/">Git相关</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    创建仓库git init初始化git仓库
+添加文件和上传修改文件把文件往git版本库里添加时，分两步进行：
+
+第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+
+
+git add filename1 filename2 ... 添加文件，可以一次添加多个。
+git commit -m &quot;message&quot; 提交到仓库，message为这次提交的描述语句。
+
+查看状态和diff
+git status
+git diff
+
+版本回退
+git log
+git reset --hard commit_id
+git reflog
+HEAD表示当前版本，上一个版本为HEAD^，上上个为HEAD^^， 以此类推，也可以使用HEAD~1表示上一个，数字可变。
+
+HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。要重返未来，用
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-19</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/学习笔记/">
+                                    <span>学习笔记</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/git/">
+                                    <span>git</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/git/">
+                                    <span>git</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/11/CSS%E5%AE%9E%E7%8E%B0%E5%9E%82%E7%9B%B4-%E6%B0%B4%E5%B9%B3%E5%AF%BC%E8%88%AA%E6%A0%8F/">CSS实现垂直/水平导航栏</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    一级基本导航栏怎么显示？导航栏 = 链接列表
+导航栏需要标准的 HTML 作为基础。在我们的例子中，将用标准的 HTML 列表来构建导航栏。导航栏基本上是一个链接列表，因此使用 ul 和 li 元素是非常合适的： 12345678910111213&lt;div id=&quot;nav&quot;&gt;	&lt;ul class=&quot;firstNav&quot;&gt;		&lt;li&gt;			&lt;a href=&quot;#&quot;&gt;一级菜单1&lt;/a&gt;		&lt;/li&gt;		&lt;li&gt;			&lt;a href=&quot;#&quot;&gt;一级菜单2&lt;/a&gt;		&lt;/li&gt;		&lt;li&gt;			&lt;a href=&quot;#&quot;&gt;一级菜单3&lt;/a&gt;		&lt;/li&gt;	&lt;/ul&gt;&lt;/div&gt;
+ 以上是标准的导航栏代码。
+去掉list-style-type，去掉默认的项目符号和外边距、内边距: 12345ul &#123;	list
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-11</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/CSS/">
+                                    <span>CSS</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/CSS/">
+                                    <span>CSS</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/10/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A04-%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%85%A5%E7%A7%BB%E5%87%BA%E6%94%B9%E5%8F%98%E6%A0%B7%E5%BC%8F/">JavaScript小练习4-鼠标移入移出改变样式</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    题目移出：移入：
+分析思路清晰，onmouseover和onmouseout的使用，注意的地方有：
+
+width和height设置的是content的内容，padding和border要注意设置，实现前后大小相同，就要让整个盒子大小一致，即border也进行设置。
+cssText设置内联样式，cssText=””可清空内联样式。
+之前没明白onload的作用，这次理解了，之前onload删去代码依旧正常，是因为script放在body中，body中内容是会执行的，而当script放在head中时，就需要onload让页面加载完成时执行script中的代码。
+
+效果&amp;代码见预览
+
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-10</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
                                 </a>
                                 
                                     <i class="fas fa-angle-right"></i>
@@ -207,28 +552,21 @@ scrollWidth表示元素内容的宽度，包括由于滚动而未显示在屏幕
 	
         <div class="post-item">
             <div class="post-title">
-                <h2><a href="/2019/05/17/%E7%94%BB%E5%BB%8A%E7%9B%B8%E5%86%8C%E2%80%94%E5%8E%9F%E7%94%9FJavaScript%E5%AE%9E%E7%8E%B0/">画廊相册—原生JavaScript实现</a></h2>
+                <h2><a href="/2019/04/10/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A03-%E7%94%A8%E5%BE%AA%E7%8E%AF%E4%BD%BF%E4%B8%89%E4%B8%AADIV%E5%8F%98%E8%89%B2/">JavaScript小练习3-用循环使三个DIV变色</a></h2>
             </div>
             <div class="post-description">
                 <p style="-webkit-line-clamp: 3">
                     
-                    前言使用原生JavaScript实现照片长廊效果，主要也是为了练手，刚好看到《JavaScript DOM编程艺术》上有这个小demo，看着还挺好看的，就写一写，还顺带总结几个小知识点。
-效果预览前往：点击预览
-思路拿到一个设计图，还是先从模块开始划分：
+                    题目初始为黑色，点击后为红色，再次点击为黑色，以后每次点击一次变色。
 
-导航栏和标题
-图片区域
-下方文字显示
+分析
+简单的onclick使用。
+button的居中可以在外套一个p元素，body中让p居中即可。
+三个DIV块的并排居中，外层大DIV使用margin和width，内层三个DIV也使用margin和width控制，注意margin的上下会重叠，但左右不重叠；并排用float实现。
+实现多次点击变色，需要进行判断原色，注意一般的方法（ele.style./cssText）只能读取和修改内联样式，故第一次点击时无法访问到样式表中的黑色值。这里使用switch中的default解决。
 
-有了大致框图才能开始逐个突破：
+效果&amp;代码效果：循环使DIV变色F12查看代码。
 
-标题不说了，导航栏是个典型的水平一级导航栏，之前也做过很多总结整理，注意清除浮动、对锚点进行样式设置即可。动画过渡通过样式表设置。
-点击导航栏链接，另外一个区域做出相应，很明显的onclick事件处理函数的应用，通过DOM获取元素进行设置属性，同时对于锚点的点击事件处理函数里，返回false让锚点点击失效不跳转。
-下方文字显示是根据不同图片进行改变的，可以将文字信息存储在图片title属性中，DOM获取当前图片属性值显示在文字块中。
-
-这一次体会了结构层、表现层和行为层的分离，说白了就是把html、样式表和js分成了三个文件，使得JavaScript代码不依赖于HTML文档的内容和结构，这样方便后续管理。
-知识点总结
-event = “这里添加的相当于是函数体
                 </p>
             </div>
                 
@@ -239,7 +577,7 @@ event = “这里添加的相当于是函数体
                     <span class="post-date">
                         <i class="far fa-calendar-alt"></i>
                         <span>发表于</span>
-                        <span>2019-05-17</span>
+                        <span>2019-04-10</span>
                     </span>
                 </div>
                 <!-- 标签 -->
@@ -249,35 +587,17 @@ event = “这里添加的相当于是函数体
                             <i class="fa fa-tag"></i>
                              
                             <span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
                                 <a href="tags/JavaScript/">
                                     <span>JavaScript</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/demo/">
-                                    <span>demo</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/画廊相册/">
-                                    <span>画廊相册</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/DOM/">
-                                    <span>DOM</span>
                                 </a>
                                 
                             </span>
@@ -318,22 +638,35 @@ event = “这里添加的相当于是函数体
 	
         <div class="post-item">
             <div class="post-title">
-                <h2><a href="/2019/05/14/%E6%82%B2%E5%89%A7/">悲剧</a></h2>
+                <h2><a href="/2019/04/10/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A02-%E7%BD%91%E9%A1%B5%E6%8D%A2%E8%82%A4/">JavaScript小练习2-网页换肤</a></h2>
             </div>
             <div class="post-description">
                 <p style="-webkit-line-clamp: 3">
                     
-                    
-论如何快速让一个人崩溃——删除他的重要文件。
+                    题目
+分析三个皮肤切换按钮的选择
+用li即可。
+
+点击显示白点
+li中嵌套一个li，onclick时改变子元素li的css
+
+onload
+当页面加载完成后立即执行一段JavaScript代码。onload 属性在对象已加载时触发。onload 常用在”body”中，一旦完全加载所有内容（包括图像、脚本文件、CSS 文件等），就执行一段脚本。
+
+在 HTML 中:
+1&lt;body onload=&quot;SomeJavaScriptCode&quot;&gt;
+在 JavaScript 中:
+1window.onload=function()&#123;SomeJavaScriptCode&#125;;
 
 
-这是第二版的博客第一个版本的博客采用了mellow主题，花了几天时间做的美化，总体效果还是十分不错的：
+总结在怎么显示三个并排的换肤按钮和点击显示白点这两块纠结很久，一方面想要更优雅的实现不想用嵌套div，一方面又想学习小练习1中的循环遍历思想，所以花了很久时间。其实思路很清晰，自己能力还是需要大大加强，多练习。
 
 
-那为什么不要了呢？因为第一个版本的博客的本地hexo代码文件已经被清空了…
-事情都缘自5.13的晚上，我在学习react的使用，发现sublime中scipt直接写react很难配置高亮语法，于是我转投vscode，真心感受到vscode的强大，sublime有的vscode基本都有，vscode唯一不足的就是不如sublime那么简洁简约。
-然后！我 开心惬意 地捣鼓配置着vscode，发现怎么有个听诊器，上面还有红点，一看有5000个changes未commit，啊…突然想起，写博客的时候由于hexo的打包，我没有使用git去三部曲提交changes，然后强迫症的我就想去掉听诊器的红色标记，捣鼓着…点到了“discard all changes”。
-那一瞬间瞬间…我的天啊！我发现怎么我的博客本地文件没了啊？还不止！整个装了我前三年大学生涯的课程文档（各种ppt、word、pdf，实验设计文档，实验报告，总结）都没了…终于体会
+疑问这里的onload不是很明白，代码中去掉onload显示是正常的，不知道这里的onload是否可有可无？
+
+
+代码效果：网页换肤
+12345678910111
                 </p>
             </div>
                 
@@ -344,7 +677,7 @@ event = “这里添加的相当于是函数体
                     <span class="post-date">
                         <i class="far fa-calendar-alt"></i>
                         <span>发表于</span>
-                        <span>2019-05-14</span>
+                        <span>2019-04-10</span>
                     </span>
                 </div>
                 <!-- 标签 -->
@@ -354,75 +687,8 @@ event = “这里添加的相当于是函数体
                             <i class="fa fa-tag"></i>
                              
                             <span>
-                                <a href="tags/深刻教训/">
-                                    <span>深刻教训</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-                <!-- 分类 -->
-                
-                    <div class="post-categorie">
-                        <span>
-                            <i class="fas fa-folder-open"></i>
-                             
-                            <span>
-                                <a href="categories/闲谈/">
-                                    <span>闲谈</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-            </div>
-        </div>
-
-
-	
-	
-        <div class="post-item">
-            <div class="post-title">
-                <h2><a href="/2019/05/13/%E3%80%8AJavaScript-DOM-%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">《JavaScript DOM 编程艺术》读书笔记</a></h2>
-            </div>
-            <div class="post-description">
-                <p style="-webkit-line-clamp: 3">
-                    
-                    习惯性做记录，也方便自己回顾查阅。
-
-
-
-事件处理函数在预定事件发生时让预先安排好的JavaScript代码开始执行，即“触发一个动作”。例如：onclick，onmouseover，onmouseout等等。
-语法：event = &quot;JavaScript statement(s)&quot;， JavaScript代码是包含在双引号中的，可以把任意数量的JavaScript语句放在这对引号之间，分号隔开即可。
-机制：给某个元素添加事件处理函数后，一旦发生预定事件，相应的JavaScript代码就执行，执行后可以返回一个结果，这个结果被传递回事件处理函数。
-利用这个机制，我们可以让动作没有触发，但是却能执行触发之后的JavaScript代码。比如书中的“JavaScript美术馆例子”：onclick事件中，点击链接执行一段预定代码，在代码后加上&quot;return false;&quot;，那么代码依旧被执行，但是页面却不会跳转，因为返回false给事件处理函数，认为“这个链接没有被点击”。代码如下。
-12345678910&lt;body&gt;	&lt;h1&gt;
-                </p>
-            </div>
-                
-
-            <div class="post-footer">
-                <!-- 发布时间 -->
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>发表于</span>
-                        <span>2019-05-13</span>
-                    </span>
-                </div>
-                <!-- 标签 -->
-                
-                    <div class="post-tag">
-                        <span>
-                            <i class="fa fa-tag"></i>
-                             
-                            <span>
-                                <a href="tags/学习笔记/">
-                                    <span>学习笔记</span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
                                 </a>
                                 
                                     <i class="fas fa-angle-right"></i>
@@ -446,8 +712,8 @@ event = “这里添加的相当于是函数体
                             <i class="fas fa-folder-open"></i>
                              
                             <span>
-                                <a href="categories/笔记/">
-                                    <span>笔记</span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
                                 </a>
                                 
                                     <i class="fas fa-angle-right"></i>
@@ -455,8 +721,8 @@ event = “这里添加的相当于是函数体
                             </span>
                              
                             <span>
-                                <a href="categories/笔记/《JavaScript-DOM-编程艺术》/">
-                                    <span>《JavaScript DOM 编程艺术》</span>
+                                <a href="categories/技术/JavaScript/">
+                                    <span>JavaScript</span>
                                 </a>
                                 
                             </span>
@@ -472,40 +738,21 @@ event = “这里添加的相当于是函数体
 	
         <div class="post-item">
             <div class="post-title">
-                <h2><a href="/2019/05/10/%E5%A4%A9%E7%8C%AB%E7%BD%91%E9%A1%B5%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0/">天猫网页前端实现</a></h2>
+                <h2><a href="/2019/04/09/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A01-%E6%8E%A7%E5%88%B6div%E5%B1%9E%E6%80%A7/">JavaScript小练习1-控制div属性</a></h2>
             </div>
             <div class="post-description">
                 <p style="-webkit-line-clamp: 3">
                     
-                    使用前端技术（HTML、CSS、JS）实现天猫网站界面。
+                    题目要实现的效果如图所示：查看演示
 
-前言预览效果：点击预览代码仓库：github
-学习了jQuery和boostrap4的教程，苦于没有项目练手，于是决定模仿天猫网页，纯前端实现，积累经验。
-用到的技术栈：
+分析乍一看还以为十分简单，就是简单的点击button时触发的函数来改变样式值，不过做到后面就开始打脸了——“重置”功能。其实要实现重置功能，硬做还是可以的，就是cssText=“整个style表”，但是这么做太暴力了，十分不优雅，结果看了人家的源码真的是佩服的五体投地。
+首先注意CSS的三种创建方式
+内联样式/行内样式(inline style)
+内部样式表(internal style sheet)
+外部样式表(external style sheet)
 
- JavaScript
- jQuery
- bootstrap（用于图标和轮播图）
-
-首先先把天猫网页规划一下，大致可以分为：
-
- 公共页面
- 首页
- 我的订单
- 登录
- 注册
- 购物车
- 产品内页
- 订单子页面
- 其他
-
-每一部分逐步完成，最后整合在一起。（未完成部分思路和前面几个一样，日后有空再继续完善）
-公共页面公共页面就是每个页面都有的内容，包括页头位置的置顶导航栏，紧接着页头的搜索框，以及页脚的证书链接，最后再将这三个子模块整合在一起得到公共页面。
-代码构成如图：
-置顶导航栏效果：
-布局： 最外层是nav元素，语义化作用，用来布局，与div的区别在于nav更加明确的告诉搜索引擎这是导航栏，帮助搜索引擎理解你的网页。
-内部是连续摆放的几个元素，可以用span内嵌超链a，右边两个右浮动的元素。
-注意到文字部分是居中显示，而置顶导航栏有个浅灰色的背景，需
+JS如何获取CSS样式
+获取内联样式 12345678910111213&lt;div id =&quot;myDiv&quot; style=&quot;width:100px;height:100px;background-color:red; border:1px solid black;&quot;&gt;&lt;/div&gt;&lt;script&gt;    var myDiv = document.getElementById(&quot;myDiv&quot;);    al
                 </p>
             </div>
                 
@@ -516,7 +763,93 @@ event = “这里添加的相当于是函数体
                     <span class="post-date">
                         <i class="far fa-calendar-alt"></i>
                         <span>发表于</span>
-                        <span>2019-05-10</span>
+                        <span>2019-04-09</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/06/CSS%E3%80%81JavaScript%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B/">CSS、JavaScript学习过程</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    初学JavaScript，通过博客记录自己学习过程中遇到的问题。（包含少量CSS）
+
+
+
+零碎记录JavaScript 输出
+type=”text/javascript”那些老旧的实例可能会在 &lt;script&gt; 标签中使用 type=”text/javascript”。现在已经不必这样做了。JavaScript 是所有现代浏览器以及 HTML5 中的默认脚本语言。
+脚本位置在 &lt;head&gt; 或者 &lt;body&gt; 的JavaScript外部脚本不能包含 &lt;script&gt; 标签。
+输出数据window.alert() 弹出警告框。document.write() 方法将内容写到 HTML 文档中。innerHTML 写入到 HTML 元素。console.log() 写入到浏览器的控制台。
+输出内容使用 document.write() 向文档输出写内容。如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖
+写到控制台（调试模式）使用 console.log() 方法在浏览器中显示 JavaScript 值。F
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-06</span>
                     </span>
                 </div>
                 <!-- 标签 -->
@@ -535,26 +868,17 @@ event = “这里添加的相当于是函数体
                             </span>
                              
                             <span>
+                                <a href="tags/学习笔记/">
+                                    <span>学习笔记</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
                                 <a href="tags/JavaScript/">
                                     <span>JavaScript</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/jQuery/">
-                                    <span>jQuery</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/Bootstrap/">
-                                    <span>Bootstrap</span>
                                 </a>
                                 
                             </span>
@@ -569,8 +893,8 @@ event = “这里添加的相当于是函数体
                             <i class="fas fa-folder-open"></i>
                              
                             <span>
-                                <a href="categories/个人项目/">
-                                    <span>个人项目</span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
                                 </a>
                                 
                                     <i class="fas fa-angle-right"></i>
@@ -578,8 +902,8 @@ event = “这里添加的相当于是函数体
                             </span>
                              
                             <span>
-                                <a href="categories/个人项目/电商页面/">
-                                    <span>电商页面</span>
+                                <a href="categories/技术/JavaScript/">
+                                    <span>JavaScript</span>
                                 </a>
                                 
                             </span>
@@ -593,7 +917,7 @@ event = “这里添加的相当于是函数体
 
 
     <div class="pagination">
-        <a class="extend prev" rel="prev" href="/"><i class='fas fa-chevron-left fa-fw'></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class='fas fa-chevron-right fa-fw'></i></a>
+        <a class="extend prev" rel="prev" href="/"><i class='fas fa-chevron-left fa-fw'></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
     </div>
 
 <section id="rightside">
@@ -620,7 +944,7 @@ event = “这里添加的相当于是函数体
         
       &copy; 2020 - 2021
         <i class="fas fa-fan"></i>
-        MengD(萌典)
+        ZhuangXuward
     </div>
     <div class="framework-info">
         <span>框架 </span>
@@ -660,10 +984,10 @@ event = “这里添加的相当于是函数体
         var titleTime;
         document.addEventListener("visibilitychange", function () {
             if (document.hidden) {
-                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                document.title = "这是什么？！ " + originTitle;
                 clearTimeout(titleTime);
             } else {
-                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                document.title = "欢迎回来" + originTitle;
                 titleTime = setTimeout(function () {
                     document.title = originTitle;
                 }, 2000);
