@@ -309,30 +309,6 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
             
 
             
-
-<div class="post-reward">
-    <div class="reward-button" >
-         赏
-         <div class="reward-main">
-            <ul class="reward-all">
-                <li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/lete114/CDN@2.0/Use/wzf.png"
-                        target="_blank">
-                        <img class="post-qr-code-img" alt="微信"
-                            src="https://cdn.jsdelivr.net/gh/lete114/CDN@2.0/Use/wzf.png"></a>
-                    <div class="post-qr-code-desc">微信</div>
-                </li>
-                <li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/lete114/CDN@2.0/Use/zfb.png"
-                        target="_blank">
-                        <img class="post-qr-code-img" alt="支付宝"
-                            src="https://cdn.jsdelivr.net/gh/lete114/CDN@2.0/Use/zfb.png"></a>
-                    <div class="post-qr-code-desc">支付宝</div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-
             
         </article>
         <section id="rightside">
@@ -385,32 +361,35 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
                 </div>
                 
                     
-<div id="wcomments"></div>
+<div id="vcomments"></div>
 <script>
-function LoadWaline(){
-    $.getScript("//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js",function(){ 
+function LoadValine(){
+    $.getScript("https://cdn.jsdelivr.net/gh/lete114/CDN2/js/Valine-Lete3.2.js",function(){ 
         let initData = {
-        el: '#wcomments',
-        path: location.pathname,
-        serverURL: 'https://waline.vercel.app/',
-        placeholder: '快来评论吧!!',
-        avatar: '',
-        meta: 'nick,mail,link'.split(","),
-        requiredFields: 'nick,mail,link'.split(","),
-        pageSize: 5,
-        lang: 'zh-CN',
-        emojiCDN: '',
-        emojiMaps: null,
-        visitor: true
-    }
-    var option = false;
-    if(option){
-        initData = Object.assign(initData, option)
-    }
-    new Waline(initData)
-    })
+            el: '#vcomments',
+            appId: 'QynOiQiM4W3iYzqM858hvrYa-gzGzoHsz',
+            appKey: 'h0N1MuWeaUdOHTUnYKPVzBrS',
+            master: 'E1iW1xvPrwuGWLpoQTjKwlHl',
+            friends: '',
+            placeholder: '快来评论吧!!',
+            avatar: '',
+            meta: 'nick,mail,link'.split(","),
+            pageSize: 5,
+            lang: 'zh-CN',
+            emojiCDN: '',
+            emojiMaps: null,
+            enableQQ: true,
+            path: window.location.pathname,
+            visitor: true
+        }
+        var option = false;
+        if(option){
+            initData = Object.assign(initData, option)
+        }
+        new Valine(initData)
+    });
 }
-LoadWaline()
+LoadValine()
 </script>
                 
             </div>
@@ -483,10 +462,10 @@ LoadWaline()
         var titleTime;
         document.addEventListener("visibilitychange", function () {
             if (document.hidden) {
-                document.title = "这是什么？！ " + originTitle;
+                document.title = "点我看看 " + originTitle;
                 clearTimeout(titleTime);
             } else {
-                document.title = "欢迎回来" + originTitle;
+                document.title = "欢迎回来 " + originTitle;
                 titleTime = setTimeout(function () {
                     document.title = originTitle;
                 }, 2000);

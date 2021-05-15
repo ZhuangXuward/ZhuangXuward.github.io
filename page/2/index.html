@@ -984,10 +984,10 @@ type=”text/javascript”那些老旧的实例可能会在 &lt;script&gt; 标�
         var titleTime;
         document.addEventListener("visibilitychange", function () {
             if (document.hidden) {
-                document.title = "这是什么？！ " + originTitle;
+                document.title = "点我看看 " + originTitle;
                 clearTimeout(titleTime);
             } else {
-                document.title = "欢迎回来" + originTitle;
+                document.title = "欢迎回来 " + originTitle;
                 titleTime = setTimeout(function () {
                     document.title = originTitle;
                 }, 2000);
