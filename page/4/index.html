@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+<meta charset="utf-8">
+<meta http-equiv="content-language" content="zh-CN">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>Hexo-Theme-MengD(萌典)</title>
+<link rel="icon" href="/img/favicon.png">
+<meta name="keywords" content="学习">
+<meta name="description" content="一个简约优雅，及美观漂亮的主题!!" />
+<meta property="site_name" content="Hexo-Theme-MengD(萌典)" />
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://example.com/page/4/index.html">
+<meta property="og:title" content="Hexo-Theme-MengD(萌典)" />
+<meta property="og:site_name" content="Hexo-Theme-MengD(萌典)" />
+<meta property="og:description" content="一个简约优雅，及美观漂亮的主题!!" />
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo-Theme-MengD(萌典)">
+<meta name="twitter:description" content="一个简约优雅，及美观漂亮的主题!!">
+<link rel="dns-prefetch" href="http://example.com/page/4/index.html">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/index.css">
+
+
+     
+    
+   
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body id="body">
+    <div id="mask"></div>
+    
+<div class="search-dialog" id="local-search">
+    <div id="local-search-title">本地搜索</div>
+    <input id="local-search-input" autocomplete="off" placeholder="搜索文章" type="text" >
+    <hr>
+    <div id="local-search-result">
+        <div id="local-hits"></div>
+    </div>
+    <span class="search-close-button"><i class="fas fa-times"></i></span>
+</div>
+
+    
+
+
+
+
+<script>
+  document.addEventListener('pjax:complete', function () {
+    
+    
+  })
+</script>
+
+  
+    <div class="body-main" id="body-main">
+        <div id="body-wrap">
+            <nav class="site_nav" id="site_nav">
+    <i id="openNav" class="fas fa-bars"></i>
+    
+    <i class="fas fa-search search-btn"></i>
+    
+    <div id="mobileNav">
+        <div class="author-info">
+            <div>
+                <a href="/">
+                    <img src="/img/logo.gif" alt="MengD(萌典)" class="avatar">
+                    <div class="author">MengD(萌典)</div>
+                </a>
+            </div>
+            <hr>
+        </div>
+        <ul>
+        
+        </ul>
+    </div>
+    <ul>
+    
+    </ul>
+</nav>
+            <header>
+    <div class="card-content">
+        <div class="author-info">
+            <div>
+                <a href="/">
+                    <img src="/img/logo.gif" alt="MengD(萌典)" class="avatar">
+                    <div class="author">MengD(萌典)</div>
+                </a>
+            </div>
+        </div>
+        <div id="description" class="description">
+            <p>一个简约优雅，及美观漂亮的主题!!</p>
+            <div class="social-icon">
+                
+            </div>
+        </div>
+    </div>
+</header>
+            <main class="content">
+                
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/10/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A03-%E7%94%A8%E5%BE%AA%E7%8E%AF%E4%BD%BF%E4%B8%89%E4%B8%AADIV%E5%8F%98%E8%89%B2/">JavaScript小练习3-用循环使三个DIV变色</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    题目初始为黑色，点击后为红色，再次点击为黑色，以后每次点击一次变色。
+
+分析
+简单的onclick使用。
+button的居中可以在外套一个p元素，body中让p居中即可。
+三个DIV块的并排居中，外层大DIV使用margin和width，内层三个DIV也使用margin和width控制，注意margin的上下会重叠，但左右不重叠；并排用float实现。
+实现多次点击变色，需要进行判断原色，注意一般的方法（ele.style./cssText）只能读取和修改内联样式，故第一次点击时无法访问到样式表中的黑色值。这里使用switch中的default解决。
+
+效果&amp;代码效果：循环使DIV变色F12查看代码。
+
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-10</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/10/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A02-%E7%BD%91%E9%A1%B5%E6%8D%A2%E8%82%A4/">JavaScript小练习2-网页换肤</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    题目
+分析三个皮肤切换按钮的选择
+用li即可。
+
+点击显示白点
+li中嵌套一个li，onclick时改变子元素li的css
+
+onload
+当页面加载完成后立即执行一段JavaScript代码。onload 属性在对象已加载时触发。onload 常用在”body”中，一旦完全加载所有内容（包括图像、脚本文件、CSS 文件等），就执行一段脚本。
+
+在 HTML 中:
+1&lt;body onload=&quot;SomeJavaScriptCode&quot;&gt;
+在 JavaScript 中:
+1window.onload=function()&#123;SomeJavaScriptCode&#125;;
+
+
+总结在怎么显示三个并排的换肤按钮和点击显示白点这两块纠结很久，一方面想要更优雅的实现不想用嵌套div，一方面又想学习小练习1中的循环遍历思想，所以花了很久时间。其实思路很清晰，自己能力还是需要大大加强，多练习。
+
+
+疑问这里的onload不是很明白，代码中去掉onload显示是正常的，不知道这里的onload是否可有可无？
+
+
+代码效果：网页换肤
+12345678910111
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-10</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/09/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A01-%E6%8E%A7%E5%88%B6div%E5%B1%9E%E6%80%A7/">JavaScript小练习1-控制div属性</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    题目要实现的效果如图所示：查看演示
+
+分析乍一看还以为十分简单，就是简单的点击button时触发的函数来改变样式值，不过做到后面就开始打脸了——“重置”功能。其实要实现重置功能，硬做还是可以的，就是cssText=“整个style表”，但是这么做太暴力了，十分不优雅，结果看了人家的源码真的是佩服的五体投地。
+首先注意CSS的三种创建方式
+内联样式/行内样式(inline style)
+内部样式表(internal style sheet)
+外部样式表(external style sheet)
+
+JS如何获取CSS样式
+获取内联样式 12345678910111213&lt;div id =&quot;myDiv&quot; style=&quot;width:100px;height:100px;background-color:red; border:1px solid black;&quot;&gt;&lt;/div&gt;&lt;script&gt;    var myDiv = document.getElementById(&quot;myDiv&quot;);    al
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-09</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/04/06/CSS%E3%80%81JavaScript%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B/">CSS、JavaScript学习过程</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    初学JavaScript，通过博客记录自己学习过程中遇到的问题。（包含少量CSS）
+
+
+
+零碎记录JavaScript 输出
+type=”text/javascript”那些老旧的实例可能会在 &lt;script&gt; 标签中使用 type=”text/javascript”。现在已经不必这样做了。JavaScript 是所有现代浏览器以及 HTML5 中的默认脚本语言。
+脚本位置在 &lt;head&gt; 或者 &lt;body&gt; 的JavaScript外部脚本不能包含 &lt;script&gt; 标签。
+输出数据window.alert() 弹出警告框。document.write() 方法将内容写到 HTML 文档中。innerHTML 写入到 HTML 元素。console.log() 写入到浏览器的控制台。
+输出内容使用 document.write() 向文档输出写内容。如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖
+写到控制台（调试模式）使用 console.log() 方法在浏览器中显示 JavaScript 值。F
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-06</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/CSS/">
+                                    <span>CSS</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/学习笔记/">
+                                    <span>学习笔记</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+
+    <div class="pagination">
+        <a class="extend prev" rel="prev" href="/page/3/"><i class='fas fa-chevron-left fa-fw'></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    </div>
+
+<section id="rightside">
+	<div id="rightside-item">
+		<a id="darkmode" title="深色/浅色">
+			<i class="fas fa-moon"></i>
+		</a>
+		<a href="#" title="回到顶部">
+			<i class="fas fa-arrow-up"></i>
+		</a>
+	</div>
+</section>
+
+            </main>
+        </div>
+        
+        
+            <div id="toc" style="display: none;"></div>
+        
+        
+    </div>
+    <footer class="footer" id="footer">
+    <div class="copyright">
+        
+      &copy; 2020 - 2021
+        <i class="fas fa-fan"></i>
+        MengD(萌典)
+    </div>
+    <div class="framework-info">
+        <span>框架 </span>
+        <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="footer-separator">|</span>
+        <span>主题 </span>
+        <a href="https://github.com/lete114/hexo-theme-MengD" target="_blank">MengD.(萌典) </a>
+    </div>
+    
+    
+    <div class="custom-text">我相信我可以，但我一直在路上，所以我有无限的可能！！</div>
+</footer>
+    <script>
+
+        var $config = {
+            search:{
+                enable: true,
+                path: "/search.xml"
+            },
+            lazyload:{
+                enable: true,
+            },
+            CodeBlock:{
+                enable: true,
+                height: "400",
+                scrollTop: "200"
+            },
+            CDN:{
+                fancybox_js: "https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js",
+                fancybox_css: "https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css",
+                search: "/js/search.js",
+            }
+        }
+
+        
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                document.title = "(つェ⊂) 我藏好了哦~ " + originTitle;
+                clearTimeout(titleTime);
+            } else {
+                document.title = "(*´∇｀*) 被你发现啦~ " + originTitle;
+                titleTime = setTimeout(function () {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        });
+        
+        
+        
+        // 清除时间
+        var timer = null;
+        // 执行进度条
+        function ProgressStart(){
+            // 设置初始进度
+            var progress = 10;
+            // 创建进度条 及 css样式
+            $("body").append("<div class='progress'></div>")
+            // 定义随机数最大值最小值
+            var max=10,mini=3;
+            var result=max-mini;
+            // 清除
+            clearInterval(timer);
+            // 0.5秒内累加进度
+            timer = setInterval(function(){
+                // 随机数
+                var num = parseInt(Math.random()*result);
+                var randomResult = num+mini;
+                // 累加
+                progress+=randomResult
+                $("body .progress").css("width",progress+"%")
+                // 当进度达到95%时停止
+                if(progress>95)progress=95
+            },500)
+        }
+        // 加载进度条加载完毕
+        function ProgressFinish(){
+            clearInterval(timer);
+            // 页面加载完毕后进度100% 并在0.7秒后删除
+            $("body .progress").css("width","100%")
+            timer = setTimeout(function () {
+                $("body .progress").remove();
+            }, 700);
+        }
+        // 手机端
+        function Mobile(){
+            // 手机端导航栏跳转关闭
+            $("#mobileNav").css("opacity", "0")
+            $("#mobileNav").removeClass("open")
+            $("#mask").removeClass("mask")
+            // 解除手机端页面跳转无法滚动
+            $("html").css("overflow", "auto")
+            // 手机端搜索框关闭
+            $("#local-search").css("display", "none")
+        }
+        
+    </script>
+    
+<script data-pjax src="/js/lazyLoad.js"></script>
+
+
+<script data-pjax src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/main.js"></script>
+
+    
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/pjax/pjax.js"></script>
+    <script>
+        var pjax = new Pjax({
+            selectors: [
+                "head title",
+                "main.content",
+                "#toc"
+            ],
+            cache: true,
+            cacheBust: false
+        });
+
+        // 开始 PJAX 执行的函数
+		document.addEventListener('pjax:send', function () {
+            // 执行进度条
+            ProgressStart()
+        });
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+		document.addEventListener('pjax:complete', function () {
+
+            // 加载进度条加载完毕
+            ProgressFinish()
+            // 手机端
+            Mobile()
+            // 代码块复制
+            CopyContent()
+            // Fancybox
+            FancyboxFn()
+            // 深色模式
+            DarkMode()
+            // 代码块折叠
+            CodeBlock()
+            
+            
+            
+            document.querySelectorAll('script[data-pjax]').forEach(item => {
+                const newScript = document.createElement('script')
+                const content = item.text || item.textContent || item.innerHTML || ""
+                Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+                newScript.appendChild(document.createTextNode(content))
+                item.parentNode.replaceChild(newScript, item)
+            })
+        });
+
+        // Pjax请求错误时，跳转到404页面
+        document.addEventListener('pjax:error', (e) => {
+            if (e.request.status === 404) {
+                pjax.loadUrl('/404.html')
+            }
+        })
+    </script>
+
+    
+</body>
+</html>
