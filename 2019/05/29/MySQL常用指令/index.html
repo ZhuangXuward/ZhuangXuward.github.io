@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+<meta charset="utf-8">
+<meta http-equiv="content-language" content="zh-CN">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>MySQL常用指令 | 庄少华's Blog</title>
+<link rel="icon" href="/images/favicon-32x32-next.png">
+<meta name="keywords" content="学习笔记,MySQL">
+<meta name="description" content="前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。
+配置好环境变量之后就可以开始运行了。
+
+
+运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了：
+以上是本地连接，如果需要更详细的或者连接远程数据库，输入指令：mysql –u用户名 [–h主机名或者IP地址,-P端口号] –p密码，
+
+该命令是在命令行窗口下执行，而不是MySQL的命令行；
+输入-p后可以直接跟上密码，也可以按回车，会提示你输入密码，二者都是相同的效果；
+–p密码选项不一定是要在最后；
+–u、-h、-p后无空格。（端口号一般为3306，不过也可以更改）
+
+连接远程数据库时，如果无法连接，提示密码错误的话，需要更改host值为&amp;quot;%&amp;quot;，我的做法是用MySQL WorkBench客户端：
+创建数据库如下脚本创建test数据库，并且在test数据库下创建students表和classes表，以及必要的" />
+<meta property="site_name" content="庄少华's Blog" />
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://example.com/2019/05/29/MySQL常用指令/">
+<meta property="og:title" content="MySQL常用指令 | 庄少华's Blog" />
+<meta property="og:site_name" content="庄少华's Blog" />
+<meta property="og:description" content="前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。
+配置好环境变量之后就可以开始运行了。
+
+
+运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了：
+以上是本地连接，如果需要更详细的或者连接远程数据库，输入指令：mysql –u用户名 [–h主机名或者IP地址,-P端口号] –p密码，
+
+该命令是在命令行窗口下执行，而不是MySQL的命令行；
+输入-p后可以直接跟上密码，也可以按回车，会提示你输入密码，二者都是相同的效果；
+–p密码选项不一定是要在最后；
+–u、-h、-p后无空格。（端口号一般为3306，不过也可以更改）
+
+连接远程数据库时，如果无法连接，提示密码错误的话，需要更改host值为&amp;quot;%&amp;quot;，我的做法是用MySQL WorkBench客户端：
+创建数据库如下脚本创建test数据库，并且在test数据库下创建students表和classes表，以及必要的" />
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL常用指令 | 庄少华's Blog">
+<meta name="twitter:description" content="前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。
+配置好环境变量之后就可以开始运行了。
+
+
+运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了：
+以上是本地连接，如果需要更详细的或者连接远程数据库，输入指令：mysql –u用户名 [–h主机名或者IP地址,-P端口号] –p密码，
+
+该命令是在命令行窗口下执行，而不是MySQL的命令行；
+输入-p后可以直接跟上密码，也可以按回车，会提示你输入密码，二者都是相同的效果；
+–p密码选项不一定是要在最后；
+–u、-h、-p后无空格。（端口号一般为3306，不过也可以更改）
+
+连接远程数据库时，如果无法连接，提示密码错误的话，需要更改host值为&amp;quot;%&amp;quot;，我的做法是用MySQL WorkBench客户端：
+创建数据库如下脚本创建test数据库，并且在test数据库下创建students表和classes表，以及必要的">
+<link rel="dns-prefetch" href="http://example.com/2019/05/29/MySQL常用指令/">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/index.css">
+
+
+     
+    
+   
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body id="body">
+    <div id="mask"></div>
+    
+<div class="search-dialog" id="local-search">
+    <div id="local-search-title">本地搜索</div>
+    <input id="local-search-input" autocomplete="off" placeholder="搜索文章" type="text" >
+    <hr>
+    <div id="local-search-result">
+        <div id="local-hits"></div>
+    </div>
+    <span class="search-close-button"><i class="fas fa-times"></i></span>
+</div>
+
+    
+
+
+
+
+<script>
+  document.addEventListener('pjax:complete', function () {
+    
+    
+  })
+</script>
+
+  
+    <div class="body-main" id="body-main">
+        <div id="body-wrap">
+            <nav class="site_nav" id="site_nav">
+    <i id="openNav" class="fas fa-bars"></i>
+    
+    <i class="fas fa-search search-btn"></i>
+    
+    <div id="mobileNav">
+        <div class="author-info">
+            <div>
+                <a href="/">
+                    <img src="/images/avatar.jpg" alt="ZhuangXuward" class="avatar">
+                    <div class="author">ZhuangXuward</div>
+                </a>
+            </div>
+            <hr>
+        </div>
+        <ul>
+        
+            
+            <li><a href="/">首页</a></li>
+            
+        
+            
+            <li><a href="/tags">标签</a></li>
+            
+        
+            
+            <li><a href="/categories">分类</a></li>
+            
+        
+            
+            <li><a href="/link">友情链接</a></li>
+            
+        
+            
+            <li><a href="/about">关于我</a></li>
+            
+        
+        </ul>
+    </div>
+    <ul>
+    
+            
+            <li><a href="/">首页</a></li>
+            
+        
+            
+            <li><a href="/tags">标签</a></li>
+            
+        
+            
+            <li><a href="/categories">分类</a></li>
+            
+        
+            
+            <li><a href="/link">友情链接</a></li>
+            
+        
+            
+            <li><a href="/about">关于我</a></li>
+            
+        
+    </ul>
+</nav>
+            <header>
+    <div class="card-content">
+        <div class="author-info">
+            <div>
+                <a href="/">
+                    <img src="/images/avatar.jpg" alt="ZhuangXuward" class="avatar">
+                    <div class="author">ZhuangXuward</div>
+                </a>
+            </div>
+        </div>
+        <div id="description" class="description">
+            <p>Stay hungry, stay foolish.</p>
+            <div class="social-icon">
+                
+                    <a target="_blank" rel="noopener" href="https://github.com/ZhuangXuward"><i class="fab fa-github"></i></a>
+                
+                    <a href="mailto:zhuangshh@mail2.sysu.edu.cn"><i class="fa fa-envelope"></i></a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+            <main class="content">
+                
+    
+        <article class="post">
+            <div class="post-title">
+              <h2 class="title">MySQL常用指令</h2>
+            </div>
+             
+             <div class="post-meta">
+                <div class="meta-firstline">
+                    <span class="post-meta-date">
+                        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+                        <span class="post-meta-label">发表于 2019-05-29 | </span>
+                        
+                        <i class="fas fa-history fa-fw post-meta-icon"></i>
+                        <span class="post-meta-label">更新于 2021-05-17</span>
+                    </span>
+                </div>
+                <div class="meta-secondline"> 
+                    <span class="post-meta-wordcount">
+                        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+                        <span class="post-meta-label">总字数:</span>
+                        <span class="word-count">5.6k | </span>
+                        <i class="far fa-clock fa-fw post-meta-icon"></i>
+                        <span class="post-meta-label">阅读时长:</span>
+                        <span>29分钟</span>
+                        
+                        <!-- | <i class="far fa-eye fa-fw post-meta-icon"></i> -->
+                        <!-- <span id="/2019/05/29/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/" class="leancloud_visitors">
+                            <span class="post-meta-label">阅读量:</span>
+                            <span class="leancloud-visitors-count" id="twikoo_visitors">0</span>
+                        </span> -->
+                        
+                    </span>
+                </div>
+            </div>
+             
+            <div class="post-content">
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。</p>
+<p>配置好环境变量之后就可以开始运行了。</p>
+<br/>
+
+<h1 id="运行MySQL"><a href="#运行MySQL" class="headerlink" title="运行MySQL"></a>运行MySQL</h1><p>直接打开命令行输入<code>mysql -u root -p</code>，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了：<br><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/05/29/VKVihn.png" alt="如图显示连接MySQL服务器成功" class="lazyload"></p>
+<p>以上是<code>本地连接</code>，如果需要更详细的或者连接远程数据库，输入指令：<br><code>mysql –u用户名 [–h主机名或者IP地址,-P端口号] –p密码</code>，</p>
+<ol>
+<li>该命令是在命令行窗口下执行，而不是MySQL的命令行；</li>
+<li>输入-p后可以直接跟上密码，也可以按回车，会提示你输入密码，二者都是相同的效果；</li>
+<li>–p密码选项不一定是要在最后；</li>
+<li>–u、-h、-p后无空格。（端口号一般为3306，不过也可以更改）</li>
+</ol>
+<p><code>连接远程数据库时</code>，如果无法连接，提示密码错误的话，需要<code>更改host值为&quot;%&quot;</code>，我的做法是用MySQL WorkBench客户端：<br><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/05/29/VKV6u8.png" alt="如图所示操作，修改为&quot;%&quot;" class="lazyload"><br><br /></p>
+<h1 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h1><p>如下脚本创建<code>test数据库</code>，并且在test数据库下创建<code>students表</code>和<code>classes表</code>，以及必要的初始化数据。源自<a target="_blank" rel="noopener" href="https://github.com/michaelliao/learn-sql/edit/master/mysql/init-test-data.sql">廖雪峰</a>。</p>
+<p>可以作为一个创建的范本：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 如果test数据库不存在，就创建test数据库：</span></span><br><span class="line"><span class="keyword">CREATE</span> DATABASE IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> test;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 切换到test数据库</span></span><br><span class="line">USE test;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除classes表和students表（如果存在）：</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> classes;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> students;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建classes表：</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> classes (</span><br><span class="line">    id <span class="type">BIGINT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建students表：</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> students (</span><br><span class="line">    id <span class="type">BIGINT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    class_id <span class="type">BIGINT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    gender <span class="type">VARCHAR</span>(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    score <span class="type">INT</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入classes记录：</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> classes(id, name) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;一班&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> classes(id, name) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="string">&#x27;二班&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> classes(id, name) <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="string">&#x27;三班&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> classes(id, name) <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="string">&#x27;四班&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入students记录：</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="number">1</span>, <span class="string">&#x27;小明&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="number">90</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="number">1</span>, <span class="string">&#x27;小红&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="number">95</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">3</span>, <span class="number">1</span>, <span class="string">&#x27;小军&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="number">88</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">4</span>, <span class="number">1</span>, <span class="string">&#x27;小米&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="number">73</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="number">2</span>, <span class="string">&#x27;小白&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="number">81</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">6</span>, <span class="number">2</span>, <span class="string">&#x27;小兵&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="number">55</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">7</span>, <span class="number">2</span>, <span class="string">&#x27;小林&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="number">85</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">8</span>, <span class="number">3</span>, <span class="string">&#x27;小新&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="number">91</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">9</span>, <span class="number">3</span>, <span class="string">&#x27;小王&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="number">89</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> students (id, class_id, name, gender, score) <span class="keyword">VALUES</span> (<span class="number">10</span>, <span class="number">3</span>, <span class="string">&#x27;小丽&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="number">85</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- OK:</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">&#x27;ok&#x27;</span> <span class="keyword">as</span> <span class="string">&#x27;result:&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<br />
+
+
+<h1 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h1><h2 id="基本查询"><a href="#基本查询" class="headerlink" title="基本查询"></a>基本查询</h2><p><code>SELECT * FROM &lt;表名&gt;</code></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> students;</span><br></pre></td></tr></table></figure></div>
+<p><code>*</code>表示“完整的整个二维表”/“所有列”，<code>from</code>表示从哪个表查询。</p>
+<p><code>SELECT语句</code>其实并不要求一定要有<code>FROM</code>子句：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="number">100</span><span class="operator">+</span><span class="number">200</span>;<span class="operator">/</span><span class="operator">/</span>返回<span class="number">300</span></span><br></pre></td></tr></table></figure></div>
+<p>上述查询会直接计算出表达式的结果。虽然SELECT可以用作计算，但它并不是SQL的强项。但是，<code>不带FROM子句的SELECT语句</code>有一个有用的用途，就是用来<code>判断当前到数据库的连接是否有效</code>。许多检测工具会执行一条<code>SELECT 1;</code>来测试数据库连接。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>使用SELECT查询的基本语句<code>SELECT * FROM &lt;表名&gt;</code>可以查询一个表的所有行和所有列的数据。</p>
+<p>SELECT查询的结果是一个<code>二维表</code>。</p>
+<br/>
+
+<h2 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h2><p><code>SELECT * FROM &lt;表名&gt; WHERE &lt;条件表达式&gt;</code><br>可以多个条件：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> students <span class="keyword">where</span> score <span class="operator">&gt;=</span> <span class="number">80</span> <span class="keyword">and</span> score <span class="operator">&lt;=</span> <span class="number">90</span>;</span><br></pre></td></tr></table></figure></div>
+<h3 id="常用条件表达式"><a href="#常用条件表达式" class="headerlink" title="常用条件表达式"></a>常用条件表达式</h3><table>
+<thead>
+<tr>
+<th align="center">条件</th>
+<th align="center">表达式举例</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">使用=判断相等</td>
+<td align="center">score = 80</td>
+<td align="center">字符串需要用单引号括起来</td>
+</tr>
+<tr>
+<td align="center">使用&gt;判断大于</td>
+<td align="center">score &gt; 80</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">使用&gt;=判断大于或相等</td>
+<td align="center">score &gt;= 80</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">使用&lt;判断小于</td>
+<td align="center">score &lt; 80</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">使用&lt;=判断小于或相等</td>
+<td align="center">score &lt;= 80</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">使用&lt;&gt;判断不相等    /not</td>
+<td align="center">score &lt;&gt; 80/not score = 80</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">使用LIKE判断相似</td>
+<td align="center">name LIKE ‘ab%’/name LIKE ‘%bc%’</td>
+<td align="center">%表示任意字符，例如’ab%’将匹配’ab’，’abc’，’abcd’</td>
+</tr>
+</tbody></table>
+<p>加上<code>括号</code>可以改变优先级。</p>
+<br/>
+
+<h2 id="投影查询"><a href="#投影查询" class="headerlink" title="投影查询"></a>投影查询</h2><p>如果我们只希望返回<code>某些列的数据</code>，而不是所有列的数据，我们可以用<code>SELECT 列1, 列2, 列3 FROM ...</code>，让结果集仅包含指定列。这种操作称为投影查询。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, score, name <span class="keyword">FROM</span> students;</span><br></pre></td></tr></table></figure></div>
+
+<p>使用SELECT 列1, 列2, 列3 FROM …时，还可以给每一列起个<code>别名</code>，这样，结果集的列名就可以与原表的列名不同。它的语法是<code>SELECT 列1 别名1, 列2 别名2, 列3 别名3 FROM ...</code>。</p>
+<p>例如，以下SELECT语句将列名score重命名为points，而id和name列名保持不变：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, score points, name <span class="keyword">FROM</span> students;</span><br></pre></td></tr></table></figure></div>
+
+<br/>
+
+<h2 id="将结果排序显示"><a href="#将结果排序显示" class="headerlink" title="将结果排序显示"></a>将结果排序显示</h2><p>我们使用SELECT查询时，查询结果集通常是按照id排序的，也就是根据主键排序。这也是大部分数据库的做法。如果我们要<code>根据其他条件排序</code>怎么办？可以加上<code>ORDER BY</code>子句。例如按照成绩从低到高进行排序：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, name, gender, score <span class="keyword">FROM</span> students <span class="keyword">ORDER</span> <span class="keyword">BY</span> score;</span><br></pre></td></tr></table></figure></div>
+
+<p>默认是<code>升序asc</code>，如果要反过来，按照成绩从高到底排序，我们可以加上<code>DESC</code>表示<code>“倒序”</code>：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, name, gender, score <span class="keyword">FROM</span> students <span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></div>
+
+<br/>
+
+<h2 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h2><p>使用SELECT查询时，如果结果集数据量很大，比如几万行数据，放在一个页面显示的话数据量太大，不如分页显示，每次显示100条。</p>
+<p>要实现分页功能，实际上就是从结果集中显示第1-100条记录作为第1页，显示第101-200条记录作为第2页，以此类推。</p>
+<p>因此，分页实际上就是从结果集中“截取”出第M~N条记录。这个查询可以通过<code>LIMIT &lt;M&gt; OFFSET &lt;N&gt;</code>子句实现。</p>
+<p>把结果集分页，每页3条记录。要获取第1页的记录，可以使用<code>LIMIT 3 OFFSET 0</code>：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, name, gender, score</span><br><span class="line"><span class="keyword">FROM</span> students</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> score <span class="keyword">DESC</span></span><br><span class="line">LIMIT <span class="number">3</span> <span class="keyword">OFFSET</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure></div>
+
+<p><code>LIMIT</code>总是设定为<code>pageSize</code>；<br><code>OFFSET</code>计算公式为<code>pageSize * (pageIndex - 1)</code>。</p>
+<br/>
+
+<p><strong>更新2019.6.5</strong></p>
+<p>关于limit的两种指令：</p>
+<ol>
+<li><p>select * from table1 limit m,n; 跳过m个记录向后取n条数据</p>
+</li>
+<li><p>select * from table1 limit m offset n; 以n为偏移量（从0开始）开始，取m个记录</p>
+</li>
+</ol>
+<br/>
+
+<h2 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h2><p>COUNT(*)表示查询所有列的行数，要注意聚合的计算结果虽然是一个数字，但查询的结果仍然是一个二维表，只是这个二维表只有一行一列，并且列名是COUNT(*)。</p>
+<p>通常，使用聚合查询时，我们应该给列名设置一个<code>别名</code>，便于处理结果：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) num <span class="keyword">FROM</span> students;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(id) num <span class="keyword">FROM</span> students;<span class="operator">/</span><span class="operator">/</span>效果相同</span><br></pre></td></tr></table></figure></div>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">SUM</td>
+<td align="center">计算某一列的合计值，该列必须为数值类型</td>
+</tr>
+<tr>
+<td align="center">AVG</td>
+<td align="center">计算某一列的平均值，该列必须为数值类型</td>
+</tr>
+<tr>
+<td align="center">MAX</td>
+<td align="center">计算某一列的最大值</td>
+</tr>
+<tr>
+<td align="center">MIN</td>
+<td align="center">计算某一列的最小值</td>
+</tr>
+</tbody></table>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><p><code>group by</code><br>查询男女同学分别的平均分：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> gender, <span class="built_in">avg</span>(score) average <span class="keyword">from</span> students <span class="keyword">group</span> <span class="keyword">by</span> gender;</span><br></pre></td></tr></table></figure></div>
+<p><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/05/30/VKuUfJ.png" class="lazyload"></p>
+<br/>
+
+<h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><p>多表查询时，通过外键将一个表和另外一个表相关联，并显示两张表的内容。</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Sql"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.id, s.name, s.class_id, c.name class_name, s.gender, s.score</span><br><span class="line"><span class="keyword">FROM</span> students s</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> classes c</span><br><span class="line"><span class="keyword">ON</span> s.class_id <span class="operator">=</span> c.id;</span><br></pre></td></tr></table></figure></div>
+<p><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/05/30/VKu061.png" class="lazyload"></p>
+<ol>
+<li>先确定<code>主表</code>，仍然使用FROM &lt;表1&gt;的语法；</li>
+<li>再确定<code>需要连接的表</code>，使用<code>INNER JOIN</code> &lt;表2&gt;的语法；</li>
+<li>然后确定连接条件，使用<code>ON</code> &lt;条件…&gt;，这里的条件是s.class_id = c.id，表示students表的class_id列与classes表的id列相同的行需要连接；</li>
+<li>可选：加上WHERE子句、ORDER BY等子句。</li>
+</ol>
+<p>注意区分几个连接语句：</p>
+<ol>
+<li><code>inner join</code>返回同时存在于两张表的行数据；</li>
+<li><code>left outer join</code>返回左表都存在的行；</li>
+<li><code>right outer join</code>返回右表都存在的行。</li>
+</ol>
+<br />
+
+<h1 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h1><p>关系数据库的基本操作就是<code>增删改查</code>，即<code>CRUD：Create、Retrieve、Update、Delete</code>。其中，对于查询，就是前面的select。</p>
+<h2 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h2><p><code>INSERT INTO &lt;表名&gt; (字段1, 字段2, ...) VALUES (值1, 值2, ...);</code><br><br /></p>
+<h2 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h2><p><code>UPDATE &lt;表名&gt; SET 字段1=值1, 字段2=值2, ... WHERE ...;</code><br><br /></p>
+<h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><p><code>DELETE FROM &lt;表名&gt; WHERE ...;</code><br><br /></p>
+<h1 id="JSP连接数据库"><a href="#JSP连接数据库" class="headerlink" title="JSP连接数据库"></a>JSP连接数据库</h1><p>这里记录几个例子。</p>
+<h2 id="登录注册"><a href="#登录注册" class="headerlink" title="登录注册"></a>登录注册</h2><p><strong>login.jsp:</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;backgroundpic&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &lt;div id=&quot;logInWrap&quot;&gt;</span><br><span class="line">        &lt;div id=&quot;logInContain&quot;&gt;</span><br><span class="line">            &lt;h1&gt;登录&lt;/h1&gt;</span><br><span class="line">            &lt;form action=&quot;loginCheck.jsp&quot; method=&quot;POST&quot; name=&quot;formLogin&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;text&quot; placeholder=&quot;昵称/邮箱&quot; name=&quot;name&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;password&quot; placeholder=&quot;密码&quot; name=&quot;password&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;button&quot; value=&quot;登录&quot; onclick=&quot;doCheck_logIn()&quot;&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">            &lt;p&gt;还没有帐号？&lt;a href=&quot;signup.jsp&quot;&gt;前往注册&lt;/a&gt;&lt;/p&gt;</span><br><span class="line">		    &lt;%  </span><br><span class="line">		    String flag = request.getParameter(&quot;errNo&quot;);  </span><br><span class="line">		    try&#123;</span><br><span class="line">		         if(flag!=null)</span><br><span class="line">		            out.println(&quot;&lt;span id=&#x27;loginMsg&#x27;&gt;用户名不存在或密码错误&lt;/span&gt;&quot;);</span><br><span class="line">		    &#125;catch(Exception e)&#123;</span><br><span class="line">		        e.printStackTrace();</span><br><span class="line">		    &#125;</span><br><span class="line">		   %&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;span id=&quot;logInBack&quot;&gt;&lt;a href=&quot;Index.html&quot;&gt;返回&lt;/a&gt;&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure></div>
+
+<br/>
+
+<p><strong>loginCheck.jsp：</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span> contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span>%&gt;</span><br><span class="line">&lt;% request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">    <span class="built_in">String</span> msg=<span class="string">&quot;&quot;</span>; </span><br><span class="line">    <span class="built_in">String</span> pwd=<span class="string">&quot;&quot;</span>, name=<span class="string">&quot;&quot;</span>;<span class="comment">//数据库中保存的密码和用户名</span></span><br><span class="line">    <span class="built_in">String</span> conStr = <span class="string">&quot;jdbc:mysql://172.18.187.10:53306/blog_15336202&quot;</span></span><br><span class="line">    + <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> userName = request.getParameter(<span class="string">&quot;name&quot;</span>); <span class="comment">//从登录页面post过来的用户名和密码</span></span><br><span class="line">    <span class="built_in">String</span> userPwd = request.getParameter(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>); <span class="comment">// 查找数据库驱动类</span></span><br><span class="line">        Connection con=DriverManager.getConnection(conStr, <span class="string">&quot;user&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line">        Statement stmt=con.createStatement(); <span class="comment">//创建MySQL语句的对象</span></span><br><span class="line">        ResultSet rs=stmt.executeQuery(<span class="string">&quot;select * from users where (name = &#x27;&quot;</span> + userName + <span class="string">&quot;&#x27; or email = &#x27;&quot;</span> + userName + <span class="string">&quot;&#x27;) and password = &#x27;&quot;</span> + userPwd + <span class="string">&quot;&#x27;&quot;</span>);<span class="comment">//执行查询，返回结果集</span></span><br><span class="line">        <span class="keyword">if</span>(rs.next()) &#123; <span class="comment">//把游标(cursor)移至第一个或下一个记录</span></span><br><span class="line">            response.sendRedirect(<span class="string">&quot;loGinsuccess.jsp?username=&quot;</span> + userName); <span class="comment">//密码正确跳转loGinsuccess.jsp</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            response.sendRedirect(<span class="string">&quot;login.jsp?errNo&quot;</span>);<span class="comment">//密码不对返回到登陆  </span></span><br><span class="line">        &#125;</span><br><span class="line">    rs.close(); stmt.close(); con.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        msg = e.getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure></div>
+
+<br/>
+
+<p><strong>loGinsuccess.jsp：</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*&quot;</span> contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span>%&gt;</span><br><span class="line">&lt;%request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);%&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>登录成功界面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>登录成功！！！<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure></div>
+
+
+<br/>
+
+<p><strong>signup.jsp：</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span> contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span>%&gt;</span><br><span class="line">&lt;% request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line"><span class="built_in">String</span> msg = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="built_in">String</span> connectString = <span class="string">&quot;jdbc:mysql://172.18.187.10:53306/blog_15336202&quot;</span> + <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&quot;</span>;</span><br><span class="line"><span class="built_in">String</span> user=<span class="string">&quot;user&quot;</span>; <span class="built_in">String</span> pwd=<span class="string">&quot;123&quot;</span>;</span><br><span class="line"><span class="built_in">String</span> username = request.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line"><span class="built_in">String</span> password = request.getParameter(<span class="string">&quot;password&quot;</span>);</span><br><span class="line"><span class="built_in">String</span> email = request.getParameter(<span class="string">&quot;email&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (request.getMethod().equalsIgnoreCase(<span class="string">&quot;post&quot;</span>))&#123;</span><br><span class="line">    Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">    Connection con = DriverManager.getConnection(connectString,user, pwd);</span><br><span class="line">    Statement stmt = con.createStatement();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="built_in">String</span> fmt=<span class="string">&quot;insert into users(name,password,email) values(&#x27;%s&#x27;, &#x27;%s&#x27;, &#x27;%s&#x27;)&quot;</span>;</span><br><span class="line">        <span class="built_in">String</span> sql = <span class="built_in">String</span>.format(fmt,username,password, email);</span><br><span class="line">        int cnt = stmt.executeUpdate(sql);</span><br><span class="line">        <span class="keyword">if</span> (cnt &gt; <span class="number">0</span>)</span><br><span class="line">            msg = <span class="string">&quot;注册成功!&quot;</span>;</span><br><span class="line">        stmt.close(); con.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        msg = e.getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">%&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;注册&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;js/loginAndRegister.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;backgroundpic&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;signUpWrap&quot;&gt;</span><br><span class="line">        &lt;div id=&quot;signUpContain&quot;&gt;</span><br><span class="line">            &lt;h1&gt;注册&lt;/h1&gt;</span><br><span class="line">            &lt;form action=&quot;signup.jsp&quot; method=&quot;post&quot; name=&quot;formRegister&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;text&quot; placeholder=&quot;昵称&quot; name=&quot;name&quot; id=&quot;username&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;text&quot; placeholder=&quot;邮箱&quot; name=&quot;email&quot; id=&quot;email&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;password&quot; placeholder=&quot;密码&quot; name=&quot;password&quot; id=&quot;password&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;password&quot; placeholder=&quot;确认密码&quot; name=&quot;password2&quot; id=&quot;password2&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;button&quot; value=&quot;注册&quot; onclick=&quot;doCheck_Register()&quot;&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">            &lt;p&gt;已有帐号？&lt;a href=&quot;login.jsp&quot;&gt;前往登录&lt;/a&gt;&lt;/p&gt;</span><br><span class="line">            &lt;span id=&quot;registerMsg&quot;&gt;&lt;%=msg%&gt;&lt;span&gt;</span><br><span class="line">        &lt;/div&gt;   </span><br><span class="line">        &lt;span id=&quot;signUpBack&quot;&gt;&lt;a href=&quot;Index.html&quot;&gt;返回&lt;/a&gt;&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+<br/>
+
+<p><strong>注册和登录检查函数：</strong></p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//注册检查函数：验证是否输入完全，两次输入的密码是否相同。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doCheck_Register</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> inPut = <span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;div#signUpContain form input&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; inPut.length - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (inPut[i].value == <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">            alert(<span class="string">&quot;请输入 &quot;</span> + inPut[i].placeholder);</span><br><span class="line">            <span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;div#signUpContain form input&quot;</span>)[i].focus();</span><br><span class="line">            flag++;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> pass1 = <span class="built_in">document</span>.querySelector(<span class="string">&quot;div#signUpContain form input#password&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> pass2 = <span class="built_in">document</span>.querySelector(<span class="string">&quot;div#signUpContain form input#password2&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(flag == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pass1.value != pass2.value) &#123;</span><br><span class="line">            alert(<span class="string">&quot;两次密码不相同！&quot;</span>)</span><br><span class="line">            <span class="built_in">document</span>.querySelector(<span class="string">&quot;div#signUpContain form input#password2&quot;</span>).focus();</span><br><span class="line">            flag++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="number">0</span>) &#123;</span><br><span class="line">        formRegister.submit();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//登录检查函数：验证是否输入，否则提示输入。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doCheck_logIn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> inPut = <span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;div#logInContain form input&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; inPut.length - <span class="number">1</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (inPut[i].value == <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">            alert(<span class="string">&quot;请输入 &quot;</span> + inPut[i].placeholder);</span><br><span class="line">            <span class="built_in">document</span>.querySelectorAll(<span class="string">&quot;div#logInContain form input&quot;</span>)[i].focus();</span><br><span class="line">            flag++;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="number">0</span>) &#123;</span><br><span class="line">        formLogin.submit();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<br/>
+
+<h2 id="数据库查询、更新、新建、删除"><a href="#数据库查询、更新、新建、删除" class="headerlink" title="数据库查询、更新、新建、删除"></a>数据库查询、更新、新建、删除</h2><h3 id="browseStu-jsp-代码"><a href="#browseStu-jsp-代码" class="headerlink" title="browseStu.jsp 代码"></a>browseStu.jsp 代码</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Html"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; import=&quot;java.util.*,java.sql.*&quot; </span><br><span class="line">         contentType=&quot;text/html; charset=utf-8&quot;</span><br><span class="line">%&gt;&lt;%</span><br><span class="line">	request.setCharacterEncoding(&quot;utf-8&quot;);</span><br><span class="line">	String msg =&quot;&quot;;</span><br><span class="line">	Integer pgno = 0; //current page number</span><br><span class="line">	Integer pgcnt = 4; //the number of rows of each page</span><br><span class="line">	String param = request.getParameter(&quot;pgno&quot;);</span><br><span class="line">	if(param != null &amp;&amp; !param.isEmpty())&#123;</span><br><span class="line">		pgno = Integer.parseInt(param);</span><br><span class="line">	&#125;</span><br><span class="line">	param = request.getParameter(&quot;pgcnt&quot;);</span><br><span class="line">	if(param != null &amp;&amp; !param.isEmpty())&#123;</span><br><span class="line">		pgcnt = Integer.parseInt(param);</span><br><span class="line">	&#125;</span><br><span class="line">	int pgprev = (pgno&gt;0)?pgno-1:0;</span><br><span class="line">	int pgnext = pgno+1;</span><br><span class="line">	String connectString = &quot;jdbc:mysql://172.18.187.6:3306/teaching&quot;</span><br><span class="line">					+ &quot;?autoReconnect=true&amp;useUnicode=true&quot;</span><br><span class="line">					+ &quot;&amp;characterEncoding=UTF-8&quot;; </span><br><span class="line">        StringBuilder table=new StringBuilder(&quot;&quot;);</span><br><span class="line">	try&#123;</span><br><span class="line">	  Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">	  Connection con=DriverManager.getConnection(connectString, </span><br><span class="line">	                 &quot;user&quot;, &quot;123&quot;);</span><br><span class="line">	  Statement stmt=con.createStatement();</span><br><span class="line">		String sql=String.format(&quot;select*from stu16337344 limit %d,%d&quot;, pgno*pgcnt,pgcnt);</span><br><span class="line">	  ResultSet rs=stmt.executeQuery(sql);</span><br><span class="line">		table.append(&quot;<span class="tag">&lt;<span class="name">table</span>&gt;</span><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>id<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>学号<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;<span class="name">th</span>&gt;</span>姓名<span class="tag">&lt;/<span class="name">th</span>&gt;</span>&quot;+&quot;<span class="tag">&lt;<span class="name">th</span>&gt;</span>-<span class="tag">&lt;/<span class="name">th</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span>&quot;);</span><br><span class="line"></span><br><span class="line">	  while(rs.next()) &#123;</span><br><span class="line">            table.append(String.format(</span><br><span class="line">                &quot;<span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>%s<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>%s<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>%s<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">td</span>&gt;</span>%s %s<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span>&quot;,</span><br><span class="line">                rs.getString(&quot;id&quot;),rs.getString(&quot;num&quot;),rs.getString(&quot;name&quot;),</span><br><span class="line">                &quot;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#x27;updateStu.jsp?pid=&quot;+rs.getString(&quot;id&quot;)+&quot;&#x27;</span>&gt;</span>修改<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&quot;,</span><br><span class="line">                &quot;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#x27;deleteStu.jsp?pid=&quot;+rs.getString(&quot;id&quot;)+&quot;&#x27;</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">a</span>&gt;</span>&quot;</span><br><span class="line">                )</span><br><span class="line">            );</span><br><span class="line">		&#125;</span><br><span class="line">		table.append(&quot;<span class="tag">&lt;/<span class="name">table</span>&gt;</span>&quot;);</span><br><span class="line">        rs.close();</span><br><span class="line">        stmt.close();</span><br><span class="line">        con.close();</span><br><span class="line">        &#125;</span><br><span class="line">	catch (Exception e)&#123;</span><br><span class="line">	  msg = e.getMessage();</span><br><span class="line">	&#125;</span><br><span class="line">%&gt;<span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>浏览学生名单<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"><span class="selector-tag">table</span>&#123;</span></span><br><span class="line"><span class="css"><span class="attribute">border-collapse</span>: collapse;</span></span><br><span class="line"><span class="css"><span class="attribute">border</span>: none;</span></span><br><span class="line"><span class="css"><span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">td</span>,<span class="selector-tag">th</span>&#123;</span></span><br><span class="line"><span class="css"><span class="attribute">border</span>: solid grey <span class="number">1px</span>;</span></span><br><span class="line"><span class="css"><span class="attribute">margin</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>;</span></span><br><span class="line"><span class="css"><span class="attribute">padding</span>: <span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span> <span class="number">5px</span></span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span>,<span class="selector-tag">a</span><span class="selector-pseudo">:visited</span>&#123;</span></span><br><span class="line"><span class="css"><span class="attribute">color</span>:blue</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-class">.container</span>&#123;</span></span><br><span class="line"><span class="css"><span class="attribute">margin</span>:<span class="number">0</span> auto;</span></span><br><span class="line"><span class="css"><span class="attribute">width</span>:<span class="number">500px</span>;</span></span><br><span class="line"><span class="css"><span class="attribute">text-align</span>:center;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">div</span><span class="selector-id">#wrap</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">	<span class="attribute">margin</span>: <span class="number">0</span> auto;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="attribute">margin-left</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="css">&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">h1</span>&gt;</span>浏览学生名单<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>  </span><br><span class="line">			&lt;%=table%&gt;<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span>  </span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;float: left&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;addStu.jsp&quot;</span>&gt;</span>新增<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;float: left&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;queryStu.jsp&quot;</span>&gt;</span>查询<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;float: right&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;browseStu.jsp?pgno=&lt;%=pgprev%&gt;&amp;pgcnt=&lt;%=pgcnt%&gt;&quot;</span>&gt;</span>上一页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;browseStu.jsp?pgno=&lt;%=pgnext%&gt;&amp;pgcnt=&lt;%=pgcnt%&gt;&quot;</span>&gt;</span>下一页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="updateStu-jsp-代码"><a href="#updateStu-jsp-代码" class="headerlink" title="updateStu.jsp 代码"></a>updateStu.jsp 代码</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span></span><br><span class="line">contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span>%&gt;</span><br><span class="line">&lt;% request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">    <span class="built_in">String</span> msg = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> connectString = <span class="string">&quot;jdbc:mysql://172.18.187.6:3306/teaching&quot;</span></span><br><span class="line">    + <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> user=<span class="string">&quot;user&quot;</span>; <span class="built_in">String</span> pwd=<span class="string">&quot;123&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> pid = request.getParameter(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line">    <span class="built_in">String</span> num = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> name = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">    Connection con = DriverManager.getConnection(connectString,user, pwd);</span><br><span class="line">    Statement stmt = con.createStatement();</span><br><span class="line">    <span class="keyword">if</span>(request.getMethod().equalsIgnoreCase(<span class="string">&quot;post&quot;</span>))&#123;</span><br><span class="line">        num = request.getParameter(<span class="string">&quot;num&quot;</span>);</span><br><span class="line">        name = request.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        int cnt = stmt.executeUpdate(<span class="string">&quot;update stu16337344 set num=&#x27;&quot;</span>+num+<span class="string">&quot;&#x27;, name=&#x27;&quot;</span>+name+<span class="string">&quot;&#x27; where id=&#x27;&quot;</span>+pid+<span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (cnt&gt;<span class="number">0</span>) msg = <span class="string">&quot;保存成功!&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            msg = e.getMessage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        ResultSet rss=stmt.executeQuery(<span class="string">&quot;select * from stu16337344 where id=&#x27;&quot;</span>+ pid +<span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(rss.next()) &#123;</span><br><span class="line">        num = rss.getString(<span class="string">&quot;num&quot;</span>);</span><br><span class="line">        name = rss.getString(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    rss.close();</span><br><span class="line">    &#125;</span><br><span class="line">	stmt.close();</span><br><span class="line">	con.close();</span><br><span class="line"></span><br><span class="line">%&gt;</span><br><span class="line">&lt;!DOCTYPEHTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;修改学生记录&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    a:link, a:visited &#123;</span><br><span class="line">        color: blue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .container &#123;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        width: 500px;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    input &#123;</span><br><span class="line">        margin-bottom: 10px;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=&quot;container&quot;&gt;</span><br><span class="line">        &lt;h1&gt;修改学生记录&lt;/h1&gt;</span><br><span class="line">        &lt;form action=&quot;updateStu.jsp?pid=&lt;%=pid%&gt;&quot; method=&quot;post&quot; name=&quot;f&quot;&gt;</span><br><span class="line">            学号:&lt;input id=&quot;num&quot; name=&quot;num&quot; type=&quot;text&quot; value=&#x27;&lt;%=num%&gt;&#x27;&gt; &lt;br/&gt;</span><br><span class="line">            姓名:&lt;input id=&quot;name&quot; type=&quot;text&quot; name=&quot;name&quot; value=&#x27;&lt;%=name%&gt;&#x27;&gt; &lt;br/&gt;</span><br><span class="line">            &lt;input type=&quot;submit&quot; name=&quot;sub&quot; value=&quot;修改&quot;&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">        &lt;%=msg%&gt;</span><br><span class="line">        &lt;a href=&#x27;browseStu.jsp&#x27;&gt;返回&lt;/a&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="deleteStu-jsp-代码"><a href="#deleteStu-jsp-代码" class="headerlink" title="deleteStu.jsp 代码"></a>deleteStu.jsp 代码</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span></span><br><span class="line">contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span>%&gt;</span><br><span class="line">&lt;% request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">    <span class="built_in">String</span> msg = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> connectString = <span class="string">&quot;jdbc:mysql://172.18.187.6:3306/teaching&quot;</span></span><br><span class="line">    + <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> user=<span class="string">&quot;user&quot;</span>; <span class="built_in">String</span> pwd=<span class="string">&quot;123&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> pid = request.getParameter(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line">    <span class="built_in">String</span> num = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> name = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">    Connection con = DriverManager.getConnection(connectString,user, pwd);</span><br><span class="line">    Statement stmt = con.createStatement();</span><br><span class="line">    <span class="keyword">if</span>(!request.getMethod().equalsIgnoreCase(<span class="string">&quot;post&quot;</span>))&#123;</span><br><span class="line">        num = request.getParameter(<span class="string">&quot;num&quot;</span>);</span><br><span class="line">        name = request.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        int cnt = stmt.executeUpdate(<span class="string">&quot;delete from stu16337344 where id=&#x27;&quot;</span>+pid+<span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (cnt&gt;<span class="number">0</span>) msg = <span class="string">&quot;delete 成功!&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            msg = e.getMessage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	stmt.close();</span><br><span class="line">	con.close();</span><br><span class="line"></span><br><span class="line">%&gt;</span><br><span class="line">&lt;!DOCTYPEHTML&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">title</span>&gt;</span>删除学生记录<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span></span><br><span class="line"><span class="css"><span class="xml">    <span class="selector-tag">a</span><span class="selector-pseudo">:link</span>, <span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;</span></span></span><br><span class="line"><span class="css"><span class="xml">        <span class="attribute">color</span>: blue;</span></span></span><br><span class="line"><span class="css"><span class="xml">    &#125;</span></span></span><br><span class="line"><span class="css"><span class="xml"></span></span></span><br><span class="line"><span class="css"><span class="xml">    <span class="selector-class">.container</span> &#123;</span></span></span><br><span class="line"><span class="css"><span class="xml">        <span class="attribute">margin</span>: <span class="number">0</span> auto;</span></span></span><br><span class="line"><span class="css"><span class="xml">        <span class="attribute">width</span>: <span class="number">500px</span>;</span></span></span><br><span class="line"><span class="css"><span class="xml">        <span class="attribute">text-align</span>: center;</span></span></span><br><span class="line"><span class="css"><span class="xml">    &#125;</span></span></span><br><span class="line"><span class="css"><span class="xml"></span></span></span><br><span class="line"><span class="css"><span class="xml">    <span class="selector-tag">input</span> &#123;</span></span></span><br><span class="line"><span class="css"><span class="xml">        <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span></span></span><br><span class="line"><span class="css"><span class="xml">    &#125;</span></span></span><br><span class="line"><span class="css"><span class="xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>删除学生记录<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml">        </span></span><br><span class="line"><span class="xml">        &lt;%=msg%&gt;</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#x27;browseStu.jsp&#x27;</span>&gt;</span>返回<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="addStu-jsp-代码"><a href="#addStu-jsp-代码" class="headerlink" title="addStu.jsp 代码"></a>addStu.jsp 代码</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span></span><br><span class="line">contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span>%&gt;</span><br><span class="line">&lt;% request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">    <span class="built_in">String</span> msg = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> connectString = <span class="string">&quot;jdbc:mysql://172.18.187.6:3306/teaching&quot;</span></span><br><span class="line">    + <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> user=<span class="string">&quot;user&quot;</span>; <span class="built_in">String</span> pwd=<span class="string">&quot;123&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> num = request.getParameter(<span class="string">&quot;num&quot;</span>);</span><br><span class="line">    <span class="built_in">String</span> name = request.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(request.getMethod().equalsIgnoreCase(<span class="string">&quot;post&quot;</span>))&#123;</span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">        Connection con = DriverManager.getConnection(connectString,user, pwd);</span><br><span class="line">        Statement stmt = con.createStatement();</span><br><span class="line">        <span class="keyword">try</span> &#123;<span class="built_in">String</span> fmt=<span class="string">&quot;insert into stu16337344(num,name) values(&#x27;%s&#x27;, &#x27;%s&#x27;)&quot;</span>;</span><br><span class="line">        <span class="built_in">String</span> sql = <span class="built_in">String</span>.format(fmt,num,name);</span><br><span class="line">        int cnt = stmt.executeUpdate(sql);</span><br><span class="line">        <span class="keyword">if</span> (cnt&gt;<span class="number">0</span>) msg = <span class="string">&quot;保存成功!&quot;</span>;</span><br><span class="line">        stmt.close(); con.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            msg = e.getMessage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br><span class="line">&lt;!DOCTYPEHTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;新增学生记录&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    a:link, a:visited &#123;</span><br><span class="line">        color: blue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .container &#123;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        width: 500px;</span><br><span class="line">        text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    input &#123;</span><br><span class="line">        margin-bottom: 10px;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=&quot;container&quot;&gt;</span><br><span class="line">        &lt;h1&gt;新增学生记录&lt;/h1&gt;</span><br><span class="line">        &lt;form action=&quot;addStu.jsp&quot; method=&quot;post&quot; name=&quot;f&quot;&gt;</span><br><span class="line">            学号:&lt;input id=&quot;num&quot; name=&quot;num&quot; type=&quot;text&quot;&gt; &lt;br/&gt;</span><br><span class="line">            姓名:&lt;input id=&quot;name&quot; type=&quot;text&quot; name=&quot;name&quot;&gt; &lt;br/&gt;</span><br><span class="line">            &lt;input type=&quot;submit&quot; name=&quot;sub&quot; value=&quot;保存&quot;&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">        &lt;%=msg%&gt;</span><br><span class="line">        &lt;a href=&#x27;browseStu.jsp&#x27;&gt;返回&lt;/a&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="queryStu-jsp-代码"><a href="#queryStu-jsp-代码" class="headerlink" title="queryStu.jsp 代码"></a>queryStu.jsp 代码</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span> </span><br><span class="line">         contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span></span><br><span class="line">%&gt;&lt;%</span><br><span class="line">	request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">	<span class="built_in">String</span> msg =<span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="built_in">String</span> sql =<span class="string">&quot;&quot;</span>;</span><br><span class="line">	<span class="built_in">String</span> query = <span class="string">&quot;&quot;</span>;</span><br><span class="line">	<span class="built_in">String</span> connectString = <span class="string">&quot;jdbc:mysql://172.18.187.6:3306/teaching&quot;</span></span><br><span class="line">					+ <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&quot;</span></span><br><span class="line">					+ <span class="string">&quot;&amp;characterEncoding=UTF-8&quot;</span>; </span><br><span class="line">        StringBuilder table=<span class="keyword">new</span> StringBuilder(<span class="string">&quot;&quot;</span>);</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">	  Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">	  Connection con=DriverManager.getConnection(connectString, </span><br><span class="line">	                 <span class="string">&quot;user&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line">	  Statement stmt=con.createStatement();</span><br><span class="line">      <span class="keyword">if</span>(request.getMethod().equalsIgnoreCase(<span class="string">&quot;post&quot;</span>)) &#123;</span><br><span class="line">        query = request.getParameter(<span class="string">&quot;query&quot;</span>);</span><br><span class="line">        sql=<span class="string">&quot;select*from stu16337344 where num like &#x27;%&quot;</span>+query+<span class="string">&quot;%&#x27; or name like &#x27;%&quot;</span>+query+<span class="string">&quot;%&#x27; &quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">           sql=<span class="string">&quot;select*from stu16337344&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">	  ResultSet rs=stmt.executeQuery(sql);</span><br><span class="line">	  table.append(<span class="string">&quot;&lt;table&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;学号&lt;/th&gt;&lt;th&gt;姓名&lt;/th&gt;&quot;</span>+<span class="string">&quot;&lt;th&gt;-&lt;/th&gt;&lt;/tr&gt;&quot;</span>);</span><br><span class="line"></span><br><span class="line">	  <span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">            table.append(<span class="built_in">String</span>.format(</span><br><span class="line">								<span class="string">&quot;&lt;tr&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s %s&lt;/td&gt;&lt;/tr&gt;&quot;</span>,</span><br><span class="line">								rs.getString(<span class="string">&quot;id&quot;</span>),rs.getString(<span class="string">&quot;num&quot;</span>),rs.getString(<span class="string">&quot;name&quot;</span>),</span><br><span class="line">								<span class="string">&quot;&lt;a href=&#x27;updateStu.jsp?pid=&quot;</span>+rs.getString(<span class="string">&quot;id&quot;</span>)+<span class="string">&quot;&#x27;&gt;修改&lt;/a&gt;&quot;</span>,</span><br><span class="line">								<span class="string">&quot;&lt;a href=&#x27;deleteStu.jsp?pid=&quot;</span>+rs.getString(<span class="string">&quot;id&quot;</span>)+<span class="string">&quot;&#x27;&gt;删除&lt;/a&gt;&quot;</span></span><br><span class="line">								)</span><br><span class="line">					);</span><br><span class="line">		&#125;</span><br><span class="line">		table.append(<span class="string">&quot;&lt;/table&gt;&quot;</span>);</span><br><span class="line">	  rs.close();</span><br><span class="line">	  stmt.close();</span><br><span class="line">	  con.close();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">	  msg = e.getMessage();</span><br><span class="line">	&#125;</span><br><span class="line">%&gt;&lt;!DOCTYPE HTML&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;title&gt;查询学生名单&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">table&#123;</span><br><span class="line">border-collapse: collapse;</span><br><span class="line">border: none;</span><br><span class="line">width: 500px;</span><br><span class="line">&#125;</span><br><span class="line">td,th&#123;</span><br><span class="line">border: solid grey 1px;</span><br><span class="line">margin: 0 0 0 0;</span><br><span class="line">padding: 5px 5px 5px 5px;</span><br><span class="line">&#125;</span><br><span class="line">td &#123;</span><br><span class="line">    height: 40px;</span><br><span class="line">&#125;</span><br><span class="line">a:link,a:visited&#123;</span><br><span class="line">color:blue</span><br><span class="line">&#125;</span><br><span class="line">.container&#123;</span><br><span class="line">margin:0 auto;</span><br><span class="line">width:500px;</span><br><span class="line">text-align:center;</span><br><span class="line">&#125;</span><br><span class="line">div#wrap &#123;</span><br><span class="line">	width: 500px;</span><br><span class="line">	margin: 0 auto;</span><br><span class="line">&#125;</span><br><span class="line">div &#123;</span><br><span class="line">	margin-left: 10px;</span><br><span class="line">&#125;</span><br><span class="line">form input &#123;</span><br><span class="line">    margin-bottom: 20px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;wrap&quot;&gt;</span><br><span class="line">		&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">			&lt;h1&gt;查询学生名单&lt;/h1&gt;  </span><br><span class="line">            &lt;form action=&quot;queryStu.jsp&quot; method=&quot;post&quot;&gt;</span><br><span class="line">                输入查询：&lt;input type=&quot;text&quot; name=&quot;query&quot; value=&quot;&lt;%=query%&gt;&quot;&gt;</span><br><span class="line">                &lt;input type=&quot;submit&quot; value=&quot;查询&quot;&gt;</span><br><span class="line">            &lt;/form&gt;</span><br><span class="line">			&lt;%=table%&gt;&lt;br&gt;&lt;br&gt;  </span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">		&lt;div style=&quot;float: left&quot;&gt;&lt;a href=&quot;addStu.jsp&quot;&gt;新增&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">		&lt;div style=&quot;float: left&quot;&gt;&lt;a href=&quot;browseStu.jsp&quot;&gt;返回&lt;/a&gt;&lt;/div&gt;&lt;br/&gt;&lt;br/&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+            </div>
+            
+            
+            
+            <!-- 
+            <div class="post-tag">
+                <span>
+                    <i class="fa fa-tag"></i>
+                     
+                    <a href="tags/学习笔记/"><span>学习笔记</span></a>
+                        
+                            <i class="fas fa-angle-right"></i>
+                        
+                     
+                    <a href="tags/MySQL/"><span>MySQL</span></a>
+                        
+                    
+                </span>
+            </div>
+             -->
+
+            
+            <div class="social-share" data-sites="qq,wechat"></div>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="all" onload="this.media='all'">
+            <script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer="defer"></script>
+            
+
+            
+            
+        </article>
+        <section id="rightside">
+    <div id="rightside-item">
+        <a id="darkmode" title="深色/浅色">
+            <i class="fas fa-moon"></i>
+        </a>
+        
+            
+                <a class="rightside-toc" title="目录">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+            
+        
+        
+            
+            <a href="#直达评论" title="直达评论">
+                <i class="fas fa-comments"></i>
+            </a>
+            
+        
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+
+        <div class="pagination">
+            
+            <a href="/2019/05/30/Vue%E5%AD%A6%E4%B9%A0/" class="page-pre">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                Vue学习
+            </a>
+            
+            
+            
+            <a href="/2019/05/23/React%E5%AD%A6%E4%B9%A0/" class="page-next">
+                React学习
+                <i class="fas fa-arrow-alt-circle-right"></i>
+            </a>
+            
+        </div>
+        
+            
+            <hr>
+            <div class="comment-head" id="直达评论">
+                <div class="comment-headline">
+                    <i class="fas fa-comments fa-fw"></i>
+                    <span>评论</span>
+                </div>
+                
+                    
+<div id="vcomments"></div>
+<script>
+function LoadValine(){
+    $.getScript("https://cdn.jsdelivr.net/gh/lete114/CDN2/js/Valine-Lete3.2.js",function(){ 
+        let initData = {
+            el: '#vcomments',
+            appId: 'QynOiQiM4W3iYzqM858hvrYa-gzGzoHsz',
+            appKey: 'h0N1MuWeaUdOHTUnYKPVzBrS',
+            master: 'E1iW1xvPrwuGWLpoQTjKwlHl',
+            friends: '',
+            placeholder: '快来评论吧!!',
+            avatar: '',
+            meta: 'nick,mail,link'.split(","),
+            pageSize: 5,
+            lang: 'zh-CN',
+            emojiCDN: '',
+            emojiMaps: null,
+            enableQQ: true,
+            path: window.location.pathname,
+            visitor: true
+        }
+        var option = false;
+        if(option){
+            initData = Object.assign(initData, option)
+        }
+        new Valine(initData)
+    });
+}
+LoadValine()
+</script>
+                
+            </div>
+            
+        
+    
+
+            </main>
+        </div>
+        
+        
+            
+            <div id="toc">
+                <div id="toc-title">
+                    <h4>目录
+                        <span id="num">0%</span>
+                    </h4>
+                    <progress id="progress" value="0" max="100"></progress>
+                </div>
+                <div id="toc-list">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%90%E8%A1%8CMySQL"><span class="toc-text">运行MySQL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">创建数据库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="toc-text">查询数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2"><span class="toc-text">基本查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="toc-text">条件查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">常用条件表达式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%95%E5%BD%B1%E6%9F%A5%E8%AF%A2"><span class="toc-text">投影查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E7%BB%93%E6%9E%9C%E6%8E%92%E5%BA%8F%E6%98%BE%E7%A4%BA"><span class="toc-text">将结果排序显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="toc-text">分页查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="toc-text">聚合查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84"><span class="toc-text">分组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="toc-text">连接查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="toc-text">修改数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#INSERT"><span class="toc-text">INSERT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UPDATE"><span class="toc-text">UPDATE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DELETE"><span class="toc-text">DELETE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSP%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">JSP连接数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C"><span class="toc-text">登录注册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E3%80%81%E6%9B%B4%E6%96%B0%E3%80%81%E6%96%B0%E5%BB%BA%E3%80%81%E5%88%A0%E9%99%A4"><span class="toc-text">数据库查询、更新、新建、删除</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#browseStu-jsp-%E4%BB%A3%E7%A0%81"><span class="toc-text">browseStu.jsp 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#updateStu-jsp-%E4%BB%A3%E7%A0%81"><span class="toc-text">updateStu.jsp 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deleteStu-jsp-%E4%BB%A3%E7%A0%81"><span class="toc-text">deleteStu.jsp 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#addStu-jsp-%E4%BB%A3%E7%A0%81"><span class="toc-text">addStu.jsp 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#queryStu-jsp-%E4%BB%A3%E7%A0%81"><span class="toc-text">queryStu.jsp 代码</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+            
+        
+        
+    </div>
+    <footer class="footer" id="footer">
+    <div class="copyright">
+        
+      &copy; 2019 - 2021
+        <i class="fas fa-fan"></i>
+        ZhuangXuward
+    </div>
+    <div class="framework-info">
+        <span>我的视频 </span>
+        <a href="https://space.bilibili.com/20554061" target="_blank">Bilibili</a>
+        <span class="footer-separator">|</span>
+        <span>狗粮 </span>
+        <a href="https://mp.weixin.qq.com/s/oYrE8X-F6ysRkygGaPWzpg" target="_blank">We</a>
+    </div>
+    
+    
+    <div class="custom-text">Welcome to ZhuangXuward's blog.</div>
+</footer>
+    <script>
+
+        var $config = {
+            search:{
+                enable: true,
+                path: "/search.xml"
+            },
+            lazyload:{
+                enable: true,
+            },
+            CodeBlock:{
+                enable: true,
+                height: "400",
+                scrollTop: "200"
+            },
+            CDN:{
+                fancybox_js: "https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js",
+                fancybox_css: "https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css",
+                search: "/js/search.js",
+            }
+        }
+
+        
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                document.title = "点我看看 " + originTitle;
+                clearTimeout(titleTime);
+            } else {
+                document.title = "欢迎回来 " + originTitle;
+                titleTime = setTimeout(function () {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        });
+        
+        
+        
+        // 清除时间
+        var timer = null;
+        // 执行进度条
+        function ProgressStart(){
+            // 设置初始进度
+            var progress = 10;
+            // 创建进度条 及 css样式
+            $("body").append("<div class='progress'></div>")
+            // 定义随机数最大值最小值
+            var max=10,mini=3;
+            var result=max-mini;
+            // 清除
+            clearInterval(timer);
+            // 0.5秒内累加进度
+            timer = setInterval(function(){
+                // 随机数
+                var num = parseInt(Math.random()*result);
+                var randomResult = num+mini;
+                // 累加
+                progress+=randomResult
+                $("body .progress").css("width",progress+"%")
+                // 当进度达到95%时停止
+                if(progress>95)progress=95
+            },500)
+        }
+        // 加载进度条加载完毕
+        function ProgressFinish(){
+            clearInterval(timer);
+            // 页面加载完毕后进度100% 并在0.7秒后删除
+            $("body .progress").css("width","100%")
+            timer = setTimeout(function () {
+                $("body .progress").remove();
+            }, 700);
+        }
+        // 手机端
+        function Mobile(){
+            // 手机端导航栏跳转关闭
+            $("#mobileNav").css("opacity", "0")
+            $("#mobileNav").removeClass("open")
+            $("#mask").removeClass("mask")
+            // 解除手机端页面跳转无法滚动
+            $("html").css("overflow", "auto")
+            // 手机端搜索框关闭
+            $("#local-search").css("display", "none")
+        }
+        
+    </script>
+    
+<script data-pjax src="/js/lazyLoad.js"></script>
+
+
+<script data-pjax src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/main.js"></script>
+
+    
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/pjax/pjax.js"></script>
+    <script>
+        var pjax = new Pjax({
+            selectors: [
+                "head title",
+                "main.content",
+                "#toc"
+            ],
+            cache: true,
+            cacheBust: false
+        });
+
+        // 开始 PJAX 执行的函数
+		document.addEventListener('pjax:send', function () {
+            // 执行进度条
+            ProgressStart()
+        });
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+		document.addEventListener('pjax:complete', function () {
+
+            // 加载进度条加载完毕
+            ProgressFinish()
+            // 手机端
+            Mobile()
+            // 代码块复制
+            CopyContent()
+            // Fancybox
+            FancyboxFn()
+            // 深色模式
+            DarkMode()
+            // 代码块折叠
+            CodeBlock()
+            
+            
+            
+            document.querySelectorAll('script[data-pjax]').forEach(item => {
+                const newScript = document.createElement('script')
+                const content = item.text || item.textContent || item.innerHTML || ""
+                Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+                newScript.appendChild(document.createTextNode(content))
+                item.parentNode.replaceChild(newScript, item)
+            })
+        });
+
+        // Pjax请求错误时，跳转到404页面
+        document.addEventListener('pjax:error', (e) => {
+            if (e.request.status === 404) {
+                pjax.loadUrl('/404.html')
+            }
+        })
+    </script>
+
+    
+</body>
+</html>

@@ -422,6 +422,318 @@ mouseenter不支持冒泡，同样鼠标从边界之外进入时触发；但由�
 	
         <div class="post-item">
             <div class="post-title">
+                <h2><a href="/2019/06/21/%E7%94%A8%E6%88%B7%E5%85%B3%E6%B3%A8%E5%8F%96%E5%85%B3%E5%AE%9E%E7%8E%B0/">用户关注取关实现</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    前言实现用户关注和取消关注功能以及搜索功能。
+具体为点击关注时，修改数据库添加关注关系，关注变为已关注；点击已关注时，同样修改数据库关系，已关注变为关注按钮。
+搜索使用模糊搜索，根据用户名进行查找，把查找结果列在当前页面。
+要求:
+
+局部刷新。
+后端使用JSP
+前端使用原生JS
+
+效果如图所示：
+
+实现搜索功能思路：在显示的时候，先查询数据库，将数据库中符合条件的记录拉去出来，显示在页面里。这样也方便在每个条目里添加用户id，便于后面的关注功能中传值。
+这里提到了用户id，我们需要区分登录用户和显示在列表栏里的用户，列表的用户可以直接从内联属性中获得，而当前的登录用户，我们采用cookie存储登录用户的信息，当需要用到登录用户信息的时候读取cookie即可。
+显示和搜索的代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-06-21</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/前后端/">
+                                    <span>前后端</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/JSP/">
+                                    <span>JSP</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/数据库/">
+                                    <span>数据库</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/AJAX/">
+                                    <span>AJAX</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/团队项目/">
+                                    <span>团队项目</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/团队项目/用户关注页面/">
+                                    <span>用户关注页面</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/06/05/%E5%8E%9F%E7%94%9FJS%E5%AE%9E%E7%8E%B0%E8%BD%AE%E6%92%AD%E5%9B%BE/">原生JS：响应式轮播图</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    要求
+图片自行滚动（规定自左向右滚动）
+点击左右箭头，实现图片翻页；
+点击提示圆点，显示不同图片；
+滚动、翻页和显示都需要过渡效果；
+响应式：轮播图随着浏览器窗口大小变化而变化；
+功能整合。
+
+
+
+最终效果点击预览：全屏响应式轮播图
+
+
+整体思路之前也写过轮播图，那时候是WEB里的一个js作业，懵了半天，最后靠自己独立写出来了，不过思路不是很清晰，有点浆糊的感觉。而这一次是组队PROJECT，要我写一个页面的全屏轮播并响应浏览器大小。
+之前也搜索了其他人写的轮播图，参考了一些网站的轮播是怎么根据浏览器窗口大小响应的，发现可以从最基本的点击事件出发：
+左右点击翻页是最基本的操作，封装到一个next_pic()函数里，定时器可以周期执行这个函数来实现自动轮播，而显示提示点以及提示点和当前图片的联系就小菜一碟了。
+
+
+具体实现HTML文档结构12345678910111213141516171819202122232425262728&lt;!-- 轮播图 --&gt;&lt;div id=&quot;content&quot;&gt;    &lt;div id=&quot;carouse
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-06-05</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/轮播图/">
+                                    <span>轮播图</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/响应式/">
+                                    <span>响应式</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/团队项目/">
+                                    <span>团队项目</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/团队项目/轮播/">
+                                    <span>轮播</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/06/03/JSP%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C/">JSP登录注册</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    前言WEB组队大作业要求用JSP实现后台访问修改数据库，用了老师的课件和网上查找得来的资料。
+要求：不能用框架，后端使用JSP。
+
+
+代码login.jsp:
+123456789101112131415161718192021222324&lt;body&gt;    &lt;div id=&quot;backgroundpic&quot;&gt;&lt;/div&gt;    &lt;div id=&quot;logInWrap&quot;&gt;        &lt;div id=&quot;logInContain&quot;&gt;            &lt;h1&gt;登录&lt;/h1&gt;            &lt;form action=&quot;loginCheck.jsp&quot; method=&quot;POST&quot; name=&quot;formLogin&quot;&gt;                &lt;input type=&quot;text&quot; placeholder=&quot;昵称/邮箱&quot; name
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-06-03</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/前后端/">
+                                    <span>前后端</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/JSP/">
+                                    <span>JSP</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/数据库/">
+                                    <span>数据库</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/AJAX/">
+                                    <span>AJAX</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/团队项目/">
+                                    <span>团队项目</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/团队项目/登录注册页面/">
+                                    <span>登录注册页面</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
                 <h2><a href="/2019/05/30/Vue%E5%AD%A6%E4%B9%A0/">Vue学习</a></h2>
             </div>
             <div class="post-description">
@@ -486,6 +798,96 @@ mouseenter不支持冒泡，同样鼠标从边界之外进入时触发；但由�
                             <span>
                                 <a href="categories/技术/Vue/">
                                     <span>Vue</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2019/05/29/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">MySQL常用指令</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。
+配置好环境变量之后就可以开始运行了。
+
+
+运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了：
+以上是本地连接，如果需要更详细的或者连接远程数据库，输入指令：mysql –u用户名 [–h主机名或者IP地址,-P端口号] –p密码，
+
+该命令是在命令行窗口下执行，而不是MySQL的命令行；
+输入-p后可以直接跟上密码，也可以按回车，会提示你输入密码，二者都是相同的效果；
+–p密码选项不一定是要在最后；
+–u、-h、-p后无空格。（端口号一般为3306，不过也可以更改）
+
+连接远程数据库时，如果无法连接，提示密码错误的话，需要更改host值为&quot;%&quot;，我的做法是用MySQL WorkBench客户端：
+创建数据库如下脚本创建test数据库，并且在test数据库下创建students表和classes表，以及必要的
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-05-29</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/学习笔记/">
+                                    <span>学习笔记</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/MySQL/">
+                                    <span>MySQL</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/MySQL/">
+                                    <span>MySQL</span>
                                 </a>
                                 
                             </span>
@@ -683,397 +1085,9 @@ scrollWidth表示元素内容的宽度，包括由于滚动而未显示在屏幕
         </div>
 
 
-	
-	
-        <div class="post-item">
-            <div class="post-title">
-                <h2><a href="/2019/05/17/%E7%94%BB%E5%BB%8A%E7%9B%B8%E5%86%8C%E2%80%94%E5%8E%9F%E7%94%9FJavaScript%E5%AE%9E%E7%8E%B0/">画廊相册—原生JavaScript实现</a></h2>
-            </div>
-            <div class="post-description">
-                <p style="-webkit-line-clamp: 3">
-                    
-                    前言使用原生JavaScript实现照片长廊效果，主要也是为了练手，刚好看到《JavaScript DOM编程艺术》上有这个小demo，看着还挺好看的，就写一写，还顺带总结几个小知识点。
-效果预览前往：点击预览
-思路拿到一个设计图，还是先从模块开始划分：
-
-导航栏和标题
-图片区域
-下方文字显示
-
-有了大致框图才能开始逐个突破：
-
-标题不说了，导航栏是个典型的水平一级导航栏，之前也做过很多总结整理，注意清除浮动、对锚点进行样式设置即可。动画过渡通过样式表设置。
-点击导航栏链接，另外一个区域做出相应，很明显的onclick事件处理函数的应用，通过DOM获取元素进行设置属性，同时对于锚点的点击事件处理函数里，返回false让锚点点击失效不跳转。
-下方文字显示是根据不同图片进行改变的，可以将文字信息存储在图片title属性中，DOM获取当前图片属性值显示在文字块中。
-
-这一次体会了结构层、表现层和行为层的分离，说白了就是把html、样式表和js分成了三个文件，使得JavaScript代码不依赖于HTML文档的内容和结构，这样方便后续管理。
-知识点总结
-event = “这里添加的相当于是函数体
-                </p>
-            </div>
-                
-
-            <div class="post-footer">
-                <!-- 发布时间 -->
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>发表于</span>
-                        <span>2019-05-17</span>
-                    </span>
-                </div>
-                <!-- 标签 -->
-                
-                    <div class="post-tag">
-                        <span>
-                            <i class="fa fa-tag"></i>
-                             
-                            <span>
-                                <a href="tags/JavaScript/">
-                                    <span>JavaScript</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/demo/">
-                                    <span>demo</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/画廊相册/">
-                                    <span>画廊相册</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/DOM/">
-                                    <span>DOM</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-                <!-- 分类 -->
-                
-                    <div class="post-categorie">
-                        <span>
-                            <i class="fas fa-folder-open"></i>
-                             
-                            <span>
-                                <a href="categories/技术/">
-                                    <span>技术</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="categories/技术/JavaScript/">
-                                    <span>JavaScript</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-            </div>
-        </div>
-
-
-	
-	
-        <div class="post-item">
-            <div class="post-title">
-                <h2><a href="/2019/05/14/%E6%82%B2%E5%89%A7/">悲剧</a></h2>
-            </div>
-            <div class="post-description">
-                <p style="-webkit-line-clamp: 3">
-                    
-                    
-论如何快速让一个人崩溃——删除他的重要文件。
-
-
-这是第二版的博客第一个版本的博客采用了mellow主题，花了几天时间做的美化，总体效果还是十分不错的：
-
-
-那为什么不要了呢？因为第一个版本的博客的本地hexo代码文件已经被清空了…
-事情都缘自5.13的晚上，我在学习react的使用，发现sublime中scipt直接写react很难配置高亮语法，于是我转投vscode，真心感受到vscode的强大，sublime有的vscode基本都有，vscode唯一不足的就是不如sublime那么简洁简约。
-然后！我 开心惬意 地捣鼓配置着vscode，发现怎么有个听诊器，上面还有红点，一看有5000个changes未commit，啊…突然想起，写博客的时候由于hexo的打包，我没有使用git去三部曲提交changes，然后强迫症的我就想去掉听诊器的红色标记，捣鼓着…点到了“discard all changes”。
-那一瞬间瞬间…我的天啊！我发现怎么我的博客本地文件没了啊？还不止！整个装了我前三年大学生涯的课程文档（各种ppt、word、pdf，实验设计文档，实验报告，总结）都没了…终于体会
-                </p>
-            </div>
-                
-
-            <div class="post-footer">
-                <!-- 发布时间 -->
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>发表于</span>
-                        <span>2019-05-14</span>
-                    </span>
-                </div>
-                <!-- 标签 -->
-                
-                    <div class="post-tag">
-                        <span>
-                            <i class="fa fa-tag"></i>
-                             
-                            <span>
-                                <a href="tags/深刻教训/">
-                                    <span>深刻教训</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-                <!-- 分类 -->
-                
-                    <div class="post-categorie">
-                        <span>
-                            <i class="fas fa-folder-open"></i>
-                             
-                            <span>
-                                <a href="categories/闲谈/">
-                                    <span>闲谈</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-            </div>
-        </div>
-
-
-	
-	
-        <div class="post-item">
-            <div class="post-title">
-                <h2><a href="/2019/05/13/%E3%80%8AJavaScript-DOM-%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">《JavaScript DOM 编程艺术》读书笔记</a></h2>
-            </div>
-            <div class="post-description">
-                <p style="-webkit-line-clamp: 3">
-                    
-                    习惯性做记录，也方便自己回顾查阅。
-
-
-
-事件处理函数在预定事件发生时让预先安排好的JavaScript代码开始执行，即“触发一个动作”。例如：onclick，onmouseover，onmouseout等等。
-语法：event = &quot;JavaScript statement(s)&quot;， JavaScript代码是包含在双引号中的，可以把任意数量的JavaScript语句放在这对引号之间，分号隔开即可。
-机制：给某个元素添加事件处理函数后，一旦发生预定事件，相应的JavaScript代码就执行，执行后可以返回一个结果，这个结果被传递回事件处理函数。
-利用这个机制，我们可以让动作没有触发，但是却能执行触发之后的JavaScript代码。比如书中的“JavaScript美术馆例子”：onclick事件中，点击链接执行一段预定代码，在代码后加上&quot;return false;&quot;，那么代码依旧被执行，但是页面却不会跳转，因为返回false给事件处理函数，认为“这个链接没有被点击”。代码如下。
-12345678910&lt;body&gt;	&lt;h1&gt;
-                </p>
-            </div>
-                
-
-            <div class="post-footer">
-                <!-- 发布时间 -->
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>发表于</span>
-                        <span>2019-05-13</span>
-                    </span>
-                </div>
-                <!-- 标签 -->
-                
-                    <div class="post-tag">
-                        <span>
-                            <i class="fa fa-tag"></i>
-                             
-                            <span>
-                                <a href="tags/学习笔记/">
-                                    <span>学习笔记</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/JavaScript/">
-                                    <span>JavaScript</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-                <!-- 分类 -->
-                
-                    <div class="post-categorie">
-                        <span>
-                            <i class="fas fa-folder-open"></i>
-                             
-                            <span>
-                                <a href="categories/笔记/">
-                                    <span>笔记</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="categories/笔记/《JavaScript-DOM-编程艺术》/">
-                                    <span>《JavaScript DOM 编程艺术》</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-            </div>
-        </div>
-
-
-	
-	
-        <div class="post-item">
-            <div class="post-title">
-                <h2><a href="/2019/05/10/%E5%A4%A9%E7%8C%AB%E7%BD%91%E9%A1%B5%E5%89%8D%E7%AB%AF%E5%AE%9E%E7%8E%B0/">天猫网页前端实现</a></h2>
-            </div>
-            <div class="post-description">
-                <p style="-webkit-line-clamp: 3">
-                    
-                    使用前端技术（HTML、CSS、JS）实现天猫网站界面。
-
-前言预览效果：点击预览代码仓库：github
-学习了jQuery和boostrap4的教程，苦于没有项目练手，于是决定模仿天猫网页，纯前端实现，积累经验。
-用到的技术栈：
-
- JavaScript
- jQuery
- bootstrap（用于图标和轮播图）
-
-首先先把天猫网页规划一下，大致可以分为：
-
- 公共页面
- 首页
- 我的订单
- 登录
- 注册
- 购物车
- 产品内页
- 订单子页面
- 其他
-
-每一部分逐步完成，最后整合在一起。（未完成部分思路和前面几个一样，日后有空再继续完善）
-公共页面公共页面就是每个页面都有的内容，包括页头位置的置顶导航栏，紧接着页头的搜索框，以及页脚的证书链接，最后再将这三个子模块整合在一起得到公共页面。
-代码构成如图：
-置顶导航栏效果：
-布局： 最外层是nav元素，语义化作用，用来布局，与div的区别在于nav更加明确的告诉搜索引擎这是导航栏，帮助搜索引擎理解你的网页。
-内部是连续摆放的几个元素，可以用span内嵌超链a，右边两个右浮动的元素。
-注意到文字部分是居中显示，而置顶导航栏有个浅灰色的背景，需
-                </p>
-            </div>
-                
-
-            <div class="post-footer">
-                <!-- 发布时间 -->
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>发表于</span>
-                        <span>2019-05-10</span>
-                    </span>
-                </div>
-                <!-- 标签 -->
-                
-                    <div class="post-tag">
-                        <span>
-                            <i class="fa fa-tag"></i>
-                             
-                            <span>
-                                <a href="tags/CSS/">
-                                    <span>CSS</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/JavaScript/">
-                                    <span>JavaScript</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/jQuery/">
-                                    <span>jQuery</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/Bootstrap/">
-                                    <span>Bootstrap</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-                <!-- 分类 -->
-                
-                    <div class="post-categorie">
-                        <span>
-                            <i class="fas fa-folder-open"></i>
-                             
-                            <span>
-                                <a href="categories/个人项目/">
-                                    <span>个人项目</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="categories/个人项目/电商页面/">
-                                    <span>电商页面</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-            </div>
-        </div>
-
-
 
     <div class="pagination">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class='fas fa-chevron-right fa-fw'></i></a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class='fas fa-chevron-right fa-fw'></i></a>
     </div>
 
 <section id="rightside">

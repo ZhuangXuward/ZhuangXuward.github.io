@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    
+<meta charset="utf-8">
+<meta http-equiv="content-language" content="zh-CN">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>用户关注取关实现 | 庄少华's Blog</title>
+<link rel="icon" href="/images/favicon-32x32-next.png">
+<meta name="keywords" content="前后端,JSP,数据库,AJAX">
+<meta name="description" content="前言实现用户关注和取消关注功能以及搜索功能。
+具体为点击关注时，修改数据库添加关注关系，关注变为已关注；点击已关注时，同样修改数据库关系，已关注变为关注按钮。
+搜索使用模糊搜索，根据用户名进行查找，把查找结果列在当前页面。
+要求:
+
+局部刷新。
+后端使用JSP
+前端使用原生JS
+
+效果如图所示：
+
+实现搜索功能思路：在显示的时候，先查询数据库，将数据库中符合条件的记录拉去出来，显示在页面里。这样也方便在每个条目里添加用户id，便于后面的关注功能中传值。
+这里提到了用户id，我们需要区分登录用户和显示在列表栏里的用户，列表的用户可以直接从内联属性中获得，而当前的登录用户，我们采用cookie存储登录用户的信息，当需要用到登录用户信息的时候读取cookie即可。
+显示和搜索的代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838" />
+<meta property="site_name" content="庄少华's Blog" />
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://example.com/2019/06/21/用户关注取关实现/">
+<meta property="og:title" content="用户关注取关实现 | 庄少华's Blog" />
+<meta property="og:site_name" content="庄少华's Blog" />
+<meta property="og:description" content="前言实现用户关注和取消关注功能以及搜索功能。
+具体为点击关注时，修改数据库添加关注关系，关注变为已关注；点击已关注时，同样修改数据库关系，已关注变为关注按钮。
+搜索使用模糊搜索，根据用户名进行查找，把查找结果列在当前页面。
+要求:
+
+局部刷新。
+后端使用JSP
+前端使用原生JS
+
+效果如图所示：
+
+实现搜索功能思路：在显示的时候，先查询数据库，将数据库中符合条件的记录拉去出来，显示在页面里。这样也方便在每个条目里添加用户id，便于后面的关注功能中传值。
+这里提到了用户id，我们需要区分登录用户和显示在列表栏里的用户，列表的用户可以直接从内联属性中获得，而当前的登录用户，我们采用cookie存储登录用户的信息，当需要用到登录用户信息的时候读取cookie即可。
+显示和搜索的代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838" />
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用户关注取关实现 | 庄少华's Blog">
+<meta name="twitter:description" content="前言实现用户关注和取消关注功能以及搜索功能。
+具体为点击关注时，修改数据库添加关注关系，关注变为已关注；点击已关注时，同样修改数据库关系，已关注变为关注按钮。
+搜索使用模糊搜索，根据用户名进行查找，把查找结果列在当前页面。
+要求:
+
+局部刷新。
+后端使用JSP
+前端使用原生JS
+
+效果如图所示：
+
+实现搜索功能思路：在显示的时候，先查询数据库，将数据库中符合条件的记录拉去出来，显示在页面里。这样也方便在每个条目里添加用户id，便于后面的关注功能中传值。
+这里提到了用户id，我们需要区分登录用户和显示在列表栏里的用户，列表的用户可以直接从内联属性中获得，而当前的登录用户，我们采用cookie存储登录用户的信息，当需要用到登录用户信息的时候读取cookie即可。
+显示和搜索的代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838">
+<link rel="dns-prefetch" href="http://example.com/2019/06/21/用户关注取关实现/">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/index.css">
+
+
+     
+    
+   
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body id="body">
+    <div id="mask"></div>
+    
+<div class="search-dialog" id="local-search">
+    <div id="local-search-title">本地搜索</div>
+    <input id="local-search-input" autocomplete="off" placeholder="搜索文章" type="text" >
+    <hr>
+    <div id="local-search-result">
+        <div id="local-hits"></div>
+    </div>
+    <span class="search-close-button"><i class="fas fa-times"></i></span>
+</div>
+
+    
+
+
+
+
+<script>
+  document.addEventListener('pjax:complete', function () {
+    
+    
+  })
+</script>
+
+  
+    <div class="body-main" id="body-main">
+        <div id="body-wrap">
+            <nav class="site_nav" id="site_nav">
+    <i id="openNav" class="fas fa-bars"></i>
+    
+    <i class="fas fa-search search-btn"></i>
+    
+    <div id="mobileNav">
+        <div class="author-info">
+            <div>
+                <a href="/">
+                    <img src="/images/avatar.jpg" alt="ZhuangXuward" class="avatar">
+                    <div class="author">ZhuangXuward</div>
+                </a>
+            </div>
+            <hr>
+        </div>
+        <ul>
+        
+            
+            <li><a href="/">首页</a></li>
+            
+        
+            
+            <li><a href="/tags">标签</a></li>
+            
+        
+            
+            <li><a href="/categories">分类</a></li>
+            
+        
+            
+            <li><a href="/link">友情链接</a></li>
+            
+        
+            
+            <li><a href="/about">关于我</a></li>
+            
+        
+        </ul>
+    </div>
+    <ul>
+    
+            
+            <li><a href="/">首页</a></li>
+            
+        
+            
+            <li><a href="/tags">标签</a></li>
+            
+        
+            
+            <li><a href="/categories">分类</a></li>
+            
+        
+            
+            <li><a href="/link">友情链接</a></li>
+            
+        
+            
+            <li><a href="/about">关于我</a></li>
+            
+        
+    </ul>
+</nav>
+            <header>
+    <div class="card-content">
+        <div class="author-info">
+            <div>
+                <a href="/">
+                    <img src="/images/avatar.jpg" alt="ZhuangXuward" class="avatar">
+                    <div class="author">ZhuangXuward</div>
+                </a>
+            </div>
+        </div>
+        <div id="description" class="description">
+            <p>Stay hungry, stay foolish.</p>
+            <div class="social-icon">
+                
+                    <a target="_blank" rel="noopener" href="https://github.com/ZhuangXuward"><i class="fab fa-github"></i></a>
+                
+                    <a href="mailto:zhuangshh@mail2.sysu.edu.cn"><i class="fa fa-envelope"></i></a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+            <main class="content">
+                
+    
+        <article class="post">
+            <div class="post-title">
+              <h2 class="title">用户关注取关实现</h2>
+            </div>
+             
+             <div class="post-meta">
+                <div class="meta-firstline">
+                    <span class="post-meta-date">
+                        <i class="far fa-calendar-alt fa-fw post-meta-icon"></i>
+                        <span class="post-meta-label">发表于 2019-06-21 | </span>
+                        
+                        <i class="fas fa-history fa-fw post-meta-icon"></i>
+                        <span class="post-meta-label">更新于 2021-05-17</span>
+                    </span>
+                </div>
+                <div class="meta-secondline"> 
+                    <span class="post-meta-wordcount">
+                        <i class="far fa-file-word fa-fw post-meta-icon"></i>
+                        <span class="post-meta-label">总字数:</span>
+                        <span class="word-count">3.8k | </span>
+                        <i class="far fa-clock fa-fw post-meta-icon"></i>
+                        <span class="post-meta-label">阅读时长:</span>
+                        <span>21分钟</span>
+                        
+                        <!-- | <i class="far fa-eye fa-fw post-meta-icon"></i> -->
+                        <!-- <span id="/2019/06/21/%E7%94%A8%E6%88%B7%E5%85%B3%E6%B3%A8%E5%8F%96%E5%85%B3%E5%AE%9E%E7%8E%B0/" class="leancloud_visitors">
+                            <span class="post-meta-label">阅读量:</span>
+                            <span class="leancloud-visitors-count" id="twikoo_visitors">0</span>
+                        </span> -->
+                        
+                    </span>
+                </div>
+            </div>
+             
+            <div class="post-content">
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>实现用户关注和取消关注功能以及搜索功能。</p>
+<p>具体为点击关注时，修改数据库添加关注关系，关注变为已关注；点击已关注时，同样修改数据库关系，已关注变为关注按钮。</p>
+<p>搜索使用模糊搜索，根据用户名进行查找，把查找结果列在当前页面。</p>
+<p>要求:</p>
+<ul>
+<li>局部刷新。</li>
+<li>后端使用JSP</li>
+<li>前端使用原生JS</li>
+</ul>
+<p>效果如图所示：<br><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/06/22/Z9pTVU.gif" alt="关注取关" class="lazyload"></p>
+<p><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/06/22/Z9kDrn.gif" alt="搜索" class="lazyload"></p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h2><p>思路：在显示的时候，先<code>查询数据库</code>，将数据库中<code>符合条件</code>的记录拉去出来，显示在页面里。这样也方便在每个条目里添加用户id，便于后面的关注功能中传值。</p>
+<p>这里提到了用户id，我们需要区分登录用户和显示在列表栏里的用户，列表的用户可以直接从<code>内联属性</code>中获得，而当前的登录用户，我们采用<code>cookie存储登录用户的信息</code>，当需要用到登录用户信息的时候读取cookie即可。</p>
+<h3 id="显示和搜索的代码"><a href="#显示和搜索的代码" class="headerlink" title="显示和搜索的代码"></a>显示和搜索的代码</h3><div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Java"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span> </span><br><span class="line">         contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span></span><br><span class="line">%&gt;&lt;%</span><br><span class="line">	request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">	String msg = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    String sql = <span class="string">&quot;&quot;</span>;</span><br><span class="line">	String query = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    String ifFollow = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    String avatar_img = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">    String pid = request.getParameter(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line">    String userId = request.getParameter(<span class="string">&quot;userId&quot;</span>);</span><br><span class="line">	String connectString = <span class="string">&quot;jdbc:mysql://172.18.187.10:3306/blog_15336202&quot;</span></span><br><span class="line">					+ <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&quot;</span></span><br><span class="line">					+ <span class="string">&quot;&amp;characterEncoding=UTF-8&quot;</span>; </span><br><span class="line">    StringBuilder table=<span class="keyword">new</span> StringBuilder(<span class="string">&quot;&quot;</span>);</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">	  Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">	  Connection con=DriverManager.getConnection(connectString, <span class="string">&quot;user&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line">	  Statement stmt=con.createStatement();</span><br><span class="line">      Connection con_follow=DriverManager.getConnection(connectString, <span class="string">&quot;user&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line">	  Statement stmt_follow=con_follow.createStatement();</span><br><span class="line">      ResultSet rs;</span><br><span class="line"></span><br><span class="line">      ResultSet rHome = stmt.executeQuery(<span class="string">&quot;select * from users where id=&#x27;&quot;</span> + userId + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span> (rHome.next()) &#123;            </span><br><span class="line">            avatar_img = rHome.getString(<span class="string">&quot;avatar&quot;</span>);   </span><br><span class="line">        &#125;</span><br><span class="line">        rHome.close();</span><br><span class="line"></span><br><span class="line">      <span class="comment">//========================根据ID/email/phone查找用户========================</span></span><br><span class="line">      <span class="keyword">if</span>(request.getMethod().equalsIgnoreCase(<span class="string">&quot;post&quot;</span>)) &#123;</span><br><span class="line">        query = request.getParameter(<span class="string">&quot;query&quot;</span>);</span><br><span class="line">        sql=<span class="string">&quot;select*from users where name like &#x27;%&quot;</span>+query+<span class="string">&quot;%&#x27; or email like &#x27;%&quot;</span>+query+<span class="string">&quot;%&#x27; or phone like &#x27;%&quot;</span>+query+<span class="string">&quot;%&#x27;&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">           sql=<span class="string">&quot;select*from users&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">	  rs=stmt.executeQuery(sql);</span><br><span class="line">      <span class="keyword">if</span>(!rs.next()) &#123;</span><br><span class="line">          msg = <span class="string">&quot;没有该用户！&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">	  <span class="keyword">else</span> &#123;</span><br><span class="line">          rs=stmt.executeQuery(sql);</span><br><span class="line">          table.append(<span class="string">&quot;&lt;div class=&#x27;user_searched&#x27;&gt;&quot;</span>);</span><br><span class="line">          <span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">            sql = <span class="string">&quot;select * from followers where fans_id=&#x27;&quot;</span> + userId + <span class="string">&quot;&#x27; and followed_id=&#x27;&quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;&#x27;&quot;</span>;</span><br><span class="line">            ResultSet rs_follow=stmt_follow.executeQuery(sql);</span><br><span class="line">            String cssStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="comment">//不同用户拥有不同的且唯一标识的id</span></span><br><span class="line">            <span class="keyword">if</span>(rs_follow.next()) &#123;</span><br><span class="line">                ifFollow = <span class="string">&quot;已关注&quot;</span>;</span><br><span class="line">                cssStr = <span class="string">&quot;&lt;a href=&#x27;#&#x27; onclick=&#x27;get(&quot;</span> + userId + <span class="string">&quot;, &quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;); return false&#x27;&gt;&lt;button class=&#x27;follow_button followed&#x27; id=&#x27;&quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;&#x27;&gt;&quot;</span> + ifFollow + <span class="string">&quot;&lt;/button&gt;&lt;/a&gt;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                ifFollow = <span class="string">&quot;关注&quot;</span>;</span><br><span class="line">                cssStr = <span class="string">&quot;&lt;a href=&#x27;#&#x27; onclick=&#x27;get(&quot;</span> + userId + <span class="string">&quot;, &quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;); return false&#x27;&gt;&lt;button class=&#x27;follow_button&#x27; id=&#x27;&quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;&#x27;&gt;&quot;</span> + ifFollow + <span class="string">&quot;&lt;/button&gt;&lt;/a&gt;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            rs_follow.close();</span><br><span class="line">            table.append(String.format(</span><br><span class="line">                <span class="string">&quot;&lt;div class=&#x27;user_item&#x27;&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&lt;div class=&#x27;user_avatar&#x27;&gt;&lt;img src=&#x27;./images/avatar/&quot;</span> + rs.getString(<span class="string">&quot;avatar&quot;</span>) + <span class="string">&quot;&#x27; style=&#x27;width: 60px; height: 60px; border-radius: 50px;&#x27;&gt;&lt;/img&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&lt;/div&gt;&quot;</span> + </span><br><span class="line">                <span class="string">&quot;&lt;div class=&#x27;user_content&#x27;&gt;&lt;a class=&#x27;user_name&#x27; href=&#x27;visitHome.jsp?visitName=&quot;</span> + rs.getString(<span class="string">&quot;name&quot;</span>) + <span class="string">&quot;&#x27; style=&#x27;text-decoration: underline;&#x27;&gt;%s&lt;/a&gt; &lt;span class=&#x27;user_hobby&#x27;&gt;%s&lt;/span&gt; &lt;span class=&#x27;user_follow&#x27;&gt;%s&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&quot;</span>,</span><br><span class="line">                rs.getString(<span class="string">&quot;name&quot;</span>), rs.getString(<span class="string">&quot;hobby&quot;</span>),</span><br><span class="line">                cssStr</span><br><span class="line">                )</span><br><span class="line">            );</span><br><span class="line">		&#125;</span><br><span class="line">      table.append(<span class="string">&quot;&lt;/div&gt;&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//========================END根据ID/email/phone查找用户========================</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      stmt_follow.close();</span><br><span class="line">      con_follow.close();</span><br><span class="line"></span><br><span class="line">	  rs.close();</span><br><span class="line">	  stmt.close();</span><br><span class="line">	  con.close();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">	  <span class="comment">//msg = e.getMessage();</span></span><br><span class="line">	&#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>html部分</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Java"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;content&quot;</span>&gt;</span><br><span class="line">    &lt;div id=<span class="string">&quot;container&quot;</span>&gt; </span><br><span class="line">        &lt;form action=<span class="string">&quot;search.jsp?userId=&lt;%=userId%&gt;&quot;</span> method=<span class="string">&quot;post&quot;</span> name=<span class="string">&quot;searchForm&quot;</span>&gt; </span><br><span class="line">            &lt;div id=<span class="string">&quot;search_borad&quot;</span>&gt;</span><br><span class="line">            &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;query&quot;</span> placeholder=<span class="string">&quot;搜索用户&quot;</span> value=<span class="string">&quot;&lt;%=query%&gt;&quot;</span> style=<span class="string">&quot;outline: none;&quot;</span>&gt;</span><br><span class="line">            &lt;a href=<span class="string">&quot;#&quot;</span> onclick=<span class="string">&quot;searchForm.submit(); return false&quot;</span>&gt;&lt;img src=<span class="string">&quot;./images/icon/search2.png&quot;</span>&gt; &lt;/a&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">        &lt;%=table%&gt;&lt;br&gt;&lt;br&gt;  </span><br><span class="line">        &lt;%=msg%&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="数据库follower表组成"><a href="#数据库follower表组成" class="headerlink" title="数据库follower表组成"></a>数据库follower表组成</h2><p>是一张包含主键id的多对多的表：<br><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/06/23/ZPr53q.jpg" alt="表的组成" class="lazyload"></p>
+<p><img  src= "/img/load.gif" data-img="https://s2.ax1x.com/2019/06/23/ZPr4Cn.jpg" alt="follower表" class="lazyload"></p>
+<h2 id="关注取关功能"><a href="#关注取关功能" class="headerlink" title="关注取关功能"></a>关注取关功能</h2><p>思路：使用<code>AJAX实现局部刷新</code>。点击关注按钮的时候执行<code>JS函数</code>，函数中创建<code>http请求</code>，利用<code>AJAX</code>将当前用户和被点击用户的id传到处理程序<code>ajaxGet.jsp</code>，ajaxGet.jsp进行<code>数据库</code>增加、删除操作，返回相应的值“关注”/“已关注”，当前页面将响应字符串显示到按钮中，实现关注取关功能:</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Java"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oTest = document.getElementById(followed);</span><br><span class="line">oTest.innerHTML = xmlhttp.responseText;</span><br></pre></td></tr></table></figure></div>
+
+<br/>
+
+<p><code>http请求变化时执行的</code>还有样式的变化，这里使用<code>classList属性</code>的contains方法判断当前的类，再分别添加和移除followed类，实现样式的变化:</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Javascript"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!oTest.classList.contains(<span class="string">&quot;followed&quot;</span>)) &#123;</span><br><span class="line">    oTest.classList.add(<span class="string">&quot;followed&quot;</span>);</span><br><span class="line">    <span class="comment">// 添加关注按钮样式</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    oTest.classList.remove(<span class="string">&quot;followed&quot;</span>);</span><br><span class="line">    <span class="comment">// 移除关注按钮样式，显示未关注样式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<br/>
+
+<p>ajaxGet.jsp:</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Java"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span> contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span>%&gt;</span><br><span class="line">&lt;% request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">    String msg=<span class="string">&quot;&quot;</span>; </span><br><span class="line">    String follower = request.getParameter(<span class="string">&quot;userId&quot;</span>);</span><br><span class="line">    String followed = request.getParameter(<span class="string">&quot;followedId&quot;</span>);</span><br><span class="line">    String conStr = <span class="string">&quot;jdbc:mysql://172.18.187.10:3306/blog_15336202&quot;</span></span><br><span class="line">    + <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>); <span class="comment">// 查找数据库驱动类</span></span><br><span class="line">    Connection con=DriverManager.getConnection(conStr, <span class="string">&quot;user&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line">    Statement stmt=con.createStatement(); <span class="comment">//创建MySQL语句的对象</span></span><br><span class="line">    ResultSet rs=stmt.executeQuery(<span class="string">&quot;select * from followers where fans_id=&#x27;&quot;</span> + follower + <span class="string">&quot;&#x27; and followed_id=&#x27;&quot;</span> + followed + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//1.原先不存在关注关系-&gt;执行关注操作</span></span><br><span class="line">    <span class="keyword">if</span> (!rs.next()) &#123;</span><br><span class="line">        String fmt=<span class="string">&quot;insert into followers(fans_id, followed_id) values(&#x27;%s&#x27;, &#x27;%s&#x27;)&quot;</span>;</span><br><span class="line">        String sql = String.format(fmt, follower, followed);</span><br><span class="line">        stmt.executeUpdate(sql);</span><br><span class="line">        out.print(<span class="string">&quot;已关注&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2.原先存在关注关系-&gt;取关</span></span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = stmt.executeUpdate(<span class="string">&quot;delete from followers where fans_id=&#x27;&quot;</span>+follower+<span class="string">&quot;&#x27; and followed_id=&#x27;&quot;</span> + followed + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">        out.print(<span class="string">&quot;关注&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    rs.close(); stmt.close(); con.close();</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="关注取关搜索完整代码"><a href="#关注取关搜索完整代码" class="headerlink" title="关注取关搜索完整代码"></a>关注取关搜索完整代码</h2><p>search.jsp：</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Java"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span> </span><br><span class="line">         contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span></span><br><span class="line">%&gt;&lt;%</span><br><span class="line">	request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">	String msg = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    String sql = <span class="string">&quot;&quot;</span>;</span><br><span class="line">	String query = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    String ifFollow = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    String avatar_img = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">    String pid = request.getParameter(<span class="string">&quot;pid&quot;</span>);</span><br><span class="line">    String userId = request.getParameter(<span class="string">&quot;userId&quot;</span>);</span><br><span class="line">	String connectString = <span class="string">&quot;jdbc:mysql://172.18.187.10:3306/blog_15336202&quot;</span></span><br><span class="line">					+ <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&quot;</span></span><br><span class="line">					+ <span class="string">&quot;&amp;characterEncoding=UTF-8&quot;</span>; </span><br><span class="line">    StringBuilder table=<span class="keyword">new</span> StringBuilder(<span class="string">&quot;&quot;</span>);</span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">	  Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">	  Connection con=DriverManager.getConnection(connectString, <span class="string">&quot;user&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line">	  Statement stmt=con.createStatement();</span><br><span class="line">      Connection con_follow=DriverManager.getConnection(connectString, <span class="string">&quot;user&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line">	  Statement stmt_follow=con_follow.createStatement();</span><br><span class="line">      ResultSet rs;</span><br><span class="line"></span><br><span class="line">      ResultSet rHome = stmt.executeQuery(<span class="string">&quot;select * from users where id=&#x27;&quot;</span> + userId + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span> (rHome.next()) &#123;            </span><br><span class="line">            avatar_img = rHome.getString(<span class="string">&quot;avatar&quot;</span>);   </span><br><span class="line">        &#125;</span><br><span class="line">        rHome.close();</span><br><span class="line"></span><br><span class="line">      <span class="comment">//========================根据ID/email/phone查找用户========================</span></span><br><span class="line">      <span class="keyword">if</span>(request.getMethod().equalsIgnoreCase(<span class="string">&quot;post&quot;</span>)) &#123;</span><br><span class="line">        query = request.getParameter(<span class="string">&quot;query&quot;</span>);</span><br><span class="line">        sql=<span class="string">&quot;select*from users where name like &#x27;%&quot;</span>+query+<span class="string">&quot;%&#x27; or email like &#x27;%&quot;</span>+query+<span class="string">&quot;%&#x27; or phone like &#x27;%&quot;</span>+query+<span class="string">&quot;%&#x27;&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">           sql=<span class="string">&quot;select*from users&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">	  rs=stmt.executeQuery(sql);</span><br><span class="line">      <span class="keyword">if</span>(!rs.next()) &#123;</span><br><span class="line">          msg = <span class="string">&quot;没有该用户！&quot;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">	  <span class="keyword">else</span> &#123;</span><br><span class="line">          rs=stmt.executeQuery(sql);</span><br><span class="line">          table.append(<span class="string">&quot;&lt;div class=&#x27;user_searched&#x27;&gt;&quot;</span>);</span><br><span class="line">          <span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">            sql = <span class="string">&quot;select * from followers where fans_id=&#x27;&quot;</span> + userId + <span class="string">&quot;&#x27; and followed_id=&#x27;&quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;&#x27;&quot;</span>;</span><br><span class="line">            ResultSet rs_follow=stmt_follow.executeQuery(sql);</span><br><span class="line">            String cssStr = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="comment">//不同用户拥有不同的且唯一标识的id</span></span><br><span class="line">            <span class="keyword">if</span>(rs_follow.next()) &#123;</span><br><span class="line">                ifFollow = <span class="string">&quot;已关注&quot;</span>;</span><br><span class="line">                cssStr = <span class="string">&quot;&lt;a href=&#x27;#&#x27; onclick=&#x27;get(&quot;</span> + userId + <span class="string">&quot;, &quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;); return false&#x27;&gt;&lt;button class=&#x27;follow_button followed&#x27; id=&#x27;&quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;&#x27;&gt;&quot;</span> + ifFollow + <span class="string">&quot;&lt;/button&gt;&lt;/a&gt;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                ifFollow = <span class="string">&quot;关注&quot;</span>;</span><br><span class="line">                cssStr = <span class="string">&quot;&lt;a href=&#x27;#&#x27; onclick=&#x27;get(&quot;</span> + userId + <span class="string">&quot;, &quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;); return false&#x27;&gt;&lt;button class=&#x27;follow_button&#x27; id=&#x27;&quot;</span> + rs.getString(<span class="string">&quot;id&quot;</span>) + <span class="string">&quot;&#x27;&gt;&quot;</span> + ifFollow + <span class="string">&quot;&lt;/button&gt;&lt;/a&gt;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            rs_follow.close();</span><br><span class="line">            table.append(String.format(</span><br><span class="line">                <span class="string">&quot;&lt;div class=&#x27;user_item&#x27;&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&lt;div class=&#x27;user_avatar&#x27;&gt;&lt;img src=&#x27;./images/avatar/&quot;</span> + rs.getString(<span class="string">&quot;avatar&quot;</span>) + <span class="string">&quot;&#x27; style=&#x27;width: 60px; height: 60px; border-radius: 50px;&#x27;&gt;&lt;/img&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&lt;/div&gt;&quot;</span> + </span><br><span class="line">                <span class="string">&quot;&lt;div class=&#x27;user_content&#x27;&gt;&lt;a class=&#x27;user_name&#x27; href=&#x27;visitHome.jsp?visitName=&quot;</span> + rs.getString(<span class="string">&quot;name&quot;</span>) + <span class="string">&quot;&#x27; style=&#x27;text-decoration: underline;&#x27;&gt;%s&lt;/a&gt; &lt;span class=&#x27;user_hobby&#x27;&gt;%s&lt;/span&gt; &lt;span class=&#x27;user_follow&#x27;&gt;%s&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&quot;</span>,</span><br><span class="line">                rs.getString(<span class="string">&quot;name&quot;</span>), rs.getString(<span class="string">&quot;hobby&quot;</span>),</span><br><span class="line">                cssStr</span><br><span class="line">                )</span><br><span class="line">            );</span><br><span class="line">		&#125;</span><br><span class="line">      table.append(<span class="string">&quot;&lt;/div&gt;&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//========================END根据ID/email/phone查找用户========================</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      stmt_follow.close();</span><br><span class="line">      con_follow.close();</span><br><span class="line"></span><br><span class="line">	  rs.close();</span><br><span class="line">	  stmt.close();</span><br><span class="line">	  con.close();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">	  <span class="comment">//msg = e.getMessage();</span></span><br><span class="line">	&#125;</span><br><span class="line">%&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;meta charset=<span class="string">&quot;utf-8&quot;</span> /&gt;</span><br><span class="line">    &lt;meta http-equiv=<span class="string">&quot;X-UA-Compatible&quot;</span> content=<span class="string">&quot;IE=Edge&quot;</span> /&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;viewport&quot;</span></span><br><span class="line">        content=<span class="string">&quot;width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no&quot;</span> /&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;apple-mobile-web-app-status-bar-style&quot;</span> content=<span class="string">&quot;black&quot;</span> /&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;referrer&quot;</span> content=<span class="string">&quot;always&quot;</span> /&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;author&quot;</span> content=<span class="string">&quot;superteam&quot;</span> /&gt;</span><br><span class="line">    &lt;meta name=<span class="string">&quot;date&quot;</span> content=<span class="string">&quot;2019-05-21T12:00:00+00:00&quot;</span> /&gt;</span><br><span class="line">    &lt;title&gt;Lifeblog.com&lt;/title&gt;</span><br><span class="line">    &lt;script type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;js/general.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;js/data.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> type=<span class="string">&quot;text/css&quot;</span> href=<span class="string">&quot;css/mystyle.css&quot;</span> /&gt;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> type=<span class="string">&quot;text/css&quot;</span> href=<span class="string">&quot;css/mobile.css&quot;</span> /&gt;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> type=<span class="string">&quot;text/css&quot;</span> href=<span class="string">&quot;css/search.css&quot;</span> /&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- <span class="keyword">for</span> mobile device --&gt;</span><br><span class="line">    &lt;div id=<span class="string">&quot;mobile_shadow&quot;</span>&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div id=<span class="string">&quot;mobile_box&quot;</span>&gt;</span><br><span class="line">        &lt;a href=<span class="string">&quot;#&quot;</span> id=<span class="string">&quot;mobile_back&quot;</span> onclick=<span class="string">&quot;hideShadow()&quot;</span>&gt;&lt;img src=<span class="string">&quot;images/close.png&quot;</span></span><br><span class="line">                style=<span class="string">&quot;height: 20px; width: 20px;&quot;</span> /&gt;&lt;/a&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;friends.jsp&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mobile_link&quot;</span>&gt;好友动态&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;messageBoard.jsp&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mobile_link&quot;</span>&gt;留言板&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;Data.jsp&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mobile_link&quot;</span>&gt;个人资料&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;recommend.jsp&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mobile_link&quot;</span>&gt;推荐&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;about.jsp&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mobile_link&quot;</span>&gt;关于&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;a href=<span class="string">&quot;setting.jsp&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;mobile_link&quot;</span>&gt;设置&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div id=<span class="string">&quot;mobile_wrap&quot;</span>&gt;</span><br><span class="line">        &lt;div id=<span class="string">&quot;mobile_head_portrait&quot;</span>&gt;</span><br><span class="line">            &lt;img src=<span class="string">&quot;images/avatar/&lt;%=avatar_img%&gt;&quot;</span> style=<span class="string">&quot;width: 30px; height: 30px; border-radius: 50px;&quot;</span> /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;a href=<span class="string">&quot;index.jsp&quot;</span> id=<span class="string">&quot;mobile_com&quot;</span>&gt;「Lifeblog.com」&lt;/a&gt;</span><br><span class="line">        &lt;img id=<span class="string">&quot;expand-menu&quot;</span> src=<span class="string">&quot;images/expand-menu.png&quot;</span> onclick=<span class="string">&quot;showShadow(); closeAnimate()&quot;</span> /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- normal --&gt;</span><br><span class="line">    &lt;div id=<span class="string">&quot;home&quot;</span>&gt;</span><br><span class="line">        &lt;div id=<span class="string">&quot;com&quot;</span>&gt;</span><br><span class="line">            &lt;a href=<span class="string">&quot;&quot;</span>&gt;「Lifeblog.com」&lt;/a&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div id=<span class="string">&quot;head_portrait&quot;</span>&gt;  </span><br><span class="line">            &lt;div id=<span class="string">&quot;select_upload&quot;</span>&gt;</span><br><span class="line">                &lt;input type=<span class="string">&quot;file&quot;</span> accept=<span class="string">&quot;image/gif,image/jpeg,image/jpg,image/png,image/svg&quot;</span> id=<span class="string">&quot;upload_img&quot;</span> /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;img src=<span class="string">&quot;images/avatar/&lt;%=avatar_img%&gt;&quot;</span> style=<span class="string">&quot;width: 80px; height: 80px; border-radius: 50px;&quot;</span>&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div id=<span class="string">&quot;personal_signature&quot;</span>&gt;</span><br><span class="line">            &lt;p&gt;Show your life <span class="keyword">this</span> moment!&lt;/p&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div id=<span class="string">&quot;menu&quot;</span>&gt;</span><br><span class="line">            &lt;a href=<span class="string">&quot;search.jsp?userId=&lt;%=userId%&gt;&quot;</span>&gt;&lt;img src=<span class="string">&quot;./images/icon/search.png&quot;</span> style=<span class="string">&quot;width: 20px; opacity: 0.5;&quot;</span>&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line">            &lt;a href=<span class="string">&quot;setting.jsp&quot;</span>&gt;设置&lt;/a&gt;&lt;br&gt;&lt;br&gt; </span><br><span class="line">            &lt;a href=<span class="string">&quot;about.jsp&quot;</span>&gt;关于&lt;/a&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div id=<span class="string">&quot;footer&quot;</span>&gt;</span><br><span class="line">           &lt;span&gt;Copyright © <span class="number">2019</span> LifeBlog.com&lt;/span&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id=<span class="string">&quot;main&quot;</span>&gt;</span><br><span class="line">        &lt;div id=<span class="string">&quot;wrap&quot;</span>&gt;</span><br><span class="line">            &lt;ul id=<span class="string">&quot;nav&quot;</span>&gt;</span><br><span class="line">                &lt;li id=<span class="string">&quot;li_index&quot;</span>&gt;&lt;a href=<span class="string">&quot;index.jsp&quot;</span> id=<span class="string">&quot;index&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;nav_hover&quot;</span>&gt;个人主页&amp;nbsp;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;li id=<span class="string">&quot;li_friends&quot;</span>&gt;&lt;a href=<span class="string">&quot;friends.jsp&quot;</span> id=<span class="string">&quot;friends&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;nav_hover&quot;</span>&gt;&amp;nbsp;好友动态&amp;nbsp;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;li id=<span class="string">&quot;li_messageBoard&quot;</span>&gt;&lt;a href=<span class="string">&quot;messageBoard.jsp&quot;</span> id=<span class="string">&quot;message_board&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;nav_hover&quot;</span>&gt;&amp;nbsp;留言板&amp;nbsp;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;li id=<span class="string">&quot;li_data&quot;</span>&gt;&lt;a href=<span class="string">&quot;Data.jsp&quot;</span> id=<span class="string">&quot;data&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;nav_hover&quot;</span>&gt;&amp;nbsp;个人资料&amp;nbsp;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                &lt;li id=<span class="string">&quot;li_recommend&quot;</span>&gt;&lt;a href=<span class="string">&quot;recommend.jsp&quot;</span> id=<span class="string">&quot;album&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;nav_hover&quot;</span>&gt;&amp;nbsp;推荐&amp;nbsp;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">            &lt;/ul&gt;</span><br><span class="line">            &lt;div id=<span class="string">&quot;welcomeBack&quot;</span>&gt;</span><br><span class="line">                欢迎回来!&amp;nbsp;&lt;font id=<span class="string">&quot;userName&quot;</span>&gt;&lt;/font&gt;</span><br><span class="line">                &lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">                    <span class="keyword">var</span> userTemp = document.cookie.split(<span class="string">&quot;=&quot;</span>);</span><br><span class="line">                    document.getElementById(<span class="string">&quot;userName&quot;</span>).innerHTML = userTemp[<span class="number">1</span>];</span><br><span class="line">                &lt;/script&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div id=<span class="string">&quot;content&quot;</span>&gt;</span><br><span class="line">            &lt;div id=<span class="string">&quot;container&quot;</span>&gt; </span><br><span class="line">              &lt;form action=<span class="string">&quot;search.jsp?userId=&lt;%=userId%&gt;&quot;</span> method=<span class="string">&quot;post&quot;</span> name=<span class="string">&quot;searchForm&quot;</span>&gt; </span><br><span class="line">                  &lt;div id=<span class="string">&quot;search_borad&quot;</span>&gt;</span><br><span class="line">                    &lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;query&quot;</span> placeholder=<span class="string">&quot;搜索用户&quot;</span> value=<span class="string">&quot;&lt;%=query%&gt;&quot;</span> style=<span class="string">&quot;outline: none;&quot;</span>&gt;</span><br><span class="line">                    &lt;a href=<span class="string">&quot;#&quot;</span> onclick=<span class="string">&quot;searchForm.submit(); return false&quot;</span>&gt;&lt;img src=<span class="string">&quot;./images/icon/search2.png&quot;</span>&gt; &lt;/a&gt;</span><br><span class="line">                  &lt;/div&gt;</span><br><span class="line">              &lt;/form&gt;</span><br><span class="line">              &lt;%=table%&gt;&lt;br&gt;&lt;br&gt;  </span><br><span class="line">              &lt;%=msg%&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        window.onload = function() &#123;</span><br><span class="line">            <span class="comment">//===========搜索框效果===========</span></span><br><span class="line">            <span class="keyword">var</span> searchBorad = document.getElementById(<span class="string">&quot;search_borad&quot;</span>);</span><br><span class="line">            searchBorad.getElementsByTagName(<span class="string">&quot;input&quot;</span>)[<span class="number">0</span>].onfocus = function() &#123;</span><br><span class="line">                searchBorad.classList.add(<span class="string">&quot;search_active&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            searchBorad.getElementsByTagName(<span class="string">&quot;input&quot;</span>)[<span class="number">0</span>].onblur = function() &#123;</span><br><span class="line">                searchBorad.classList.remove(<span class="string">&quot;search_active&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//===========END搜索框效果===========</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//===========关注AJAX请求===========</span></span><br><span class="line">        <span class="function">function <span class="title">get</span><span class="params">(follower, followed)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 创建http请求</span></span><br><span class="line">            <span class="keyword">var</span> xmlhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">            xmlhttp.onreadystatechange = function () &#123;</span><br><span class="line">                <span class="comment">// 当http请求的状态变化时执行 </span></span><br><span class="line">                <span class="keyword">if</span>(xmlhttp.readyState==<span class="number">4</span>) &#123; <span class="comment">// 4-已收到http响应数据</span></span><br><span class="line">                    <span class="keyword">if</span> (xmlhttp.status &gt;= <span class="number">200</span> &amp;&amp; xmlhttp.status &lt; <span class="number">300</span> || xmlhttp.status == <span class="number">304</span>) &#123;</span><br><span class="line">                        <span class="comment">// 200~299-OK 304-unmodified</span></span><br><span class="line">                        <span class="comment">// alert(xmlhttp.responseText);</span></span><br><span class="line">                        <span class="comment">// http响应的正文 </span></span><br><span class="line">                        <span class="keyword">var</span> oTest = document.getElementById(followed);</span><br><span class="line">                        oTest.innerHTML = xmlhttp.responseText;</span><br><span class="line">                        <span class="keyword">if</span>(!oTest.classList.contains(<span class="string">&quot;followed&quot;</span>)) &#123;</span><br><span class="line">                            oTest.classList.add(<span class="string">&quot;followed&quot;</span>);</span><br><span class="line">                            <span class="comment">// 添加关注按钮样式</span></span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span> &#123;</span><br><span class="line">                            oTest.classList.remove(<span class="string">&quot;followed&quot;</span>);</span><br><span class="line">                            <span class="comment">// 移除关注按钮样式，显示未关注样式</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        alert(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;; <span class="comment">// 打开http请求（open）的参数：get|post，url，是否异步发送</span></span><br><span class="line">            <span class="keyword">var</span> param = <span class="string">&quot;userId=&quot;</span> + follower + <span class="string">&quot;&amp;followedId=&quot;</span> + followed;</span><br><span class="line">            <span class="comment">// userId为当前登录用户，followedId为被关注的用户</span></span><br><span class="line">            xmlhttp.open(<span class="string">&quot;get&quot;</span>, <span class="string">&quot;ajaxGet.jsp?userId=&quot;</span> + follower + <span class="string">&quot;&amp;followedId=&quot;</span> + followed, <span class="keyword">true</span>);</span><br><span class="line">            xmlhttp.setRequestHeader(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/x-www-form-urlencoded&quot;</span>);</span><br><span class="line">            xmlhttp.send(<span class="keyword">null</span>);</span><br><span class="line">            <span class="comment">//发送http请求。get只能用null作为参数 </span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//===========END关注AJAX请求===========</span></span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>ajaxGet.jsp:</p>
+<div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="Java"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> language=<span class="string">&quot;java&quot;</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*,java.sql.*&quot;</span> contentType=<span class="string">&quot;text/html; charset=utf-8&quot;</span>%&gt;</span><br><span class="line">&lt;% request.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">    String msg=<span class="string">&quot;&quot;</span>; </span><br><span class="line">    String follower = request.getParameter(<span class="string">&quot;userId&quot;</span>);</span><br><span class="line">    String followed = request.getParameter(<span class="string">&quot;followedId&quot;</span>);</span><br><span class="line">    String conStr = <span class="string">&quot;jdbc:mysql://172.18.187.10:3306/blog_15336202&quot;</span></span><br><span class="line">    + <span class="string">&quot;?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>); <span class="comment">// 查找数据库驱动类</span></span><br><span class="line">    Connection con=DriverManager.getConnection(conStr, <span class="string">&quot;user&quot;</span>, <span class="string">&quot;123&quot;</span>);</span><br><span class="line">    Statement stmt=con.createStatement(); <span class="comment">//创建MySQL语句的对象</span></span><br><span class="line">    ResultSet rs=stmt.executeQuery(<span class="string">&quot;select * from followers where fans_id=&#x27;&quot;</span> + follower + <span class="string">&quot;&#x27; and followed_id=&#x27;&quot;</span> + followed + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//1.原先不存在关注关系-&gt;执行关注操作</span></span><br><span class="line">    <span class="keyword">if</span> (!rs.next()) &#123;</span><br><span class="line">        String fmt=<span class="string">&quot;insert into followers(fans_id, followed_id) values(&#x27;%s&#x27;, &#x27;%s&#x27;)&quot;</span>;</span><br><span class="line">        String sql = String.format(fmt, follower, followed);</span><br><span class="line">        stmt.executeUpdate(sql);</span><br><span class="line">        out.print(<span class="string">&quot;已关注&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2.原先存在关注关系-&gt;取关</span></span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = stmt.executeUpdate(<span class="string">&quot;delete from followers where fans_id=&#x27;&quot;</span>+follower+<span class="string">&quot;&#x27; and followed_id=&#x27;&quot;</span> + followed + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">        out.print(<span class="string">&quot;关注&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    rs.close(); stmt.close(); con.close();</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+            </div>
+            
+            
+            
+            <!-- 
+            <div class="post-tag">
+                <span>
+                    <i class="fa fa-tag"></i>
+                     
+                    <a href="tags/前后端/"><span>前后端</span></a>
+                        
+                            <i class="fas fa-angle-right"></i>
+                        
+                     
+                    <a href="tags/JSP/"><span>JSP</span></a>
+                        
+                            <i class="fas fa-angle-right"></i>
+                        
+                     
+                    <a href="tags/数据库/"><span>数据库</span></a>
+                        
+                            <i class="fas fa-angle-right"></i>
+                        
+                     
+                    <a href="tags/AJAX/"><span>AJAX</span></a>
+                        
+                    
+                </span>
+            </div>
+             -->
+
+            
+            <div class="social-share" data-sites="qq,wechat"></div>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="all" onload="this.media='all'">
+            <script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer="defer"></script>
+            
+
+            
+            
+        </article>
+        <section id="rightside">
+    <div id="rightside-item">
+        <a id="darkmode" title="深色/浅色">
+            <i class="fas fa-moon"></i>
+        </a>
+        
+            
+                <a class="rightside-toc" title="目录">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+            
+        
+        
+            
+            <a href="#直达评论" title="直达评论">
+                <i class="fas fa-comments"></i>
+            </a>
+            
+        
+        <a href="#" title="回到顶部">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+</section>
+
+        <div class="pagination">
+            
+            <a href="/2019/06/26/mouseover%E5%92%8Cmouseenter%E7%9A%84%E5%8C%BA%E5%88%AB/" class="page-pre">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+                mouseover和mouseenter的区别
+            </a>
+            
+            
+            
+            <a href="/2019/06/05/%E5%8E%9F%E7%94%9FJS%E5%AE%9E%E7%8E%B0%E8%BD%AE%E6%92%AD%E5%9B%BE/" class="page-next">
+                原生JS：响应式轮播图
+                <i class="fas fa-arrow-alt-circle-right"></i>
+            </a>
+            
+        </div>
+        
+            
+            <hr>
+            <div class="comment-head" id="直达评论">
+                <div class="comment-headline">
+                    <i class="fas fa-comments fa-fw"></i>
+                    <span>评论</span>
+                </div>
+                
+                    
+<div id="vcomments"></div>
+<script>
+function LoadValine(){
+    $.getScript("https://cdn.jsdelivr.net/gh/lete114/CDN2/js/Valine-Lete3.2.js",function(){ 
+        let initData = {
+            el: '#vcomments',
+            appId: 'QynOiQiM4W3iYzqM858hvrYa-gzGzoHsz',
+            appKey: 'h0N1MuWeaUdOHTUnYKPVzBrS',
+            master: 'E1iW1xvPrwuGWLpoQTjKwlHl',
+            friends: '',
+            placeholder: '快来评论吧!!',
+            avatar: '',
+            meta: 'nick,mail,link'.split(","),
+            pageSize: 5,
+            lang: 'zh-CN',
+            emojiCDN: '',
+            emojiMaps: null,
+            enableQQ: true,
+            path: window.location.pathname,
+            visitor: true
+        }
+        var option = false;
+        if(option){
+            initData = Object.assign(initData, option)
+        }
+        new Valine(initData)
+    });
+}
+LoadValine()
+</script>
+                
+            </div>
+            
+        
+    
+
+            </main>
+        </div>
+        
+        
+            
+            <div id="toc">
+                <div id="toc-title">
+                    <h4>目录
+                        <span id="num">0%</span>
+                    </h4>
+                    <progress id="progress" value="0" max="100"></progress>
+                </div>
+                <div id="toc-list">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="toc-text">搜索功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%92%8C%E6%90%9C%E7%B4%A2%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">显示和搜索的代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93follower%E8%A1%A8%E7%BB%84%E6%88%90"><span class="toc-text">数据库follower表组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E6%B3%A8%E5%8F%96%E5%85%B3%E5%8A%9F%E8%83%BD"><span class="toc-text">关注取关功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E6%B3%A8%E5%8F%96%E5%85%B3%E6%90%9C%E7%B4%A2%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-text">关注取关搜索完整代码</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+        
+        
+    </div>
+    <footer class="footer" id="footer">
+    <div class="copyright">
+        
+      &copy; 2019 - 2021
+        <i class="fas fa-fan"></i>
+        ZhuangXuward
+    </div>
+    <div class="framework-info">
+        <span>我的视频 </span>
+        <a href="https://space.bilibili.com/20554061" target="_blank">Bilibili</a>
+        <span class="footer-separator">|</span>
+        <span>狗粮 </span>
+        <a href="https://mp.weixin.qq.com/s/oYrE8X-F6ysRkygGaPWzpg" target="_blank">We</a>
+    </div>
+    
+    
+    <div class="custom-text">Welcome to ZhuangXuward's blog.</div>
+</footer>
+    <script>
+
+        var $config = {
+            search:{
+                enable: true,
+                path: "/search.xml"
+            },
+            lazyload:{
+                enable: true,
+            },
+            CodeBlock:{
+                enable: true,
+                height: "400",
+                scrollTop: "200"
+            },
+            CDN:{
+                fancybox_js: "https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js",
+                fancybox_css: "https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css",
+                search: "/js/search.js",
+            }
+        }
+
+        
+        var originTitle = document.title;
+        var titleTime;
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                document.title = "点我看看 " + originTitle;
+                clearTimeout(titleTime);
+            } else {
+                document.title = "欢迎回来 " + originTitle;
+                titleTime = setTimeout(function () {
+                    document.title = originTitle;
+                }, 2000);
+            }
+        });
+        
+        
+        
+        // 清除时间
+        var timer = null;
+        // 执行进度条
+        function ProgressStart(){
+            // 设置初始进度
+            var progress = 10;
+            // 创建进度条 及 css样式
+            $("body").append("<div class='progress'></div>")
+            // 定义随机数最大值最小值
+            var max=10,mini=3;
+            var result=max-mini;
+            // 清除
+            clearInterval(timer);
+            // 0.5秒内累加进度
+            timer = setInterval(function(){
+                // 随机数
+                var num = parseInt(Math.random()*result);
+                var randomResult = num+mini;
+                // 累加
+                progress+=randomResult
+                $("body .progress").css("width",progress+"%")
+                // 当进度达到95%时停止
+                if(progress>95)progress=95
+            },500)
+        }
+        // 加载进度条加载完毕
+        function ProgressFinish(){
+            clearInterval(timer);
+            // 页面加载完毕后进度100% 并在0.7秒后删除
+            $("body .progress").css("width","100%")
+            timer = setTimeout(function () {
+                $("body .progress").remove();
+            }, 700);
+        }
+        // 手机端
+        function Mobile(){
+            // 手机端导航栏跳转关闭
+            $("#mobileNav").css("opacity", "0")
+            $("#mobileNav").removeClass("open")
+            $("#mask").removeClass("mask")
+            // 解除手机端页面跳转无法滚动
+            $("html").css("overflow", "auto")
+            // 手机端搜索框关闭
+            $("#local-search").css("display", "none")
+        }
+        
+    </script>
+    
+<script data-pjax src="/js/lazyLoad.js"></script>
+
+
+<script data-pjax src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/js/main.js"></script>
+
+    
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/pjax/pjax.js"></script>
+    <script>
+        var pjax = new Pjax({
+            selectors: [
+                "head title",
+                "main.content",
+                "#toc"
+            ],
+            cache: true,
+            cacheBust: false
+        });
+
+        // 开始 PJAX 执行的函数
+		document.addEventListener('pjax:send', function () {
+            // 执行进度条
+            ProgressStart()
+        });
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+		document.addEventListener('pjax:complete', function () {
+
+            // 加载进度条加载完毕
+            ProgressFinish()
+            // 手机端
+            Mobile()
+            // 代码块复制
+            CopyContent()
+            // Fancybox
+            FancyboxFn()
+            // 深色模式
+            DarkMode()
+            // 代码块折叠
+            CodeBlock()
+            
+            
+            
+            document.querySelectorAll('script[data-pjax]').forEach(item => {
+                const newScript = document.createElement('script')
+                const content = item.text || item.textContent || item.innerHTML || ""
+                Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+                newScript.appendChild(document.createTextNode(content))
+                item.parentNode.replaceChild(newScript, item)
+            })
+        });
+
+        // Pjax请求错误时，跳转到404页面
+        document.addEventListener('pjax:error', (e) => {
+            if (e.request.status === 404) {
+                pjax.loadUrl('/404.html')
+            }
+        })
+    </script>
+
+    
+</body>
+</html>
