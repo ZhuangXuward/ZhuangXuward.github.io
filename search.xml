@@ -4,19 +4,56 @@
   
     
     <entry>
-      <title>VS C++提示“error LNK2005: _XXX已经在xxx.obj中定义”解决方案</title>
-      <link href="2021/05/17/VS-C-%E6%8F%90%E7%A4%BA%E2%80%9Cerror-LNK2005-XXX%E5%B7%B2%E7%BB%8F%E5%9C%A8xxx-obj%E4%B8%AD%E5%AE%9A%E4%B9%89%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-      <url>2021/05/17/VS-C-%E6%8F%90%E7%A4%BA%E2%80%9Cerror-LNK2005-XXX%E5%B7%B2%E7%BB%8F%E5%9C%A8xxx-obj%E4%B8%AD%E5%AE%9A%E4%B9%89%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      <title>ubuntu下运行BLISS签名代码</title>
+      <link href="2020/11/26/ubuntu%E4%B8%8B%E8%BF%90%E8%A1%8CBLISS%E7%AD%BE%E5%90%8D%E4%BB%A3%E7%A0%81/"/>
+      <url>2020/11/26/ubuntu%E4%B8%8B%E8%BF%90%E8%A1%8CBLISS%E7%AD%BE%E5%90%8D%E4%BB%A3%E7%A0%81/</url>
       
-        <content type="html"><![CDATA[<p><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116201740515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"></p><h2 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h2><p>如图所示，原因是项目中有多个源文件或者头文件时，include得太多太杂，导致有些变量重复定义。</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol><li><p>最治本的方法，找出重复定义的变量位置，并修改。<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116201939233.png#pic_center" alt="在这里插入图片描述" class="lazyload"></p></li><li><p>直接忽略第二次定义的提示，继续运行，操作如下：<br>在“项目”——“**属性”打开的对话框中，选择“配置属性”——“链接器”——“命令行”中添加代码”/FORCE:MULTIPLE”即可。<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116202326393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"></p></li></ol><p>参考：<a href="https://www.jingwen.love/227.html">https://www.jingwen.love/227.html</a></p>]]></content>
+        <content type="html"><![CDATA[<p><a href="https://bliss.di.ens.fr/">Bliss 签名的代码和论文链接</a></p><p>代码一览：<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201126201943941.png#pic_let" alt="在这里插入图片描述" class="lazyload"></p><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ol><li>==头文件和库文件==的安装；</li><li>==codeblocks编译链接==指明问题。</li></ol><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><ol><li><p>bliss的代码实现用到几个包，在windows下比较难配置，故选择在<strong>linux</strong>下。<br> 需要安装的包：</p><ul><li><input disabled="" type="checkbox"> libboost-random-mt.a</li><li><input disabled="" type="checkbox"> libssl.a</li><li><input disabled="" type="checkbox"> libntl.a</li><li><input disabled="" type="checkbox"> libmpfr.a</li><li><input disabled="" type="checkbox"> libgmp.a</li></ul><p> 安装方法参考：<a href="https://www.chainnews.com/articles/108652814801.htm">如何在 Ubuntu 上安装 NTL 库</a><br> openssl、NTL、mpfr、gmp的包==最好从各个包的官网下载==，解压-编译-安装得到。</p><p> 我的openssl一开始是通过apt-get安装的，一直没办法得到.a文件，最终还是从官网下载，configure-make-make install，之后就可以在/local/lib中得到.a文件，其他的包也可以类似操作得到需要的.a文件，这里的.a文件后面要用到。如图：<br> <img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/2020112620462590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"></p><p> 大致流程相似，如下：</p> <div class="highlight-wrap"autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="false"data-rel="C"><span class="clipboard"><i class="fa fa-clipboard"></i></span><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf gmp<span class="number">-6.0</span><span class="number">.0</span>a.tar.lz             <span class="comment">//解压gmp-6.0.0a.tar.lz的命令，也可以用鼠标提取。</span></span><br><span class="line">cd gmp<span class="number">-6.0</span><span class="number">.0</span>                           <span class="comment">//转到解压后的gmp-6.0.0 文件夹</span></span><br><span class="line">./configure  <span class="comment">//编译GMP，默认安装到/usr/local/gmp-6.0.0</span></span><br><span class="line">make                                    <span class="comment">//使用make工具编译                               </span></span><br><span class="line">sudo su</span><br><span class="line">make install                       <span class="comment">//安装</span></span><br><span class="line">ls /usr/local/gmp<span class="number">-6.0</span><span class="number">.0</span>                 <span class="comment">//判断成功与否，成功会有include lib  share</span></span><br></pre></td></tr></table></figure></div></li><li><p>虽然安装好了头文件和库文件，但运行代码会出现<strong>找不到文件</strong>的问题：<br> 需要在<strong>setting-&gt;compiler-&gt;Linker settings</strong> 和 <strong>setting-&gt;compiler-&gt;Search directories</strong>中进行指定。<br> 如下：<br> <img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201126203459301.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"><br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201126203612602.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"><br>最后成功运行：<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201126203647734.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" class="lazyload"></p></li></ol>]]></content>
       
+      
+      <categories>
+          
+          <category> 课题 </category>
+          
+      </categories>
       
       
         <tags>
             
-            <tag> 学习笔记 </tag>
+            <tag> 调试 </tag>
+            
+            <tag> 格基密码 </tag>
+            
+            <tag> BLISS </tag>
+            
+            <tag> 格签名 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VS C++提示“error LNK2005: _XXX已经在xxx.obj中定义”解决方案</title>
+      <link href="2020/11/16/VS-C-%E6%8F%90%E7%A4%BA%E2%80%9Cerror-LNK2005-XXX%E5%B7%B2%E7%BB%8F%E5%9C%A8xxx-obj%E4%B8%AD%E5%AE%9A%E4%B9%89%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+      <url>2020/11/16/VS-C-%E6%8F%90%E7%A4%BA%E2%80%9Cerror-LNK2005-XXX%E5%B7%B2%E7%BB%8F%E5%9C%A8xxx-obj%E4%B8%AD%E5%AE%9A%E4%B9%89%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      
+        <content type="html"><![CDATA[<p><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116201740515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"></p><h2 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h2><p>如图所示，原因是项目中有多个源文件或者头文件时，include得太多太杂，导致有些变量重复定义。</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol><li><p>最治本的方法，找出重复定义的变量位置，并修改。<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116201939233.png#pic_center" alt="在这里插入图片描述" class="lazyload"></p></li><li><p>直接忽略第二次定义的提示，继续运行，操作如下：<br>在“项目”——“**属性”打开的对话框中，选择“配置属性”——“链接器”——“命令行”中添加代码”/FORCE:MULTIPLE”即可。<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116202326393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"></p></li></ol><p>参考：<a href="https://www.jingwen.love/227.html">https://www.jingwen.love/227.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
             
             <tag> 调试 </tag>
+            
+            <tag> VS </tag>
             
         </tags>
       

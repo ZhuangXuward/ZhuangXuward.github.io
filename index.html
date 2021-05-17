@@ -150,7 +150,111 @@
 	
         <div class="post-item">
             <div class="post-title">
-                <h2><a href="/2021/05/17/VS-C-%E6%8F%90%E7%A4%BA%E2%80%9Cerror-LNK2005-XXX%E5%B7%B2%E7%BB%8F%E5%9C%A8xxx-obj%E4%B8%AD%E5%AE%9A%E4%B9%89%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">VS C++提示“error LNK2005: _XXX已经在xxx.obj中定义”解决方案</a></h2>
+                <h2><a href="/2020/11/26/ubuntu%E4%B8%8B%E8%BF%90%E8%A1%8CBLISS%E7%AD%BE%E5%90%8D%E4%BB%A3%E7%A0%81/">ubuntu下运行BLISS签名代码</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    Bliss 签名的代码和论文链接
+代码一览：
+遇到的问题
+==头文件和库文件==的安装；
+==codeblocks编译链接==指明问题。
+
+解决
+bliss的代码实现用到几个包，在windows下比较难配置，故选择在linux下。 需要安装的包：
+
+ libboost-random-mt.a
+ libssl.a
+ libntl.a
+ libmpfr.a
+ libgmp.a
+
+ 安装方法参考：如何在 Ubuntu 上安装 NTL 库 openssl、NTL、mpfr、gmp的包==最好从各个包的官网下载==，解压-编译-安装得到。
+ 我的openssl一开始是通过apt-get安装的，一直没办法得到.a文件，最终还是从官网下载，configure-make-make install，之后就可以在/local/lib中得到.a文件，其他的包也可以类似操作得到需要的.a文件，这里的.a文件后面要用到。如图： 
+ 大致流程相似，如下：
+ 1234567tar -xvf gmp-6.0.0a.tar.lz             //解压gmp-6.0.0a.tar.lz的命令，也可以用鼠标提取
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2020-11-26</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/调试/">
+                                    <span>调试</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/格基密码/">
+                                    <span>格基密码</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/BLISS/">
+                                    <span>BLISS</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/格签名/">
+                                    <span>格签名</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/课题/">
+                                    <span>课题</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
+                <h2><a href="/2020/11/16/VS-C-%E6%8F%90%E7%A4%BA%E2%80%9Cerror-LNK2005-XXX%E5%B7%B2%E7%BB%8F%E5%9C%A8xxx-obj%E4%B8%AD%E5%AE%9A%E4%B9%89%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">VS C++提示“error LNK2005: _XXX已经在xxx.obj中定义”解决方案</a></h2>
             </div>
             <div class="post-description">
                 <p style="-webkit-line-clamp: 3">
@@ -175,7 +279,7 @@
                     <span class="post-date">
                         <i class="far fa-calendar-alt"></i>
                         <span>发表于</span>
-                        <span>2021-05-17</span>
+                        <span>2020-11-16</span>
                     </span>
                 </div>
                 <!-- 标签 -->
@@ -185,8 +289,8 @@
                             <i class="fa fa-tag"></i>
                              
                             <span>
-                                <a href="tags/学习笔记/">
-                                    <span>学习笔记</span>
+                                <a href="tags/调试/">
+                                    <span>调试</span>
                                 </a>
                                 
                                     <i class="fas fa-angle-right"></i>
@@ -194,8 +298,8 @@
                             </span>
                              
                             <span>
-                                <a href="tags/调试/">
-                                    <span>调试</span>
+                                <a href="tags/VS/">
+                                    <span>VS</span>
                                 </a>
                                 
                             </span>
@@ -204,6 +308,20 @@
                     </div>
                 
                 <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
                 
             </div>
         </div>
@@ -951,91 +1069,6 @@ mouseenter不支持冒泡，同样鼠标从边界之外进入时触发；但由�
                             <span>
                                 <a href="categories/技术/MySQL/">
                                     <span>MySQL</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-            </div>
-        </div>
-
-
-	
-	
-        <div class="post-item">
-            <div class="post-title">
-                <h2><a href="/2019/05/23/React%E5%AD%A6%E4%B9%A0/">React学习</a></h2>
-            </div>
-            <div class="post-description">
-                <p style="-webkit-line-clamp: 3">
-                    
-                    前言团队项目需要用到react框架，于是就选择学习react而不是vue。
-看了很多相关的学习记录和方法，总结起来就是，react上手比较困难，实际体验也的确是比较困难，虽然没有其他框架的学习经验，无法横线对比，但是和js比起来，学习曲线陡峭不少。
-关于react的学习还是老方法，看教程，看文档，有事不决问百度谷歌（笑）。
-
-
-StateReact把组件看成是一个状态机。
-只需要更新组件的state，然后根据新的state重新渲染用户界面。
-例子：创建一个React.Component的ES6类，使用this.state表示时间并刷新。
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950class Clock extends React.Component &#123;    constructor(props) &#123;        super(props); //?        this.state = &#123;date: new Date
-                </p>
-            </div>
-                
-
-            <div class="post-footer">
-                <!-- 发布时间 -->
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>发表于</span>
-                        <span>2019-05-23</span>
-                    </span>
-                </div>
-                <!-- 标签 -->
-                
-                    <div class="post-tag">
-                        <span>
-                            <i class="fa fa-tag"></i>
-                             
-                            <span>
-                                <a href="tags/学习笔记/">
-                                    <span>学习笔记</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/React/">
-                                    <span>React</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-                <!-- 分类 -->
-                
-                    <div class="post-categorie">
-                        <span>
-                            <i class="fas fa-folder-open"></i>
-                             
-                            <span>
-                                <a href="categories/技术/">
-                                    <span>技术</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="categories/技术/React/">
-                                    <span>React</span>
                                 </a>
                                 
                             </span>
