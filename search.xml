@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>VS C++提示“error LNK2005: _XXX已经在xxx.obj中定义”解决方案</title>
+      <link href="2021/05/17/VS-C-%E6%8F%90%E7%A4%BA%E2%80%9Cerror-LNK2005-XXX%E5%B7%B2%E7%BB%8F%E5%9C%A8xxx-obj%E4%B8%AD%E5%AE%9A%E4%B9%89%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+      <url>2021/05/17/VS-C-%E6%8F%90%E7%A4%BA%E2%80%9Cerror-LNK2005-XXX%E5%B7%B2%E7%BB%8F%E5%9C%A8xxx-obj%E4%B8%AD%E5%AE%9A%E4%B9%89%E2%80%9D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      
+        <content type="html"><![CDATA[<p><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116201740515.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"></p><h2 id="出现原因"><a href="#出现原因" class="headerlink" title="出现原因"></a>出现原因</h2><p>如图所示，原因是项目中有多个源文件或者头文件时，include得太多太杂，导致有些变量重复定义。</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol><li><p>最治本的方法，找出重复定义的变量位置，并修改。<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116201939233.png#pic_center" alt="在这里插入图片描述" class="lazyload"></p></li><li><p>直接忽略第二次定义的提示，继续运行，操作如下：<br>在“项目”——“**属性”打开的对话框中，选择“配置属性”——“链接器”——“命令行”中添加代码”/FORCE:MULTIPLE”即可。<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20201116202326393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" class="lazyload"></p></li></ol><p>参考：<a href="https://www.jingwen.love/227.html">https://www.jingwen.love/227.html</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+            <tag> 调试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>trivial notes</title>
       <link href="2020/02/11/trivial-notes/"/>
       <url>2020/02/11/trivial-notes/</url>

@@ -150,6 +150,92 @@
 	
         <div class="post-item">
             <div class="post-title">
+                <h2><a href="/2019/04/10/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A03-%E7%94%A8%E5%BE%AA%E7%8E%AF%E4%BD%BF%E4%B8%89%E4%B8%AADIV%E5%8F%98%E8%89%B2/">JavaScript小练习3-用循环使三个DIV变色</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    题目初始为黑色，点击后为红色，再次点击为黑色，以后每次点击一次变色。
+
+分析
+简单的onclick使用。
+button的居中可以在外套一个p元素，body中让p居中即可。
+三个DIV块的并排居中，外层大DIV使用margin和width，内层三个DIV也使用margin和width控制，注意margin的上下会重叠，但左右不重叠；并排用float实现。
+实现多次点击变色，需要进行判断原色，注意一般的方法（ele.style./cssText）只能读取和修改内联样式，故第一次点击时无法访问到样式表中的黑色值。这里使用switch中的default解决。
+
+效果&amp;代码效果：循环使DIV变色F12查看代码。
+
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-04-10</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/小练习/">
+                                    <span>小练习</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/JavaScript/">
+                                    <span>JavaScript</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
                 <h2><a href="/2019/04/10/JavaScript%E5%B0%8F%E7%BB%83%E4%B9%A02-%E7%BD%91%E9%A1%B5%E6%8D%A2%E8%82%A4/">JavaScript小练习2-网页换肤</a></h2>
             </div>
             <div class="post-description">
