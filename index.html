@@ -150,6 +150,92 @@
 	
         <div class="post-item">
             <div class="post-title">
+                <h2><a href="/2021/05/23/%E6%A0%BC%E5%AF%86%E7%A0%81%E4%B8%AD%E7%9A%84%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E5%92%8CNTT/">格密码中的快速傅里叶变换和NTT</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    傅里叶变换傅里叶变换通常用于在数字信号处理中，对数字信号进行频域和时域的转换，分为离散的和连续的，如下图：格密码是模整数下的操作，所以只考虑离散情况。
+离散傅里叶变换序列{$x_n$}$_{n=0}^{N-1}$，DFT为：
+$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$
+IDFT为：
+$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$
+IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与DFT是相同的。所以计算DFT的程序代码稍作修改也可以用于IDFT。
+快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{$x_n$}变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
+可知DFT时间复杂度为O($N^2$)
+对于O($N^2$)，通常使用二分法、分治法提高效率。FFT正是通过分而治之的思想提高DFT的速度的。
+一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法的思路。
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2021-05-23</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/格基密码/">
+                                    <span>格基密码</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/FFT/">
+                                    <span>FFT</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/NTT/">
+                                    <span>NTT</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/课题/">
+                                    <span>课题</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
                 <h2><a href="/2020/11/26/ubuntu%E4%B8%8B%E8%BF%90%E8%A1%8CBLISS%E7%AD%BE%E5%90%8D%E4%BB%A3%E7%A0%81/">ubuntu下运行BLISS签名代码</a></h2>
             </div>
             <div class="post-description">
@@ -158,8 +244,8 @@
                     Bliss 签名的代码和论文链接
 代码一览：
 遇到的问题
-==头文件和库文件==的安装；
-==codeblocks编译链接==指明问题。
+头文件和库文件的安装；
+codeblocks编译链接指明问题。
 
 解决
 bliss的代码实现用到几个包，在windows下比较难配置，故选择在linux下。 需要安装的包：
@@ -173,7 +259,7 @@ bliss的代码实现用到几个包，在windows下比较难配置，故选择�
  安装方法参考：如何在 Ubuntu 上安装 NTL 库 openssl、NTL、mpfr、gmp的包==最好从各个包的官网下载==，解压-编译-安装得到。
  我的openssl一开始是通过apt-get安装的，一直没办法得到.a文件，最终还是从官网下载，configure-make-make install，之后就可以在/local/lib中得到.a文件，其他的包也可以类似操作得到需要的.a文件，这里的.a文件后面要用到。如图： 
  大致流程相似，如下：
- 1234567tar -xvf gmp-6.0.0a.tar.lz             //解压gmp-6.0.0a.tar.lz的命令，也可以用鼠标提取
+ 1234567tar -xvf gmp-6.0.0a.tar.lz             //解压gmp-6.0.0a.tar.lz的命令，也可以用鼠标提取。cd gmp-
                 </p>
             </div>
                 
@@ -979,96 +1065,6 @@ mouseenter不支持冒泡，同样鼠标从边界之外进入时触发；但由�
                             <span>
                                 <a href="categories/技术/Vue/">
                                     <span>Vue</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-            </div>
-        </div>
-
-
-	
-	
-        <div class="post-item">
-            <div class="post-title">
-                <h2><a href="/2019/05/29/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">MySQL常用指令</a></h2>
-            </div>
-            <div class="post-description">
-                <p style="-webkit-line-clamp: 3">
-                    
-                    前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。
-配置好环境变量之后就可以开始运行了。
-
-
-运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了：
-以上是本地连接，如果需要更详细的或者连接远程数据库，输入指令：mysql –u用户名 [–h主机名或者IP地址,-P端口号] –p密码，
-
-该命令是在命令行窗口下执行，而不是MySQL的命令行；
-输入-p后可以直接跟上密码，也可以按回车，会提示你输入密码，二者都是相同的效果；
-–p密码选项不一定是要在最后；
-–u、-h、-p后无空格。（端口号一般为3306，不过也可以更改）
-
-连接远程数据库时，如果无法连接，提示密码错误的话，需要更改host值为&quot;%&quot;，我的做法是用MySQL WorkBench客户端：
-创建数据库如下脚本创建test数据库，并且在test数据库下创建students表和classes表，以及必要的
-                </p>
-            </div>
-                
-
-            <div class="post-footer">
-                <!-- 发布时间 -->
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>发表于</span>
-                        <span>2019-05-29</span>
-                    </span>
-                </div>
-                <!-- 标签 -->
-                
-                    <div class="post-tag">
-                        <span>
-                            <i class="fa fa-tag"></i>
-                             
-                            <span>
-                                <a href="tags/学习笔记/">
-                                    <span>学习笔记</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/MySQL/">
-                                    <span>MySQL</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-                <!-- 分类 -->
-                
-                    <div class="post-categorie">
-                        <span>
-                            <i class="fas fa-folder-open"></i>
-                             
-                            <span>
-                                <a href="categories/技术/">
-                                    <span>技术</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="categories/技术/MySQL/">
-                                    <span>MySQL</span>
                                 </a>
                                 
                             </span>

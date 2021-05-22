@@ -150,6 +150,96 @@
 	
         <div class="post-item">
             <div class="post-title">
+                <h2><a href="/2019/05/29/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">MySQL常用指令</a></h2>
+            </div>
+            <div class="post-description">
+                <p style="-webkit-line-clamp: 3">
+                    
+                    前言MySQL语句多而杂，记录下来方便自己回顾和查询。官网安装MySQL client，我多安装了一个work bench，图形化界面，对于一些操作还是十分方便的。
+配置好环境变量之后就可以开始运行了。
+
+
+运行MySQL直接打开命令行输入mysql -u root -p，root是用户名（可更改），p表示之后输入密码，成功后就连接到MySQL服务器了：
+以上是本地连接，如果需要更详细的或者连接远程数据库，输入指令：mysql –u用户名 [–h主机名或者IP地址,-P端口号] –p密码，
+
+该命令是在命令行窗口下执行，而不是MySQL的命令行；
+输入-p后可以直接跟上密码，也可以按回车，会提示你输入密码，二者都是相同的效果；
+–p密码选项不一定是要在最后；
+–u、-h、-p后无空格。（端口号一般为3306，不过也可以更改）
+
+连接远程数据库时，如果无法连接，提示密码错误的话，需要更改host值为&quot;%&quot;，我的做法是用MySQL WorkBench客户端：
+创建数据库如下脚本创建test数据库，并且在test数据库下创建students表和classes表，以及必要的
+                </p>
+            </div>
+                
+
+            <div class="post-footer">
+                <!-- 发布时间 -->
+                <div class="post-meta">
+                    <span class="post-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>发表于</span>
+                        <span>2019-05-29</span>
+                    </span>
+                </div>
+                <!-- 标签 -->
+                
+                    <div class="post-tag">
+                        <span>
+                            <i class="fa fa-tag"></i>
+                             
+                            <span>
+                                <a href="tags/学习笔记/">
+                                    <span>学习笔记</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="tags/MySQL/">
+                                    <span>MySQL</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+                <!-- 分类 -->
+                
+                    <div class="post-categorie">
+                        <span>
+                            <i class="fas fa-folder-open"></i>
+                             
+                            <span>
+                                <a href="categories/技术/">
+                                    <span>技术</span>
+                                </a>
+                                
+                                    <i class="fas fa-angle-right"></i>
+                                
+                            </span>
+                             
+                            <span>
+                                <a href="categories/技术/MySQL/">
+                                    <span>MySQL</span>
+                                </a>
+                                
+                            </span>
+                            
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+
+
+	
+	
+        <div class="post-item">
+            <div class="post-title">
                 <h2><a href="/2019/05/23/React%E5%AD%A6%E4%B9%A0/">React学习</a></h2>
             </div>
             <div class="post-description">
@@ -990,86 +1080,6 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
                             <span>
                                 <a href="categories/技术/git/">
                                     <span>git</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-            </div>
-        </div>
-
-
-	
-	
-        <div class="post-item">
-            <div class="post-title">
-                <h2><a href="/2019/04/11/CSS%E5%AE%9E%E7%8E%B0%E5%9E%82%E7%9B%B4-%E6%B0%B4%E5%B9%B3%E5%AF%BC%E8%88%AA%E6%A0%8F/">CSS实现垂直/水平导航栏</a></h2>
-            </div>
-            <div class="post-description">
-                <p style="-webkit-line-clamp: 3">
-                    
-                    一级基本导航栏怎么显示？导航栏 = 链接列表
-导航栏需要标准的 HTML 作为基础。在我们的例子中，将用标准的 HTML 列表来构建导航栏。导航栏基本上是一个链接列表，因此使用 ul 和 li 元素是非常合适的： 12345678910111213&lt;div id=&quot;nav&quot;&gt;	&lt;ul class=&quot;firstNav&quot;&gt;		&lt;li&gt;			&lt;a href=&quot;#&quot;&gt;一级菜单1&lt;/a&gt;		&lt;/li&gt;		&lt;li&gt;			&lt;a href=&quot;#&quot;&gt;一级菜单2&lt;/a&gt;		&lt;/li&gt;		&lt;li&gt;			&lt;a href=&quot;#&quot;&gt;一级菜单3&lt;/a&gt;		&lt;/li&gt;	&lt;/ul&gt;&lt;/div&gt;
- 以上是标准的导航栏代码。
-去掉list-style-type，去掉默认的项目符号和外边距、内边距: 12345ul &#123;	list
-                </p>
-            </div>
-                
-
-            <div class="post-footer">
-                <!-- 发布时间 -->
-                <div class="post-meta">
-                    <span class="post-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>发表于</span>
-                        <span>2019-04-11</span>
-                    </span>
-                </div>
-                <!-- 标签 -->
-                
-                    <div class="post-tag">
-                        <span>
-                            <i class="fa fa-tag"></i>
-                             
-                            <span>
-                                <a href="tags/小练习/">
-                                    <span>小练习</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="tags/CSS/">
-                                    <span>CSS</span>
-                                </a>
-                                
-                            </span>
-                            
-                        </span>
-                    </div>
-                
-                <!-- 分类 -->
-                
-                    <div class="post-categorie">
-                        <span>
-                            <i class="fas fa-folder-open"></i>
-                             
-                            <span>
-                                <a href="categories/技术/">
-                                    <span>技术</span>
-                                </a>
-                                
-                                    <i class="fas fa-angle-right"></i>
-                                
-                            </span>
-                             
-                            <span>
-                                <a href="categories/技术/CSS/">
-                                    <span>CSS</span>
                                 </a>
                                 
                             </span>
