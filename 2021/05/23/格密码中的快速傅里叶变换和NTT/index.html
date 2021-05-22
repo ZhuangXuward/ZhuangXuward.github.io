@@ -11,14 +11,14 @@
 <meta name="keywords" content="格基密码,FFT,NTT">
 <meta name="description" content="傅里叶变换傅里叶变换通常用于在数字信号处理中，对数字信号进行频域和时域的转换，分为离散的和连续的，如下图：格密码是模整数下的操作，所以只考虑离散情况。
 离散傅里叶变换序列{$x_n$}$_{n=0}^{N-1}$，DFT为：
-$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$
+$$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$$
 IDFT为：
-$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$
+$$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$$
 IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与DFT是相同的。所以计算DFT的程序代码稍作修改也可以用于IDFT。
 快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{$x_n$}变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
 可知DFT时间复杂度为O($N^2$)
 对于O($N^2$)，通常使用二分法、分治法提高效率。FFT正是通过分而治之的思想提高DFT的速度的。
-一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法的思路。" />
+一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法" />
 <meta property="site_name" content="庄少华's Blog" />
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shaohuahua.top/2021/05/23/格密码中的快速傅里叶变换和NTT/">
@@ -26,27 +26,27 @@ IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与D
 <meta property="og:site_name" content="庄少华's Blog" />
 <meta property="og:description" content="傅里叶变换傅里叶变换通常用于在数字信号处理中，对数字信号进行频域和时域的转换，分为离散的和连续的，如下图：格密码是模整数下的操作，所以只考虑离散情况。
 离散傅里叶变换序列{$x_n$}$_{n=0}^{N-1}$，DFT为：
-$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$
+$$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$$
 IDFT为：
-$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$
+$$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$$
 IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与DFT是相同的。所以计算DFT的程序代码稍作修改也可以用于IDFT。
 快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{$x_n$}变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
 可知DFT时间复杂度为O($N^2$)
 对于O($N^2$)，通常使用二分法、分治法提高效率。FFT正是通过分而治之的思想提高DFT的速度的。
-一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法的思路。" />
+一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法" />
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="格密码中的快速傅里叶变换和NTT | 庄少华's Blog">
 <meta name="twitter:description" content="傅里叶变换傅里叶变换通常用于在数字信号处理中，对数字信号进行频域和时域的转换，分为离散的和连续的，如下图：格密码是模整数下的操作，所以只考虑离散情况。
 离散傅里叶变换序列{$x_n$}$_{n=0}^{N-1}$，DFT为：
-$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$
+$$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$$
 IDFT为：
-$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$
+$$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$$
 IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与DFT是相同的。所以计算DFT的程序代码稍作修改也可以用于IDFT。
 快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{$x_n$}变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
 可知DFT时间复杂度为O($N^2$)
 对于O($N^2$)，通常使用二分法、分治法提高效率。FFT正是通过分而治之的思想提高DFT的速度的。
-一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法的思路。">
+一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法">
 <link rel="dns-prefetch" href="https://shaohuahua.top/2021/05/23/格密码中的快速傅里叶变换和NTT/">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
@@ -211,20 +211,20 @@ IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与D
             <div class="post-content">
                 <h1 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h1><p>傅里叶变换通常用于在数字信号处理中，对数字信号进行频域和时域的转换，分为离散的和连续的，如下图：<br><img  src= "/img/load.gif" data-img="https://img-blog.csdnimg.cn/20210522214429450.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpdWh1YTIwMTc=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" class="lazyload"><br>格密码是模整数下的操作，所以只考虑离散情况。</p>
 <h2 id="离散傅里叶变换"><a href="#离散傅里叶变换" class="headerlink" title="离散傅里叶变换"></a>离散傅里叶变换</h2><p>序列{$x_n$}$_{n=0}^{N-1}$，DFT为：</p>
-<p>$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$</p>
+<p>$$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$$</p>
 <p>IDFT为：</p>
-<p>$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$</p>
+<p>$$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$$</p>
 <p>IDFT除了<strong>指数的符号相反</strong>，<strong>结果需要乘以归一化因子1/N</strong>外，与DFT是相同的。<br>所以计算DFT的程序代码稍作修改也可以用于IDFT。</p>
 <h1 id="快速傅里叶变换FFT"><a href="#快速傅里叶变换FFT" class="headerlink" title="快速傅里叶变换FFT"></a>快速傅里叶变换FFT</h1><h2 id="O-N-2-太慢了"><a href="#O-N-2-太慢了" class="headerlink" title="O($N^2$)太慢了"></a>O($N^2$)太慢了</h2><p>原本的DFT中，将{$x_n$}变换为{$X_n$}。<br>N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。</p>
 <p>可知DFT时间复杂度为O($N^2$)</p>
 <p>对于O($N^2$)，通常使用<strong>二分法、分治法</strong>提高效率。<br>FFT正是通过<strong>分而治之</strong>的思想提高DFT的速度的。</p>
 <h2 id="一分为二"><a href="#一分为二" class="headerlink" title="一分为二"></a>一分为二</h2><p>将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法的思路。</p>
-<p>DFT计算公式：<br>$X[k] = \sum_{n=0}^{N-1}x_ne^{-2\pi ink/N}$</p>
+<p>DFT计算公式：<br>$$X[k] = \sum_{n=0}^{N-1}x_ne^{-2\pi ink/N}$$</p>
 <p>N通常是2的幂，那么0~N-1可以按照<strong>下标的奇偶</strong>平等划分。<br>则DFT公式变为：</p>
-<p>$X[k] = \sum_{m=0}^{N/2-1}x_{2m}e^{-\frac{2\pi i}{N}(2m)k} + \sum_{m=0}^{N/2-1}x_{2m+1}e^{-\frac{2\pi i}{N}(2m+1)k}$</p>
+<p>$$X[k] = \sum_{m=0}^{N/2-1}x_{2m}e^{-\frac{2\pi i}{N}(2m)k} + \sum_{m=0}^{N/2-1}x_{2m+1}e^{-\frac{2\pi i}{N}(2m+1)k}$$</p>
 <p>可以看成是{$x_n$}的偶数下标和奇数下标组成的两个序列{$x1_n$}和{$x2_n$}，两个序列的DFT之和。</p>
 <p>即“DFT of even-indexed part of xn”和“DFT of odd-indexed part of xn”。</p>
-<p>$X[k] = \sum_{m=0}^{N/2-1}x_{2m}e^{-\frac{2\pi i}{N}(2m)k} + \sum_{m=0}^{N/2-1}x_{2m+1}e^{-\frac{2\pi i}{N}(2m+1)k}$</p>
+<p>$$X[k] = \sum_{m=0}^{N/2-1}x_{2m}e^{-\frac{2\pi i}{N}(2m)k} + \sum_{m=0}^{N/2-1}x_{2m+1}e^{-\frac{2\pi i}{N}(2m+1)k}$$</p>
 <h1 id="数论变换NTT"><a href="#数论变换NTT" class="headerlink" title="数论变换NTT"></a>数论变换NTT</h1><h1 id="多项式乘法"><a href="#多项式乘法" class="headerlink" title="多项式乘法"></a>多项式乘法</h1><h1 id="格密码运算中的FFT实现"><a href="#格密码运算中的FFT实现" class="headerlink" title="格密码运算中的FFT实现"></a>格密码运算中的FFT实现</h1>
             </div>
             
@@ -468,6 +468,33 @@ LoadValine()
     
 <script data-pjax src="/js/lazyLoad.js"></script>
 
+
+<script>
+    // MathJax
+    function MathJaxFn(){
+        const script = document.createElement('script')
+        script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+        script.id = 'MathJax-script'
+        script.async = true
+        document.head.appendChild(script)
+        MathJax = {
+            loader: {
+                source: {
+                    '[tex]/amsCd': '[tex]/amscd'
+                }
+            },
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    }
+    MathJaxFn()
+    
+    document.addEventListener('pjax:complete', function () {
+        MathJaxFn()
+    })
+    
+</script>
 
 <script data-pjax src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
 <script src="/js/main.js"></script>

@@ -322,6 +322,33 @@
 <script data-pjax src="/js/lazyLoad.js"></script>
 
 
+<script>
+    // MathJax
+    function MathJaxFn(){
+        const script = document.createElement('script')
+        script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+        script.id = 'MathJax-script'
+        script.async = true
+        document.head.appendChild(script)
+        MathJax = {
+            loader: {
+                source: {
+                    '[tex]/amsCd': '[tex]/amscd'
+                }
+            },
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    }
+    MathJaxFn()
+    
+    document.addEventListener('pjax:complete', function () {
+        MathJaxFn()
+    })
+    
+</script>
+
 <script data-pjax src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
 <script src="/js/main.js"></script>
 
