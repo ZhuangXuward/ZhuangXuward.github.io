@@ -15,10 +15,10 @@ $$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$$
 IDFT为：
 $$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$$
 IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与DFT是相同的。所以计算DFT的程序代码稍作修改也可以用于IDFT。
-快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{$x_n$}变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
+快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{ \(x_n\) }变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
 可知DFT时间复杂度为O($N^2$)
 对于O($N^2$)，通常使用二分法、分治法提高效率。FFT正是通过分而治之的思想提高DFT的速度的。
-一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法" />
+一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常" />
 <meta property="site_name" content="庄少华's Blog" />
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shaohuahua.top/2021/05/23/格密码中的快速傅里叶变换和NTT/">
@@ -30,10 +30,10 @@ $$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$$
 IDFT为：
 $$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$$
 IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与DFT是相同的。所以计算DFT的程序代码稍作修改也可以用于IDFT。
-快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{$x_n$}变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
+快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{ \(x_n\) }变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
 可知DFT时间复杂度为O($N^2$)
 对于O($N^2$)，通常使用二分法、分治法提高效率。FFT正是通过分而治之的思想提高DFT的速度的。
-一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法" />
+一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常" />
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="格密码中的快速傅里叶变换和NTT | 庄少华's Blog">
@@ -43,10 +43,10 @@ $$X[k] = \sum_{n=0}^{N-1}x_ne^{-i2\pi nk/N}$$
 IDFT为：
 $$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$$
 IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与DFT是相同的。所以计算DFT的程序代码稍作修改也可以用于IDFT。
-快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{$x_n$}变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
+快速傅里叶变换FFTO($N^2$)太慢了原本的DFT中，将{ \(x_n\) }变换为{$X_n$}。N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。
 可知DFT时间复杂度为O($N^2$)
 对于O($N^2$)，通常使用二分法、分治法提高效率。FFT正是通过分而治之的思想提高DFT的速度的。
-一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法">
+一分为二将一个大问题分解为规模更小但问题相同的两个小问题，通常">
 <link rel="dns-prefetch" href="https://shaohuahua.top/2021/05/23/格密码中的快速傅里叶变换和NTT/">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
@@ -215,7 +215,7 @@ IDFT除了指数的符号相反，结果需要乘以归一化因子1/N外，与D
 <p>IDFT为：</p>
 <p>$$x_n = \frac{1}{N}\sum_{n=0}^{N-1}X[k]e^{i2\pi nk/N}$$</p>
 <p>IDFT除了<strong>指数的符号相反</strong>，<strong>结果需要乘以归一化因子1/N</strong>外，与DFT是相同的。<br>所以计算DFT的程序代码稍作修改也可以用于IDFT。</p>
-<h1 id="快速傅里叶变换FFT"><a href="#快速傅里叶变换FFT" class="headerlink" title="快速傅里叶变换FFT"></a>快速傅里叶变换FFT</h1><h2 id="O-N-2-太慢了"><a href="#O-N-2-太慢了" class="headerlink" title="O($N^2$)太慢了"></a>O($N^2$)太慢了</h2><p>原本的DFT中，将{$x_n$}变换为{$X_n$}。<br>N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。</p>
+<h1 id="快速傅里叶变换FFT"><a href="#快速傅里叶变换FFT" class="headerlink" title="快速傅里叶变换FFT"></a>快速傅里叶变换FFT</h1><h2 id="O-N-2-太慢了"><a href="#O-N-2-太慢了" class="headerlink" title="O($N^2$)太慢了"></a>O($N^2$)太慢了</h2><p>原本的DFT中，将{ \(x_n\) }变换为{$X_n$}。<br>N个点求出N个DFT，每个Xi都与所有的{$x_n$}有关，换言之，要求出$X_i$，需要知道所有的$x_n$。</p>
 <p>可知DFT时间复杂度为O($N^2$)</p>
 <p>对于O($N^2$)，通常使用<strong>二分法、分治法</strong>提高效率。<br>FFT正是通过<strong>分而治之</strong>的思想提高DFT的速度的。</p>
 <h2 id="一分为二"><a href="#一分为二" class="headerlink" title="一分为二"></a>一分为二</h2><p>将一个大问题分解为规模更小但问题相同的两个小问题，通常是分治法的思路。</p>
